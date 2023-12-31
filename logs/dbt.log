@@ -1,0 +1,31 @@
+[0m12:12:12.204770 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffade7ab50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffae49fa10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffade7bdd0>]}
+
+
+============================== 12:12:12.206404 | 092a9d87-14c2-4285-aeea-ef1a45e7ff48 ==============================
+[0m12:12:12.206404 [info ] [MainThread]: Running with dbt=1.7.4
+[0m12:12:12.207005 [debug] [MainThread]: running dbt with arguments {'write_json': 'True', 'introspect': 'True', 'fail_fast': 'False', 'target_path': 'None', 'debug': 'False', 'use_experimental_parser': 'False', 'send_anonymous_usage_stats': 'True', 'invocation_command': 'dbt init', 'static_parser': 'True', 'partial_parse': 'True', 'log_cache_events': 'False', 'profiles_dir': '/home/jovyan/.dbt', 'cache_selected_only': 'False', 'quiet': 'False', 'no_print': 'None', 'log_path': 'logs', 'printer_width': '80', 'use_colors': 'True', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'warn_error': 'None', 'indirect_selection': 'eager', 'log_format': 'default'}
+[0m12:12:12.207567 [warn ] [MainThread]: [ConfigFolderDirectory]: Unable to parse dict {'dir': PosixPath('/home/jovyan/.dbt')}
+[0m12:12:12.208009 [info ] [MainThread]: Creating dbt configuration folder at 
+[0m12:12:17.635350 [debug] [MainThread]: Starter project path: /opt/conda/lib/python3.11/site-packages/dbt/include/starter_project
+[0m12:12:17.679222 [info ] [MainThread]: 
+Your new dbt project "omop" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m12:12:17.679922 [info ] [MainThread]: Setting up your profile.
+[0m12:12:20.233559 [info ] [MainThread]: Profile omop written to /home/jovyan/.dbt/profiles.yml using target's sample configuration. Once updated, you'll be able to start developing with dbt.
+[0m12:12:20.234533 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 8.017792, "process_user_time": 1.176123, "process_kernel_time": 0.105189, "process_mem_max_rss": "136760", "process_out_blocks": "8", "process_in_blocks": "0"}
+[0m12:12:20.235084 [debug] [MainThread]: Command `dbt init` succeeded at 12:12:20.234988 after 8.02 seconds
+[0m12:12:20.235577 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffade89690>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffae486750>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb3d48690>]}
+[0m12:12:20.236104 [debug] [MainThread]: Flushing usage events

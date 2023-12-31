@@ -1,0 +1,44 @@
+version: 2
+
+sources:
+  - name: json
+    database: syn_dw
+    schema: main
+    tables:
+      - name: AllergyIntolerance
+      - name: CarePlan
+      - name: CareTeam
+      - name: Claim
+      - name: Condition
+      - name: Device
+      - name: DiagnosticReport
+      - name: DocumentReference
+      - name: Encounter
+      - name: ExplanationOfBenefit
+      - name: ImagingStudy
+      - name: Immunization
+      - name: Location
+      - name: Medication
+      - name: MedicationAdministration
+      - name: MedicationRequest
+      - name: Observation
+      - name: Organization
+      - name: Patient
+      - name: Practitioner
+      - name: PractitionerRole
+      - name: Procedure
+      - name: Provenance
+      - name: SupplyDelivery
+
+  - name: reference
+    database: syn_dw
+    schema: reference
+    tables:
+      - name: concept_ancestor
+      - name: concept_class
+      - name: concept_relationship
+      - name: concept_synonym
+      - name: concept
+      - name: domain
+      - name: drug_strength
+      - name: relationship
