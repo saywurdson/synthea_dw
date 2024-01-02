@@ -1,9 +1,10 @@
+# models/intermediate/sources.yml
 version: 2
 
 sources:
-  - name: json
+  - name: raw
     database: syn_dw
-    schema: main
+    schema: raw
     tables:
       - name: AllergyIntolerance
       - name: CarePlan

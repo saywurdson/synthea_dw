@@ -21,20 +21,26 @@ def process_state(state, num_patients, data_dir, db_path):
         # Connect to DuckDB database
         con = duckdb.connect(database=os.path.join(db_path, 'syn_dw.db'), read_only=False)
 
+        # Create raw schema if it doesn't exist
+        con.execute("CREATE SCHEMA IF NOT EXISTS raw")
+
         # Load ndjson files produced by Synthea into DuckDB
         for file in glob.glob(f"{data_dir}/**/*.ndjson", recursive=True):
             table_name = os.path.splitext(os.path.basename(file))[0]
-            con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} (data STRING)")
+            con.execute(f"CREATE TABLE IF NOT EXISTS raw.{table_name} (data STRING)")
             
             with open(file, 'r') as f:
                 for line in f:
                     # Insert each line as a new row in the table
-                    con.execute(f"INSERT INTO {table_name} (data) VALUES (?)", (line,))
+                    con.execute(f"INSERT INTO raw.{table_name} (data) VALUES (?)", (line,))
             
             # Delete the file after it has been loaded into DuckDB
             os.remove(file)
 
         con.close()
+
+    except subprocess.CalledProcessError as e:
+        logging.error(f"Error running Synthea for {state}:\n{e.stderr}")
 
     except subprocess.CalledProcessError as e:
         logging.error(f"Error running Synthea for {state}:\n{e.stderr}")

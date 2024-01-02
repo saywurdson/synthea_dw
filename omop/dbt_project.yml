@@ -1,3 +1,4 @@
+# dbt_project.yml file
 
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
@@ -31,4 +32,5 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   omop:
-    +materialized: view
+    intermediate:
+      materialized: table
