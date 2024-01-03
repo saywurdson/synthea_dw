@@ -32,5 +32,4 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   omop:
-    intermediate:
-      materialized: table
+    materialized: view
