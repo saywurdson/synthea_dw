@@ -1,6 +1,6 @@
 -- models/drug_occurrence.sql
 
-SELECT
+SELECT DISTINCT
     REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS drug_exposure_id,
     REPLACE(REPLACE(JSON_EXTRACT(data, '$.subject.reference'), '"Patient/', ''), '"', '') AS person_id,
     COALESCE((
@@ -60,9 +60,9 @@ SELECT
 FROM {{ source('raw', 'MedicationRequest') }}
 WHERE drug_source_value IS NOT NULL
 
-UNION ALL
+UNION
 
-SELECT
+SELECT DISTINCT
     REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS drug_exposure_id,
     REPLACE(REPLACE(JSON_EXTRACT(data, '$.patient.reference'), '"Patient/', ''), '"', '') AS person_id,
     CAST({{ get_standard_concept_id('concept_code', 'data', '$.vaccineCode.coding[0].code', 'CVX', 'Drug', 'CVX') }} AS INTEGER) AS drug_concept_id,
@@ -94,9 +94,9 @@ LEFT JOIN {{ ref('visit_occurrence') }} AS vo
 ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.visit_occurrence_id
 WHERE drug_source_value IS NOT NULL
 
-UNION ALL
+UNION
 
-SELECT
+SELECT DISTINCT
     REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS drug_exposure_id,
     REPLACE(REPLACE(JSON_EXTRACT(data, '$.subject.reference'), '"Patient/', ''), '"', '') AS person_id,
     COALESCE((
@@ -132,7 +132,7 @@ SELECT
     NULL AS sig,
     NULL AS route_concept_id,
     NULL AS lot_number,
-    vo.provider_id AS provider_id,
+    vo.provider_id,
     REPLACE(REPLACE(JSON_EXTRACT(data, '$.context.reference'), '"Encounter/', ''), '"', '') AS visit_occurrence_id,
     NULL AS visit_detail_id,
     REPLACE(JSON_EXTRACT(data, '$.medicationCodeableConcept.coding[0].code'), '"', '') AS drug_source_value,

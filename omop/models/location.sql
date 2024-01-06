@@ -1,6 +1,6 @@
 -- models/location.sql
 
-SELECT
+SELECT DISTINCT
     REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS location_id,
     REPLACE(JSON_EXTRACT(data, '$.address.line[0]'), '"', '') AS address_1,
     NULL AS address_2,
@@ -19,9 +19,9 @@ SELECT
 FROM {{ source('raw', 'Location') }}
 WHERE JSON_EXTRACT(data, '$.address.line[0]') IS NOT NULL
 
-UNION ALL
+UNION
 
-SELECT
+SELECT DISTINCT
     REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS location_id,
     REPLACE(JSON_EXTRACT(data, '$.address[0].line[0]'), '"', '') AS address_1,
     NULL AS address_2,

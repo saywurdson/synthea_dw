@@ -1,6 +1,6 @@
 -- models/visit_occurrence.sql
 
-SELECT
+SELECT DISTINCT
     REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS visit_occurrence_id,
     REPLACE(REPLACE(JSON_EXTRACT(data, '$.subject.reference'), '"Patient/', ''), '"', '') AS person_id,
     REPLACE(REPLACE(JSON_EXTRACT(data, '$.serviceProvider.reference'), '"Organization/', ''), '"', '') AS care_site_id,
