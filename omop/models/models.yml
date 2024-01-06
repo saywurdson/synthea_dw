@@ -111,3 +111,89 @@ models:
         description: This is the concept representing the condition source value and may not necessarily be standard. This field is discouraged from use in analysis because it is not required to contain Standard Concepts that are used across the OHDSI community, and should only be used when Standard Concepts do not adequately represent the source detail for the Condition necessary for a given analytic use case. Consider using CONDITION_CONCEPT_ID instead to enable standardized analytics that can be consistent across the network.
       - name: condition_status_source_value
         description: This field houses the verbatim value from the source data representing the condition status.
+  - name: visit_occurrence
+    description: This table contains Events where Persons engage with the healthcare system for a duration of time, often also called “Encounters”. Visits are defined by a configuration of circumstances such as whether the patient visits a healthcare institution, the visit is remote, the type of trained medical staff delivering the service, and the duration of the visit (transient or extended with a stay in bed).
+    columns:
+    - name: visit_occurrence_id
+      description: Unique identifier for each interaction between a person and the healthcare system, linking across other event tables to associate events with a visit.
+    - name: person_id
+      description: Identifier of the person engaging in the healthcare system visit.
+    - name: visit_concept_id
+      description: Represents the type of visit (inpatient, outpatient, etc.) using standard concepts in the Visit domain.
+    - name: visit_start_date
+      description: The date when the visit started, varying by visit type (e.g., admission date for inpatient visits).
+    - name: visit_start_datetime
+      description: The precise starting datetime of the visit, defaulting to midnight if not specified.
+    - name: visit_end_date
+      description: The date when the visit ended, varying by visit type and specific rules for ongoing visits or lack of end date data.
+    - name: visit_end_datetime
+      description: The precise ending datetime of the visit, with specific handling for ongoing visits or lack of specific end time data.
+    - name: visit_type_concept_id
+      description: Use this field to understand the provenance of the visit record, or where the record comes from.
+    - name: provider_id
+      description: There will only be one provider per visit record and the ETL document should clearly state how they were chosen.
+    - name: care_site_id
+      description: This field provides information about the Care Site where the Visit took place.
+    - name: visit_source_value
+      description: This field houses the verbatim value from the source data representing the kind of visit that took place.
+    - name: visit_source_concept_id
+      description: If the visit source value is coded in the source data using an OMOP supported vocabulary put the concept id representing the source value here.
+    - name: admitted_from_concept_id
+      description: Use this field to determine where the patient was admitted from.
+    - name: admitted_from_source_value
+      description: This information may be called something different in the source data but the field is meant to contain a value indicating where a person was admitted from.
+    - name: discharged_to_concept_id
+      description: Use this field to determine where the patient was discharged to after a visit.
+    - name: discharged_to_source_value
+      description: This information may be called something different in the source data but the field is meant to contain a value indicating where a person was discharged to after a visit.
+    - name: preceding_visit_occurrence_id
+      description: Use this field to find the visit that occurred for the person prior to the given visit.
+  - name: drug_exposure
+    description: This table captures records about the exposure to a Drug ingested or otherwise introduced into the body. A Drug is a biochemical substance formulated in such a way that when administered to a Person it will exert a certain biochemical effect on the metabolism. Drugs include prescription and over-the-counter medicines, vaccines, and large-molecule biologic therapies. Radiological devices ingested or applied locally do not count as Drugs.
+    columns:
+    - name: drug_exposure_id
+      description: The unique key given to records of drug dispensings or administrations for a person.
+    - name: person_id
+      description: The PERSON_ID of the PERSON for whom the drug dispensing or administration is recorded.
+    - name: drug_concept_id
+      description: The standard concept mapped from the source concept id which represents a drug product or molecule otherwise introduced to the body.
+    - name: drug_exposure_start_date
+      description: Use this date to determine the start date of the drug record.
+    - name: drug_exposure_start_datetime
+      description: This is not required, though it is in v6. If a source does not specify datetime the convention is to set the time to midnight (00:00:0000).
+    - name: drug_exposure_end_date
+      description: The day the drug exposure ended for the patient.
+    - name: drug_exposure_end_datetime
+      description: This is not required, though it is in v6. If a source does not specify datetime the convention is to set the time to midnight (00:00:0000).
+    - name: verbatim_end_date
+      description: The end date of the drug exposure as it appears in the source data, if it is given.
+    - name: drug_type_concept_id
+      description: Use the TYPE_CONCEPT_ID to delineate between prescriptions written vs. prescriptions dispensed vs. medication history vs. patient-reported exposure, etc.
+    - name: stop_reason
+      description: The reason a person stopped a medication as it is represented in the source.
+    - name: refills
+      description: This is only filled in when the record is coming from a prescription written this field is meant to represent intended refills at time of the prescription.
+    - name: quantity
+      description: The total amount dispensed or ordered of the drug, with the units given by the drug_strength table or the number of units/tablets/capsules prescribed or dispensed.
+    - name: days_supply
+      description: Days supply of the drug. This should be the verbatim days_supply as given on the prescription.
+    - name: sig
+      description: The verbatim instruction for the drug as written by the provider.
+    - name: route_concept_id
+      description: The standard CONCEPT_ID that the ROUTE_SOURCE_VALUE maps to in the route domain.
+    - name: lot_number
+      description: Typically used for tracking, especially in the case of a recall of the drug.
+    - name: provider_id
+      description: The Provider associated with drug record, e.g., the provider who wrote the prescription or the provider who administered the drug.
+    - name: visit_occurrence_id
+      description: The Visit during which the drug was prescribed, administered or dispensed.
+    - name: visit_detail_id
+      description: The VISIT_DETAIL record during which the drug exposure occurred.
+    - name: drug_source_value
+      description: This field houses the verbatim value from the source data representing the drug exposure that occurred.
+    - name: drug_source_concept_id
+      description: This is the concept representing the drug source value and may not necessarily be standard.
+    - name: route_source_value
+      description: This field houses the verbatim value from the source data representing the drug route.
+    - name: dose_unit_source_value
+      description: This field houses the verbatim value from the source data representing the dose unit of the drug given.
