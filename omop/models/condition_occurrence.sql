@@ -1,7 +1,7 @@
 -- models/condition_occurrence.sql
 
 SELECT DISTINCT
-    REPLACE(JSON_EXTRACT(c.data, '$.id'), '"', '') AS condition_occurrence_id,
+    ROW_NUMBER() OVER (ORDER BY REPLACE(JSON_EXTRACT(data, '$.id'), '"', '')) AS condition_occurrence_id,
     REPLACE(REPLACE(JSON_EXTRACT(c.data, '$.subject.reference'), '"Patient/', ''), '"', '') AS person_id,
     CAST({{ get_standard_concept_id('concept_code', 'c.data', '$.code.coding[0].code', 'SNOMED', 'Condition', 'Clinical Finding', 'Observation') }} AS INTEGER) AS condition_concept_id,
     CAST(JSON_EXTRACT(c.data, '$.onsetDateTime') AS DATE) AS condition_start_date,

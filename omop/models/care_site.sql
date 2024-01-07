@@ -1,7 +1,7 @@
 -- models/care_site.sql
 
 SELECT DISTINCT
-    REPLACE(JSON_EXTRACT(o.data, '$.id'), '"', '') AS care_site_id,
+    ROW_NUMBER() OVER (ORDER BY REPLACE(JSON_EXTRACT(o.data, '$.id'), '"', '')) AS care_site_id,
     REPLACE(JSON_EXTRACT(o.data, '$.name'), '"', '') AS care_site_name,
     8717 AS place_of_service_concept_id,
     REPLACE(JSON_EXTRACT(l.data, '$.id'), '"', '') AS location_id,

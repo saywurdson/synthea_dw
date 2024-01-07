@@ -10,7 +10,7 @@ SELECT DISTINCT
         AND (c.vocabulary_id = 'SNOMED')
         AND standard_concept = 'S'
         AND invalid_reason IS NULL
-        AND (c.domain_id = 'Procedure' OR c.domain_id = 'Observation' OR c.domain_id = 'Measurement')
+        AND (c.domain_id = 'Procedure')
         AND (c.concept_class_id = 'Procedure' OR c.concept_class_id = 'Observable Entity')
     ), 0) procedure_concept_id,
     CAST(JSON_EXTRACT(data, '$.performedPeriod.start') AS DATE) AS procedure_date,
@@ -29,15 +29,16 @@ SELECT DISTINCT
         FROM {{ source('reference', 'concept') }} c
         WHERE c.concept_code = REPLACE(JSON_EXTRACT(data, '$.code.coding[0].code'), '"', '')
         AND (c.vocabulary_id = 'SNOMED')
-        AND (c.domain_id = 'Procedure' OR c.domain_id = 'Observation' OR c.domain_id = 'Measurement')
+        AND (c.domain_id = 'Procedure')
         AND (c.concept_class_id = 'Procedure' OR c.concept_class_id = 'Observable Entity')
     ), 0) AS procedure_source_concept_id,
     NULL AS modifier_source_value
 FROM {{ source('raw', 'Procedure') }}
 LEFT JOIN {{ ref('visit_occurrence') }} AS vo
 ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.visit_occurrence_id
+WHERE procedure_source_concept_id != 0
 
-UNION
+UNION ALL
 
 SELECT DISTINCT
     REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS procedure_occurrence_id,

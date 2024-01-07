@@ -1,7 +1,7 @@
 -- models/visit_occurrence.sql
 
 SELECT DISTINCT
-    REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS visit_occurrence_id,
+    ROW_NUMBER() OVER (ORDER BY REPLACE(JSON_EXTRACT(data, '$.id'), '"', '')) AS visit_occurrence_id,
     REPLACE(REPLACE(JSON_EXTRACT(data, '$.subject.reference'), '"Patient/', ''), '"', '') AS person_id,
     REPLACE(REPLACE(JSON_EXTRACT(data, '$.serviceProvider.reference'), '"Organization/', ''), '"', '') AS care_site_id,
     REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS encounter_source_value,
