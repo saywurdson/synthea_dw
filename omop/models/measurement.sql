@@ -28,7 +28,7 @@ FROM {{ ref('procedure_occurrence') }} po
 JOIN {{ source('reference', 'concept') }} c
 ON po.procedure_source_concept_id = c.concept_id
 WHERE c.domain_id = 'Measurement'
-/*
+
 UNION ALL
 
 SELECT DISTINCT
@@ -61,4 +61,3 @@ ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.encounter.reference'), '"Encounter/', '
 WHERE 
     REPLACE(JSON_EXTRACT(data, '$.category[0].coding[0].code'), '"', '')  = 'vital-signs'
     OR REPLACE(JSON_EXTRACT(data, '$.category[0].coding[0].code'), '"', '') = 'laboratory'
-*/

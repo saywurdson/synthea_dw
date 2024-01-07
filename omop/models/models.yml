@@ -40,6 +40,7 @@ models:
         description: Stores the ethnicity of the person from the source data. Not intended for use in standard analytics but for reference only.
       - name: ethnicity_source_concept_id
         description: Stores the concept_id of the ethnicity from the source data if it uses an OMOP supported vocabulary.
+  
   - name: location
     description: The LOCATION table represents a generic way to capture physical location or address information of Persons and Care Sites.
     columns:
@@ -64,6 +65,7 @@ models:
         description: Must be between -90 and 90.
       - name: longitude
         description: Must be between -180 and 180.
+  
   - name: care_site
     description: The CARE_SITE table contains a list of uniquely identified institutional (physical or organizational) units where healthcare delivery is practiced (offices, wards, hospitals, clinics, etc.).
     columns:
@@ -78,6 +80,7 @@ models:
         description: The identifier of the care_site as it appears in the source data. This could be an identifier separate from the name of the care_site.
       - name: place_of_service_source_value
         description: Put the place of service of the care_site as it appears in the source data.
+  
   - name: condition_occurrence
     description: This table contains records of Events of a Person suggesting the presence of a disease or medical condition stated as a diagnosis, a sign, or a symptom, which is either observed by a Provider or reported by the patient.
     columns:
@@ -111,89 +114,290 @@ models:
         description: This is the concept representing the condition source value and may not necessarily be standard. This field is discouraged from use in analysis because it is not required to contain Standard Concepts that are used across the OHDSI community, and should only be used when Standard Concepts do not adequately represent the source detail for the Condition necessary for a given analytic use case. Consider using CONDITION_CONCEPT_ID instead to enable standardized analytics that can be consistent across the network.
       - name: condition_status_source_value
         description: This field houses the verbatim value from the source data representing the condition status.
+  
   - name: visit_occurrence
     description: This table contains Events where Persons engage with the healthcare system for a duration of time, often also called “Encounters”. Visits are defined by a configuration of circumstances such as whether the patient visits a healthcare institution, the visit is remote, the type of trained medical staff delivering the service, and the duration of the visit (transient or extended with a stay in bed).
     columns:
-    - name: visit_occurrence_id
-      description: Unique identifier for each interaction between a person and the healthcare system, linking across other event tables to associate events with a visit.
-    - name: person_id
-      description: Identifier of the person engaging in the healthcare system visit.
-    - name: visit_concept_id
-      description: Represents the type of visit (inpatient, outpatient, etc.) using standard concepts in the Visit domain.
-    - name: visit_start_date
-      description: The date when the visit started, varying by visit type (e.g., admission date for inpatient visits).
-    - name: visit_start_datetime
-      description: The precise starting datetime of the visit, defaulting to midnight if not specified.
-    - name: visit_end_date
-      description: The date when the visit ended, varying by visit type and specific rules for ongoing visits or lack of end date data.
-    - name: visit_end_datetime
-      description: The precise ending datetime of the visit, with specific handling for ongoing visits or lack of specific end time data.
-    - name: visit_type_concept_id
-      description: Use this field to understand the provenance of the visit record, or where the record comes from.
-    - name: provider_id
-      description: There will only be one provider per visit record and the ETL document should clearly state how they were chosen.
-    - name: care_site_id
-      description: This field provides information about the Care Site where the Visit took place.
-    - name: visit_source_value
-      description: This field houses the verbatim value from the source data representing the kind of visit that took place.
-    - name: visit_source_concept_id
-      description: If the visit source value is coded in the source data using an OMOP supported vocabulary put the concept id representing the source value here.
-    - name: admitted_from_concept_id
-      description: Use this field to determine where the patient was admitted from.
-    - name: admitted_from_source_value
-      description: This information may be called something different in the source data but the field is meant to contain a value indicating where a person was admitted from.
-    - name: discharged_to_concept_id
-      description: Use this field to determine where the patient was discharged to after a visit.
-    - name: discharged_to_source_value
-      description: This information may be called something different in the source data but the field is meant to contain a value indicating where a person was discharged to after a visit.
-    - name: preceding_visit_occurrence_id
-      description: Use this field to find the visit that occurred for the person prior to the given visit.
+      - name: visit_occurrence_id
+        description: Unique identifier for each interaction between a person and the healthcare system, linking across other event tables to associate events with a visit.
+      - name: person_id
+        description: Identifier of the person engaging in the healthcare system visit.
+      - name: visit_concept_id
+        description: Represents the type of visit (inpatient, outpatient, etc.) using standard concepts in the Visit domain.
+      - name: visit_start_date
+        description: The date when the visit started, varying by visit type (e.g., admission date for inpatient visits).
+      - name: visit_start_datetime
+        description: The precise starting datetime of the visit, defaulting to midnight if not specified.
+      - name: visit_end_date
+        description: The date when the visit ended, varying by visit type and specific rules for ongoing visits or lack of end date data.
+      - name: visit_end_datetime
+        description: The precise ending datetime of the visit, with specific handling for ongoing visits or lack of specific end time data.
+      - name: visit_type_concept_id
+        description: Use this field to understand the provenance of the visit record, or where the record comes from.
+      - name: provider_id
+        description: There will only be one provider per visit record and the ETL document should clearly state how they were chosen.
+      - name: care_site_id
+        description: This field provides information about the Care Site where the Visit took place.
+      - name: visit_source_value
+        description: This field houses the verbatim value from the source data representing the kind of visit that took place.
+      - name: visit_source_concept_id
+        description: If the visit source value is coded in the source data using an OMOP supported vocabulary put the concept id representing the source value here.
+      - name: admitted_from_concept_id
+        description: Use this field to determine where the patient was admitted from.
+      - name: admitted_from_source_value
+        description: This information may be called something different in the source data but the field is meant to contain a value indicating where a person was admitted from.
+      - name: discharged_to_concept_id
+        description: Use this field to determine where the patient was discharged to after a visit.
+      - name: discharged_to_source_value
+        description: This information may be called something different in the source data but the field is meant to contain a value indicating where a person was discharged to after a visit.
+      - name: preceding_visit_occurrence_id
+        description: Use this field to find the visit that occurred for the person prior to the given visit.
+  
   - name: drug_exposure
     description: This table captures records about the exposure to a Drug ingested or otherwise introduced into the body. A Drug is a biochemical substance formulated in such a way that when administered to a Person it will exert a certain biochemical effect on the metabolism. Drugs include prescription and over-the-counter medicines, vaccines, and large-molecule biologic therapies. Radiological devices ingested or applied locally do not count as Drugs.
     columns:
-    - name: drug_exposure_id
-      description: The unique key given to records of drug dispensings or administrations for a person.
-    - name: person_id
-      description: The PERSON_ID of the PERSON for whom the drug dispensing or administration is recorded.
-    - name: drug_concept_id
-      description: The standard concept mapped from the source concept id which represents a drug product or molecule otherwise introduced to the body.
-    - name: drug_exposure_start_date
-      description: Use this date to determine the start date of the drug record.
-    - name: drug_exposure_start_datetime
-      description: This is not required, though it is in v6. If a source does not specify datetime the convention is to set the time to midnight (00:00:0000).
-    - name: drug_exposure_end_date
-      description: The day the drug exposure ended for the patient.
-    - name: drug_exposure_end_datetime
-      description: This is not required, though it is in v6. If a source does not specify datetime the convention is to set the time to midnight (00:00:0000).
-    - name: verbatim_end_date
-      description: The end date of the drug exposure as it appears in the source data, if it is given.
-    - name: drug_type_concept_id
-      description: Use the TYPE_CONCEPT_ID to delineate between prescriptions written vs. prescriptions dispensed vs. medication history vs. patient-reported exposure, etc.
-    - name: stop_reason
-      description: The reason a person stopped a medication as it is represented in the source.
-    - name: refills
-      description: This is only filled in when the record is coming from a prescription written this field is meant to represent intended refills at time of the prescription.
-    - name: quantity
-      description: The total amount dispensed or ordered of the drug, with the units given by the drug_strength table or the number of units/tablets/capsules prescribed or dispensed.
-    - name: days_supply
-      description: Days supply of the drug. This should be the verbatim days_supply as given on the prescription.
-    - name: sig
-      description: The verbatim instruction for the drug as written by the provider.
-    - name: route_concept_id
-      description: The standard CONCEPT_ID that the ROUTE_SOURCE_VALUE maps to in the route domain.
-    - name: lot_number
-      description: Typically used for tracking, especially in the case of a recall of the drug.
-    - name: provider_id
-      description: The Provider associated with drug record, e.g., the provider who wrote the prescription or the provider who administered the drug.
-    - name: visit_occurrence_id
-      description: The Visit during which the drug was prescribed, administered or dispensed.
-    - name: visit_detail_id
-      description: The VISIT_DETAIL record during which the drug exposure occurred.
-    - name: drug_source_value
-      description: This field houses the verbatim value from the source data representing the drug exposure that occurred.
-    - name: drug_source_concept_id
-      description: This is the concept representing the drug source value and may not necessarily be standard.
-    - name: route_source_value
-      description: This field houses the verbatim value from the source data representing the drug route.
-    - name: dose_unit_source_value
-      description: This field houses the verbatim value from the source data representing the dose unit of the drug given.
+      - name: drug_exposure_id
+        description: The unique key given to records of drug dispensings or administrations for a person.
+      - name: person_id
+        description: The PERSON_ID of the PERSON for whom the drug dispensing or administration is recorded.
+      - name: drug_concept_id
+        description: The standard concept mapped from the source concept id which represents a drug product or molecule otherwise introduced to the body.
+      - name: drug_exposure_start_date
+        description: Use this date to determine the start date of the drug record.
+      - name: drug_exposure_start_datetime
+        description: This is not required, though it is in v6. If a source does not specify datetime the convention is to set the time to midnight (00:00:0000).
+      - name: drug_exposure_end_date
+        description: The day the drug exposure ended for the patient.
+      - name: drug_exposure_end_datetime
+        description: This is not required, though it is in v6. If a source does not specify datetime the convention is to set the time to midnight (00:00:0000).
+      - name: verbatim_end_date
+        description: The end date of the drug exposure as it appears in the source data, if it is given.
+      - name: drug_type_concept_id
+        description: Use the TYPE_CONCEPT_ID to delineate between prescriptions written vs. prescriptions dispensed vs. medication history vs. patient-reported exposure, etc.
+      - name: stop_reason
+        description: The reason a person stopped a medication as it is represented in the source.
+      - name: refills
+        description: This is only filled in when the record is coming from a prescription written this field is meant to represent intended refills at time of the prescription.
+      - name: quantity
+        description: The total amount dispensed or ordered of the drug, with the units given by the drug_strength table or the number of units/tablets/capsules prescribed or dispensed.
+      - name: days_supply
+        description: Days supply of the drug. This should be the verbatim days_supply as given on the prescription.
+      - name: sig
+        description: The verbatim instruction for the drug as written by the provider.
+      - name: route_concept_id
+        description: The standard CONCEPT_ID that the ROUTE_SOURCE_VALUE maps to in the route domain.
+      - name: lot_number
+        description: Typically used for tracking, especially in the case of a recall of the drug.
+      - name: provider_id
+        description: The Provider associated with drug record, e.g., the provider who wrote the prescription or the provider who administered the drug.
+      - name: visit_occurrence_id
+        description: The Visit during which the drug was prescribed, administered or dispensed.
+      - name: visit_detail_id
+        description: The VISIT_DETAIL record during which the drug exposure occurred.
+      - name: drug_source_value
+        description: This field houses the verbatim value from the source data representing the drug exposure that occurred.
+      - name: drug_source_concept_id
+        description: This is the concept representing the drug source value and may not necessarily be standard.
+      - name: route_source_value
+        description: This field houses the verbatim value from the source data representing the drug route.
+      - name: dose_unit_source_value
+        description: This field houses the verbatim value from the source data representing the dose unit of the drug given.
+  
+  - name: device_exposure
+    description: The Device domain captures information about a person’s exposure to a foreign physical object or instrument which is used for diagnostic or therapeutic purposes through a mechanism beyond chemical action.
+    columns:
+      - name: device_exposure_id
+        description: The unique key given to records a person’s exposure to a foreign physical object or instrument.
+      - name: person_id
+      - name: device_concept_id
+        description: The standard concept mapped from the source concept id which represents a foreign object or instrument the person was exposed to.
+      - name: device_exposure_start_date
+        description: The start date of the device record.
+      - name: device_exposure_start_datetime
+      - name: device_exposure_end_date
+        description: The day the device exposure ended for the patient, if given.
+      - name: device_exposure_end_datetime
+      - name: device_type_concept_id
+        description: Denotes the provenance of the record, as in whether the record is from administrative claims or EHR.
+      - name: unique_device_id
+        description: The Unique Device Identification (UDI-DI) number for devices regulated by the FDA, if given.
+      - name: provider_id
+        description: The Provider associated with device record, e.g. the provider who wrote the prescription or the provider who implanted the device.
+      - name: visit_occurrence_id
+        description: The Visit during which the device was prescribed or given.
+      - name: device_source_value
+        description: The verbatim value from the source data representing the device exposure that occurred.
+      - name: device_source_concept_id
+        description: The concept representing the device source value and may not necessarily be standard.
+  
+  - name: measurement
+    description: The MEASUREMENT table captures the structured results of a Measurement, i.e. structured values obtained through systematic and standardized examination or testing of a Person or sample.
+    columns:
+      - name: measurement_id
+        description: A unique identifier for each Measurement.
+      - name: person_id
+        description: A foreign key identifier to the Person who is subjected to the Measurement. The demographic details of that Person are stored in the PERSON table.
+      - name: measurement_concept_id
+        description: A foreign key that refers to a standard Measurement Concept identifier in the Standardized Vocabularies.
+      - name: measurement_date
+        description: The date of the Measurement.
+      - name: measurement_datetime
+        description: The date and time of the Measurement.
+      - name: measurement_type_concept_id
+        description: A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the type of the Measurement.
+      - name: operator_concept_id
+        description: A foreign key to a predefined Concept in the Standardized Vocabularies reflecting the operator of the Measurement.
+      - name: value_as_number
+        description: The result of the Measurement as a numeric value.
+      - name: value_as_concept_id
+        description: A foreign key to a predefined Concept in the Standardized Vocabularies reflecting the value of the Measurement as a Concept.
+      - name: unit_concept_id
+        description: A foreign key to a predefined Concept in the Standardized Vocabularies reflecting the unit of the Measurement.
+      - name: range_low
+        description: The lower limit of normal for the Measurement.
+      - name: range_high
+        description: The upper limit of normal for the Measurement.
+      - name: provider_id
+        description: A foreign key to the provider in the PROVIDER table who recorded the Measurement.
+      - name: visit_occurrence_id
+        description: A foreign key to the visit in the VISIT_OCCURRENCE table during which the Measurement was recorded.
+      - name: measurement_source_value
+        description: The source code for the Measurement as it appears in the source data. This code is mapped to a standard Measurement Concept in the Standardized Vocabularies and the original code is stored here for reference.
+      - name: measurement_source_concept_id
+        description: A foreign key to a Measurement Concept that refers to the code used in the source.
+
+    - name: note
+      description: The NOTE table captures unstructured information that was recorded by a provider about a patient in free text (in ASCII, or preferably in UTF8 format) notes on a given date.
+      columns:
+        - name: note_id
+          description: A unique identifier for each note.
+        - name: person_id
+          description: A foreign key identifier to the Person about whom the note was recorded.
+        - name: note_date
+          description: The date the note was recorded.
+        - name: note_datetime
+          description: The date and time the note was recorded.
+        - name: note_type_concept_id
+          description: A foreign key that refers to a standard Note Type Concept identifier in the Standardized Vocabularies.
+        - name: note_class_concept_id
+          description: A Standard Concept Id representing the HL7 LOINC Document Type Vocabulary classification of the note.
+        - name: note_title
+          description: The title of the note.
+        - name: note_text
+          description: The content of the note.
+        - name: encoding_concept_id
+          description: This is the Concept representing the character encoding type.
+        - name: language_concept_id
+          description: The language of the note.
+        - name: provider_id
+          description: A foreign key to the provider in the PROVIDER table who wrote the note.
+        - name: visit_occurrence_id
+          description: A foreign key to the visit in the VISIT_OCCURRENCE table during which the note was written.
+        - name: visit_detail_id
+          description: A foreign key to the visit detail in the VISIT_DETAIL table during which the note was written.
+        - name: note_source_value
+          description: The source value mapped to the NOTE_CLASS_CONCEPT_ID.
+        - name: note_event_id
+          description: If the Note record is related to another record in the database, this field is the primary key of the linked record.
+        - name: note_event_field_concept_id
+          description: If the Note record is related to another record in the database, this field is the CONCEPT_ID that identifies which table the primary key of the linked record came from.
+
+    - name: observation
+      description: The OBSERVATION table captures clinical facts about a Person obtained in the course of examination, questioning or performing Tests on the Person.
+      columns:
+        - name: observation_id
+          description: A unique identifier for each Observation.
+        - name: person_id
+          description: A foreign key identifier to the Person who is subjected to the Observation. The demographic details of that Person are stored in the PERSON table.
+        - name: observation_concept_id
+          description: A foreign key that refers to a standard Observation Concept identifier in the Standardized Vocabularies.
+        - name: observation_date
+          description: The date of the Observation.
+        - name: observation_datetime
+          description: The date and time of the Observation.
+        - name: observation_type_concept_id
+          description: A foreign key to the predefined Concept in the Standardized Vocabularies reflecting the type of the Observation.
+        - name: value_as_number
+          description: The result of the Observation as a numeric value.
+        - name: value_as_string
+          description: The result of the Observation as a string value.
+        - name: value_as_concept_id
+          description: A foreign key to a predefined Concept in the Standardized Vocabularies reflecting the value of the Observation as a Concept.
+        - name: qualifier_concept_id
+          description: A foreign key to a predefined Concept in the Standardized Vocabularies reflecting additional detail about the value of the Observation.
+        - name: unit_concept_id
+          description: A foreign key to a predefined Concept in the Standardized Vocabularies reflecting the unit of the Observation.
+        - name: provider_id
+          description: A foreign key to the provider in the PROVIDER table who recorded the Observation.
+        - name: visit_occurrence_id
+          description: A foreign key to the visit in the VISIT_OCCURRENCE table during which the Observation was recorded.
+        - name: observation_source_value
+          description: The source code for the Observation as it appears in the source data. This code is mapped to a standard Observation Concept in the Standardized Vocabularies and the original code is stored here for reference.
+        - name: observation_source_concept_id
+          description: A foreign key to an Observation Concept that refers to the code used in the source.
+
+    - name: procedure_occurrence
+      description: This table contains records of activities or processes ordered by, or carried out by, a healthcare provider on the patient with a diagnostic or therapeutic purpose.
+      columns:
+        - name: procedure_occurrence_id
+          description: The unique key given to a procedure record for a person.
+        - name: person_id
+          description: The PERSON_ID of the PERSON for whom the procedure is recorded.
+        - name: procedure_concept_id
+          description: The standard concept mapped from the source value which represents a procedure.
+        - name: procedure_date
+          description: The date the procedure started.
+        - name: procedure_datetime
+          description: The datetime the procedure started.
+        - name: procedure_end_date
+          description: The date that the procedure ended.
+        - name: procedure_end_datetime
+          description: The datetime that the procedure ended.
+        - name: procedure_type_concept_id
+          description: The concept that best represents the provenance of the record.
+        - name: modifier_concept_id
+          description: The concept that gives additional information about the procedure.
+        - name: quantity
+          description: The quantity of the procedure.
+        - name: provider_id
+          description: The provider associated with the procedure record.
+        - name: visit_occurrence_id
+          description: The visit during which the procedure occurred.
+        - name: visit_detail_id
+          description: The VISIT_DETAIL record during which the Procedure occurred.
+        - name: procedure_source_value
+          description: The verbatim value from the source data representing the procedure that occurred.
+        - name: procedure_source_concept_id
+          description: The concept representing the procedure source value.
+        - name: modifier_source_value
+          description: The original modifier code from the source.
+
+    - name: provider
+      description: The PROVIDER table contains a list of uniquely identified healthcare providers. These are individuals providing hands-on healthcare to patients, such as physicians, nurses, midwives, physical therapists etc.
+      columns:
+        - name: provider_id
+          description: A unique identifier for each Provider.
+        - name: provider_name
+          description: The name of the Provider.
+        - name: npi
+          description: The National Provider Number issued to health care providers in the US by the Centers for Medicare and Medicaid Services (CMS).
+        - name: dea
+          description: The identifier issued by the DEA, a US federal agency, that allows a provider to write prescriptions for controlled substances.
+        - name: specialty_concept_id
+          description: A foreign key that refers to a standard Specialty Concept identifier in the Standardized Vocabularies.
+        - name: care_site_id
+          description: A foreign key identifier to the Care Site where the Provider primarily practices.
+        - name: year_of_birth
+          description: The year of birth of the Provider.
+        - name: gender_concept_id
+          description: A foreign key that refers to a standard Gender Concept identifier in the Standardized Vocabularies.
+        - name: provider_source_value
+          description: The source code for the Provider as it appears in the source data.
+        - name: specialty_source_value
+          description: The source code for the Specialty as it appears in the source data.
+        - name: specialty_source_concept_id
+          description: A foreign key to a Specialty Concept that refers to the code used in the source.
+        - name: gender_source_value
+          description: The source code for the Gender as it appears in the source data.
+        - name: gender_source_concept_id
+          description: A foreign key to a Gender Concept that refers to the code used in the source.
