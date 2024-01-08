@@ -1,7 +1,7 @@
 -- models/measurement.sql
 
 SELECT DISTINCT
-    ROW_NUMBER() OVER (ORDER BY REPLACE(JSON_EXTRACT(data, '$.id'), '"', '')) AS measurement_id,
+    REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS measurement_id,
     REPLACE(REPLACE(JSON_EXTRACT(data, '$.subject.reference'), '"Patient/', ''), '"', '') AS person_id,
     COALESCE((
         SELECT c.concept_id
@@ -43,4 +43,7 @@ SELECT DISTINCT
 FROM {{ source('raw', 'Procedure') }}
 LEFT JOIN {{ ref('visit_occurrence') }} AS vo
 ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.visit_occurrence_id
-WHERE measurement_source_concept_id != 0
+WHERE 
+    measurement_source_concept_id != 0
+    AND measurement_id IS NOT NULL
+    AND person_id IS NOT NULL

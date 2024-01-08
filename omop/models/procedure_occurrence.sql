@@ -36,7 +36,11 @@ SELECT DISTINCT
 FROM {{ source('raw', 'Procedure') }}
 LEFT JOIN {{ ref('visit_occurrence') }} AS vo
 ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.visit_occurrence_id
-WHERE procedure_source_concept_id != 0
+WHERE 
+    procedure_source_concept_id != 0
+    AND procedure_occurrence_id IS NOT NULL
+    AND person_id IS NOT NULL
+    AND procedure_date IS NOT NULL
 
 UNION ALL
 
@@ -60,3 +64,7 @@ SELECT DISTINCT
 FROM {{ source('raw', 'ImagingStudy') }}
 LEFT JOIN {{ ref('visit_occurrence') }} AS vo
 ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.visit_occurrence_id
+WHERE 
+    procedure_occurrence_id IS NOT NULL
+    AND person_id IS NOT NULL
+    AND procedure_date IS NOT NULL

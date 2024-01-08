@@ -1,7 +1,7 @@
 -- models/visit_occurrence.sql
 
 SELECT DISTINCT
-    ROW_NUMBER() OVER (ORDER BY REPLACE(JSON_EXTRACT(data, '$.id'), '"', '')) AS visit_occurrence_id,
+    REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS visit_occurrence_id,
     REPLACE(REPLACE(JSON_EXTRACT(data, '$.subject.reference'), '"Patient/', ''), '"', '') AS person_id,
     REPLACE(REPLACE(JSON_EXTRACT(data, '$.serviceProvider.reference'), '"Organization/', ''), '"', '') AS care_site_id,
     REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS encounter_source_value,
@@ -27,3 +27,8 @@ SELECT DISTINCT
     NULL AS discharged_to_source_value,
     0 AS preceding_visit_occurrence_id
 FROM {{ source('raw', 'Encounter') }}
+WHERE 
+    visit_occurrence_id IS NOT NULL
+    AND person_id IS NOT NULL
+    AND visit_start_date IS NOT NULL
+    AND visit_end_date IS NOT NULL

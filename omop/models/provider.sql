@@ -1,7 +1,7 @@
 -- models/provider.sql
 
 SELECT DISTINCT
-    ROW_NUMBER() OVER (ORDER BY REPLACE(JSON_EXTRACT(p.data, '$.id'), '"', '')) AS provider_id,
+    REPLACE(JSON_EXTRACT(p.data, '$.id'), '"', '') AS provider_id,
     REPLACE(JSON_EXTRACT(pr.data, '$.practitioner.display'), '"', '') AS provider_name,
     REPLACE(JSON_EXTRACT(pr.data, '$.practitioner.identifier.value'), '"', '') AS npi,
     NULL AS dea,

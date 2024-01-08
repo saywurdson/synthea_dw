@@ -1,7 +1,7 @@
 -- models/observation.sql
 
 SELECT DISTINCT
-    ROW_NUMBER() OVER (ORDER BY REPLACE(JSON_EXTRACT(data, '$.id'), '"', '')) AS observation_id,
+    REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS observation_id,
     REPLACE(REPLACE(JSON_EXTRACT(data, '$.subject.reference'), '"Patient/', ''), '"', '') AS person_id,
     COALESCE((
         SELECT c.concept_id
@@ -40,5 +40,9 @@ SELECT DISTINCT
     0 AS observation_event_field_concept_id
 FROM {{ source('raw', 'Procedure') }}
 LEFT JOIN {{ ref('visit_occurrence') }} AS vo
-ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.visit_occurrence_id
-WHERE observation_source_concept_id != 0
+ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.encounter_source_value
+WHERE 
+    observation_source_concept_id != 0
+    AND observation_id IS NOT NULL
+    AND person_id IS NOT NULL
+    AND observation_date IS NOT NULL

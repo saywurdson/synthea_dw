@@ -2,7 +2,7 @@
 
 WITH PatientData AS (
     SELECT
-        ROW_NUMBER() OVER (ORDER BY REPLACE(JSON_EXTRACT(p.data, '$.id'), '"', '')) AS person_id,
+        REPLACE(JSON_EXTRACT(p.data, '$.id'), '"', '') AS person_id,
         {{ get_standard_concept_id('concept_code', 'p.data', '$.extension[3].valueCode', 'Gender', 'Gender', 'Gender') }} AS gender_concept_id,
         CAST(EXTRACT(YEAR FROM JSON_EXTRACT(p.data, '$.birthDate')::DATE) AS INTEGER) AS year_of_birth,
         CAST(EXTRACT(MONTH FROM JSON_EXTRACT(p.data, '$.birthDate')::DATE) AS INTEGER) AS month_of_birth,

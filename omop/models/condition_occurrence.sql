@@ -1,7 +1,7 @@
 -- models/condition_occurrence.sql
 
 SELECT DISTINCT
-    ROW_NUMBER() OVER (ORDER BY REPLACE(JSON_EXTRACT(data, '$.id'), '"', '')) AS condition_occurrence_id,
+    REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS condition_occurrence_id,
     REPLACE(REPLACE(JSON_EXTRACT(c.data, '$.subject.reference'), '"Patient/', ''), '"', '') AS person_id,
     CAST({{ get_standard_concept_id('concept_code', 'c.data', '$.code.coding[0].code', 'SNOMED', 'Condition', 'Clinical Finding', 'Observation') }} AS INTEGER) AS condition_concept_id,
     CAST(JSON_EXTRACT(c.data, '$.onsetDateTime') AS DATE) AS condition_start_date,
@@ -22,4 +22,9 @@ SELECT DISTINCT
     REPLACE(JSON_EXTRACT(c.data, '$.verificationStatus.coding[0].code'), '"', '') AS condition_status_source_value
 FROM {{ source('raw', 'Condition') }} c
 LEFT JOIN {{ ref('visit_occurrence') }} AS vo
-ON REPLACE(REPLACE(JSON_EXTRACT(c.data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.visit_occurrence_id
+    ON REPLACE(REPLACE(JSON_EXTRACT(c.data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.visit_occurrence_id
+WHERE 
+    condition_occurrence_id IS NOT NULL
+    AND person_id IS NOT NULL
+    AND condition_concept_id IS NOT NULL
+    AND condition_start_date IS NOT NULL
