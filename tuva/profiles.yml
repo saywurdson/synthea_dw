@@ -1,9 +1,0 @@
-duckdb:
-  target: dev
-  outputs:
-    dev:
-      type: duckdb
-      threads: 4
-      database: 'syn_dw'
-      path: '/workspaces/synthea_dw/syn_dw.db'
-      schema: 'main'
