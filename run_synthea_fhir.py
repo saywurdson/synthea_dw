@@ -46,7 +46,7 @@ def process_state(state, num_patients, data_dir, db_path):
         logging.error(f"Error running Synthea for {state}:\n{e.stderr}")
 
 
-def process_reference_tables(directory, db_path):
+def process_vocabulary_tables(directory, db_path):
     directory = '/workspaces/synthea_dw/omop/seeds'
     all_files = os.listdir(directory)
     csv_files = [f for f in all_files if f.endswith('.csv')]
@@ -60,9 +60,9 @@ def process_reference_tables(directory, db_path):
             df = pd.read_csv(file_path, delimiter='\t', low_memory=False)
             dataframe_name = (os.path.splitext(file)[0]).lower()
 
-            # Insert DataFrame into DuckDB under the 'reference' schema
-            table_name = f"reference.{dataframe_name}"
-            con.execute(f"CREATE SCHEMA IF NOT EXISTS reference")
+            # Insert DataFrame into DuckDB under the 'vocabulary' schema
+            table_name = f"vocabulary.{dataframe_name}"
+            con.execute(f"CREATE SCHEMA IF NOT EXISTS vocabulary")
             con.register(f"{dataframe_name}_df", df)
             con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM {dataframe_name}_df")
             logging.info(f"Successfully processed and loaded {file} into {table_name}")
@@ -71,7 +71,7 @@ def process_reference_tables(directory, db_path):
             logging.error(f"Error reading file '{file}': {e}")
 
     con.close()
-    logging.info("All reference tables processed and loaded into DuckDB.")
+    logging.info("All vocabulary tables processed and loaded into DuckDB.")
 
 
 def run_synthea(num_patients):
@@ -404,8 +404,8 @@ if __name__ == "__main__":
         num_patients = int(num_patients)
         logging.info(f"Starting Synthea simulation for {num_patients} patient(s).")
         run_synthea(num_patients)
-        logging.info("Now processing reference tables.")
-        process_reference_tables(directory, db_path)
+        logging.info("Now processing vocabulary tables.")
+        process_vocabulary_tables(directory, db_path)
 
         # Processing terminology and value_set tables
         logging.info("Now processing terminology tables.")
