@@ -1,10 +1,24 @@
-# models/sources.yml
 version: 2
 
 sources:
-  - name: raw
-    database: syn_dw
-    schema: raw
+  - name: reference
+    database: synthea_fhir
+    schema: vocabulary
+    tables:
+      - name: concept
+      - name: concept_cpt4
+      - name: concept_ancestor
+      - name: concept_synonym
+      - name: concept_class
+      - name: concept_relationship
+      - name: domain
+      - name: relationship
+      - name: vocabulary
+      - name: drug_strength
+  
+  - name: json
+    database: synthea_fhir
+    schema: json
     tables:
       - name: AllergyIntolerance
       - name: CarePlan
@@ -30,16 +44,3 @@ sources:
       - name: Procedure
       - name: Provenance
       - name: SupplyDelivery
-
-  - name: reference
-    database: syn_dw
-    schema: reference
-    tables:
-      - name: concept_ancestor
-      - name: concept_class
-      - name: concept_relationship
-      - name: concept_synonym
-      - name: concept
-      - name: domain
-      - name: drug_strength
-      - name: relationship

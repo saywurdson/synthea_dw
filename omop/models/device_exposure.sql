@@ -19,7 +19,7 @@ SELECT DISTINCT
     NULL AS unit_concept_id,
     NULL AS unit_source_value,
     NULL AS unit_source_concept_id
-FROM {{ source('raw', 'Device') }}
+FROM {{ source('json', 'Device') }}
 WHERE  
     device_exposure_id IS NOT NULL
     AND person_id IS NOT NULL
@@ -46,7 +46,7 @@ SELECT DISTINCT
     NULL AS unit_concept_id,
     NULL AS unit_source_value,
     NULL AS unit_source_concept_id
-FROM {{ source('raw', 'SupplyDelivery') }}
+FROM {{ source('json', 'SupplyDelivery') }}
 WHERE
     device_exposure_id IS NOT NULL
     AND person_id IS NOT NULL

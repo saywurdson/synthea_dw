@@ -33,7 +33,7 @@ SELECT DISTINCT
         AND (c.concept_class_id = 'Procedure' OR c.concept_class_id = 'Observable Entity')
     ), 0) AS procedure_source_concept_id,
     NULL AS modifier_source_value
-FROM {{ source('raw', 'Procedure') }}
+FROM {{ source('json', 'Procedure') }}
 LEFT JOIN {{ ref('visit_occurrence') }} AS vo
 ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.visit_occurrence_id
 WHERE 
@@ -61,7 +61,7 @@ SELECT DISTINCT
     REPLACE(JSON_EXTRACT(data, '$.procedureCode[0].coding[0].code'), '"', '') AS procedure_source_value,
     CAST({{ get_concept_id('concept_code', 'data', '$.procedureCode[0].coding[0].code', 'SNOMED', 'Procedure', 'Procedure') }} AS INTEGER) AS procedure_source_concept_id,
     NULL AS modifier_source_value
-FROM {{ source('raw', 'ImagingStudy') }}
+FROM {{ source('json', 'ImagingStudy') }}
 LEFT JOIN {{ ref('visit_occurrence') }} AS vo
 ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.visit_occurrence_id
 WHERE 

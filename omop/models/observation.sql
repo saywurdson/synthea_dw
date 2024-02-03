@@ -38,7 +38,7 @@ SELECT DISTINCT
     NULL AS value_source_value,
     NULL AS observation_event_id,
     0 AS observation_event_field_concept_id
-FROM {{ source('raw', 'Procedure') }}
+FROM {{ source('json', 'Procedure') }}
 LEFT JOIN {{ ref('visit_occurrence') }} AS vo
 ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.encounter_source_value
 WHERE 

@@ -4,5 +4,5 @@ duckdb:
     dev:
       type: duckdb
       threads: 4
-      database: 'syn_dw'
-      path: /workspaces/synthea_dw/syn_dw.db
+      database: 'synthea_fhir'
+      path: /workspaces/synthea_dw/synthea_fhir.db

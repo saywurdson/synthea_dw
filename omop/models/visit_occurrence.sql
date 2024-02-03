@@ -1,34 +1,55 @@
 -- models/visit_occurrence.sql
 
 SELECT DISTINCT
-    REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS visit_occurrence_id,
-    REPLACE(REPLACE(JSON_EXTRACT(data, '$.subject.reference'), '"Patient/', ''), '"', '') AS person_id,
-    REPLACE(REPLACE(JSON_EXTRACT(data, '$.serviceProvider.reference'), '"Organization/', ''), '"', '') AS care_site_id,
-    REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS encounter_source_value,
-    CASE 
-        WHEN JSON_EXTRACT(data, '$.class.code') = '"AMB"' THEN 9202
-        WHEN JSON_EXTRACT(data, '$.class.code') = '"IMP"' THEN 9201
-        WHEN JSON_EXTRACT(data, '$.class.code') = '"EMER"' THEN 9203
-        WHEN JSON_EXTRACT(data, '$.class.code') = '"VR"' THEN 5083
-        WHEN JSON_EXTRACT(data, '$.class.code') = '"HH"' THEN 38004519
-        ELSE 0 
+    REPLACE(JSON_EXTRACT(e, '$.id'), '"', '') AS visit_occurrence_id,
+    SPLIT_PART(REPLACE(JSON_EXTRACT(e, '$.subject.reference'), '"', ''), '/', -1) AS person_id,
+    CASE REPLACE(JSON_EXTRACT(e, '$.class.code'), '"', '')
+        WHEN 'IMP' THEN 9201
+        WHEN 'EMER' THEN 9203
+        WHEN 'AMB' THEN 9202
+        WHEN 'VR' THEN 5202
+        ELSE NULL
     END AS visit_concept_id,
-    CAST(JSON_EXTRACT(data, '$.period.start') AS DATE) AS visit_start_date,
-    CAST(JSON_EXTRACT(data, '$.period.start') AS TIMESTAMP) AS visit_start_datetime,
-    CAST(JSON_EXTRACT(data, '$.period.end') AS DATE) AS visit_end_date,
-    CAST(JSON_EXTRACT(data, '$.period.end') AS TIMESTAMP) AS visit_end_datetime,
+    CAST(SUBSTRING(REPLACE(JSON_EXTRACT(e, '$.period.start'), '"', ''), 1, 10) AS DATE) AS visit_start_date,
+    CAST(REPLACE(JSON_EXTRACT(e, '$.period.start'), '"', '') AS TIMESTAMP) AS visit_start_datetime,
+    CAST(SUBSTRING(COALESCE(REPLACE(JSON_EXTRACT(e, '$.period.end'), '"', ''), REPLACE(JSON_EXTRACT(e, '$.period.start'), '"', '')), 1, 10) AS DATE) AS visit_end_date,
+    COALESCE(REPLACE(JSON_EXTRACT(e, '$.period.end'), '"', ''), REPLACE(JSON_EXTRACT(e, '$.period.start'), '"', '')) AS visit_end_datetime,
     32817 AS visit_type_concept_id,
-    REPLACE(REPLACE(JSON_EXTRACT(data, '$.participant[0].individual.reference'), '"Practitioner/', ''), '"', '') AS provider_id,
-    REPLACE(JSON_EXTRACT(data, '$.class.code'), '"', '') AS visit_source_value,
-    0 AS visit_source_concept_id,
+    SPLIT_PART(REPLACE(JSON_EXTRACT(e, '$.participant[0].individual.reference'), '"', ''), '/', -1) AS provider_id,
+    SPLIT_PART(REPLACE(JSON_EXTRACT(e, '$.serviceProvider.reference'), '"', ''), '/', -1) AS care_site_id,
+    REPLACE(JSON_EXTRACT(e, '$.class.code'), '"', '') AS visit_source_value,
+    CASE REPLACE(JSON_EXTRACT(e, '$.class.code'), '"', '')
+        WHEN 'IMP' THEN 9201
+        WHEN 'EMER' THEN 9203
+        WHEN 'AMB' THEN 9202
+        WHEN 'VR' THEN 5202
+        ELSE NULL
+    END AS visit_source_concept_id,
     0 AS admitted_from_concept_id,
     NULL AS admitted_from_source_value,
     0 AS discharged_to_concept_id,
     NULL AS discharged_to_source_value,
-    0 AS preceding_visit_occurrence_id
-FROM {{ source('raw', 'Encounter') }}
-WHERE 
-    visit_occurrence_id IS NOT NULL
-    AND person_id IS NOT NULL
-    AND visit_start_date IS NOT NULL
-    AND visit_end_date IS NOT NULL
+    NULL AS preceding_visit_occurrence_id
+FROM {{ source('json', 'Encounter') }} e
+
+UNION
+
+SELECT DISTINCT
+    SPLIT_PART(REPLACE(JSON_EXTRACT(ct, '$.encounter.reference'), '"', ''), '/', -1) AS visit_occurrence_id,
+    SPLIT_PART(REPLACE(JSON_EXTRACT(ct, '$.subject.reference'), '"', ''), '/', -1) AS person_id,
+    9201 AS visit_concept_id,
+    CAST(SUBSTRING(REPLACE(JSON_EXTRACT(ct, '$.period.start'), '"', ''), 1, 10) AS DATE) AS visit_start_date,
+    CAST(REPLACE(JSON_EXTRACT(ct, '$.period.start'), '"', '') AS TIMESTAMP) AS visit_start_datetime,
+    CAST(SUBSTRING(COALESCE(REPLACE(JSON_EXTRACT(ct, '$.period.end'), '"', ''), REPLACE(JSON_EXTRACT(ct, '$.period.start'), '"', '')), 1, 10) AS DATE) AS visit_end_date,
+    COALESCE(REPLACE(JSON_EXTRACT(ct, '$.period.end'), '"', ''), REPLACE(JSON_EXTRACT(ct, '$.period.start'), '"', '')) AS visit_end_datetime,
+    32817 AS visit_type_concept_id,
+    SPLIT_PART(REPLACE(JSON_EXTRACT(ct, '$.participant[1].member.reference'), '"', ''), '/', -1) AS provider_id,
+    SPLIT_PART(REPLACE(JSON_EXTRACT(ct, '$.participant[2].member.reference'), '"', ''), '/', -1) AS care_site_id,
+    'IP' AS visit_source_value,
+    9201 AS visit_source_concept_id,
+    0 AS admitted_from_concept_id,
+    NULL AS admitted_from_source_value,
+    0 AS discharged_to_concept_id,
+    NULL AS discharged_to_source_value,
+    NULL AS preceding_visit_occurrence_id
+FROM {{ source('json', 'CareTeam') }} ct

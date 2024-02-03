@@ -16,7 +16,7 @@ SELECT DISTINCT
     REPLACE(JSON_EXTRACT(data, '$.address.country'), '"', '') AS country_source_value,
     CAST(JSON_EXTRACT(data, '$.position.latitude') AS FLOAT) AS latitude,
     CAST(JSON_EXTRACT(data, '$.position.longitude') AS FLOAT) AS longitude
-FROM {{ source('raw', 'Location') }}
+FROM {{ source('json', 'Location') }}
 WHERE 
     address_1 IS NOT NULL
     AND location_id IS NOT NULL
@@ -39,6 +39,6 @@ SELECT DISTINCT
     REPLACE(JSON_EXTRACT(data, '$.address[0].country'), '"', '') AS country_source_value,
     CAST(JSON_EXTRACT(data, '$.address[0].extension[0].extension[0].valueDecimal') AS FLOAT) AS latitude,
     CAST(JSON_EXTRACT(data, '$.address[0].extension[0].extension[1].valueDecimal') AS FLOAT) AS longitude
-FROM {{ source('raw', 'Patient') }}
+FROM {{ source('json', 'Patient') }}
 WHERE
     location_id IS NOT NULL

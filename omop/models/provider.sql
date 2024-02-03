@@ -22,6 +22,6 @@ SELECT DISTINCT
         WHEN REPLACE(JSON_EXTRACT(p.data, '$.gender'), '"', '') = 'female' THEN 8532
         ELSE 0
     END AS gender_source_concept_id
-FROM {{ source('raw', 'PractitionerRole') }} pr
-LEFT JOIN {{ source('raw', 'Practitioner') }} p
+FROM {{ source('json', 'PractitionerRole') }} pr
+LEFT JOIN {{ source('json', 'Practitioner') }} p
 ON REPLACE(JSON_EXTRACT(pr.data, '$.practitioner.identifier.value'), '"', '') = REPLACE(JSON_EXTRACT(p.data, '$.identifier[0].value'), '"', '')

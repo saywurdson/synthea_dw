@@ -25,14 +25,14 @@ def process_state(state, num_patients, data_dir, db_path):
         con = duckdb.connect(database=os.path.join(db_path, 'synthea_fhir.db'), read_only=False)
 
         # Create raw schema if it doesn't exist
-        con.execute("CREATE SCHEMA IF NOT EXISTS raw")
+        con.execute("CREATE SCHEMA IF NOT EXISTS json")
 
         # Load ndjson files produced by Synthea into DuckDB
         for file in glob.glob(f"{data_dir}/**/*.ndjson", recursive=True):
             table_name = os.path.splitext(os.path.basename(file))[0]
 
             # Use read_json_auto to load the NDJSON file into the table
-            con.execute(f"CREATE TABLE raw.{table_name} AS SELECT * FROM read_ndjson_auto('{file}', auto_detect=true, records='true', sample_size=-1, maximum_depth=-1)")
+            con.execute(f"CREATE TABLE json.{table_name} AS SELECT * FROM read_ndjson_auto('{file}', auto_detect=true, records='true', sample_size=-1)")
 
             # Delete the file after it has been loaded into DuckDB
             os.remove(file)

@@ -1,6 +1,6 @@
 -- macros/get_standard_concept_id.sql
 
-{% macro get_standard_concept_id(concept_field, json_column, value, vocabulary_id, domain_id, concept_class_id, additional_domain_id=None, additional_vocabulary_id=None, additional_concept_class_id=None) %}
+{% macro get_standard_concept_id(concept_field, json_column, value, vocabulary_id, domain_id, concept_class_id=None, additional_domain_id=None, additional_vocabulary_id=None, additional_concept_class_id=None) %}
     COALESCE((
         SELECT c.concept_id
         FROM {{ source('reference', 'concept') }} c
@@ -9,6 +9,8 @@
         AND (c.domain_id = '{{ domain_id }}' OR c.domain_id = '{{ additional_domain_id }}')
         AND c.invalid_reason IS NULL
         AND c.standard_concept = 'S'
-        AND (c.concept_class_id = '{{ concept_class_id }}' OR c.concept_class_id = '{{ additional_concept_class_id }}')
+        {% if concept_class_id %}
+            AND (c.concept_class_id = '{{ concept_class_id }}' OR c.concept_class_id = '{{ additional_concept_class_id }}')
+        {% endif %}
     ), 0)
 {% endmacro %}

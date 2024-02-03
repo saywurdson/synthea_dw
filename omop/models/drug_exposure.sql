@@ -57,7 +57,7 @@ SELECT DISTINCT
     ), 0) AS drug_source_concept_id,
     NULL AS route_source_value,
     NULL AS dose_unit_source_value
-FROM {{ source('raw', 'MedicationRequest') }}
+FROM {{ source('json', 'MedicationRequest') }}
 WHERE 
     drug_source_value IS NOT NULL
     AND person_id IS NOT NULL
@@ -93,7 +93,7 @@ SELECT DISTINCT
     CAST({{ get_concept_id('concept_code', 'data', '$.vaccineCode.coding[0].code', 'CVX', 'Drug') }} AS INTEGER) AS drug_source_concept_id,
     NULL AS route_source_value,
     NULL AS dose_unit_source_value
-FROM {{ source('raw', 'Immunization') }}
+FROM {{ source('json', 'Immunization') }}
 LEFT JOIN {{ ref('visit_occurrence') }} AS vo
 ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.encounter.reference'), '"Encounter/', ''), '"', '') = vo.visit_occurrence_id
 WHERE 
@@ -161,7 +161,7 @@ SELECT DISTINCT
     ), 0) AS drug_source_concept_id,
     NULL AS route_source_value,
     NULL AS dose_unit_source_value
-FROM {{ source('raw', 'MedicationAdministration') }}
+FROM {{ source('json', 'MedicationAdministration') }}
 LEFT JOIN {{ ref('visit_occurrence') }} AS vo
 ON REPLACE(REPLACE(JSON_EXTRACT(data, '$.context.reference'), '"Encounter/', ''), '"', '') = vo.visit_occurrence_id
 WHERE 
