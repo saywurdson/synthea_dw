@@ -42,9 +42,6 @@ def process_state(state, num_patients, data_dir, db_path):
     except subprocess.CalledProcessError as e:
         logging.error(f"Error running Synthea for {state}:\n{e.stderr}")
 
-    except subprocess.CalledProcessError as e:
-        logging.error(f"Error running Synthea for {state}:\n{e.stderr}")
-
 
 def process_vocabulary_tables(directory, db_path):
     directory = '/workspaces/synthea_dw/omop/seeds'
