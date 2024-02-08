@@ -1,44 +1,39 @@
 -- models/location.sql
 
 SELECT DISTINCT
-    REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS location_id,
-    REPLACE(JSON_EXTRACT(data, '$.address.line[0]'), '"', '') AS address_1,
+    REPLACE(JSON_EXTRACT(l, '$.id'), '"', '') AS location_id,
+    REPLACE(JSON_EXTRACT(l, '$.address.line[0]'), '"', '') AS address_1,
     NULL AS address_2,
-    REPLACE(JSON_EXTRACT(data, '$.address.city'), '"', '') AS city,
-    REPLACE(JSON_EXTRACT(data, '$.address.state'), '"', '') AS state,
-    REPLACE(JSON_EXTRACT(data, '$.address.postalCode'), '"', '') AS zip,
+    REPLACE(JSON_EXTRACT(l, '$.address.city'), '"', '') AS city,
+    REPLACE(JSON_EXTRACT(l, '$.address.state'), '"', '') AS state,
+    REPLACE(JSON_EXTRACT(l, '$.address.postalCode'), '"', '') AS zip,
     NULL AS county,
-    REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS location_source_value,
+    REPLACE(JSON_EXTRACT(l, '$.name'), '"', '') AS location_source_value,
     CASE
-        WHEN REPLACE(JSON_EXTRACT(data, '$.address.country'), '"', '') = 'US' THEN 42046186
+        WHEN REPLACE(JSON_EXTRACT(l, '$.address.country'), '"', '') = 'US' THEN 42046186
         ELSE 0
     END AS country_concept_id,
-    REPLACE(JSON_EXTRACT(data, '$.address.country'), '"', '') AS country_source_value,
-    CAST(JSON_EXTRACT(data, '$.position.latitude') AS FLOAT) AS latitude,
-    CAST(JSON_EXTRACT(data, '$.position.longitude') AS FLOAT) AS longitude
-FROM {{ source('json', 'Location') }}
-WHERE 
-    address_1 IS NOT NULL
-    AND location_id IS NOT NULL
+    REPLACE(JSON_EXTRACT(l, '$.address.country'), '"', '') AS country_source_value,
+    CAST(JSON_EXTRACT(l, '$.position.latitude') AS DECIMAL(9,6)) AS latitude,
+    CAST(JSON_EXTRACT(l, '$.position.longitude') AS DECIMAL(9,6)) AS longitude
+FROM {{ source('json', 'Location') }} l
 
-UNION 
+UNION
 
 SELECT DISTINCT
-    REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS location_id,
-    REPLACE(JSON_EXTRACT(data, '$.address[0].line[0]'), '"', '') AS address_1,
+    REPLACE(JSON_EXTRACT(p, '$.id'), '"', '') AS location_id,
+    COALESCE(REPLACE(JSON_EXTRACT(p, '$.address[0].line[0]'), '"', ''), NULL) AS address_1,
     NULL AS address_2,
-    REPLACE(JSON_EXTRACT(data, '$.address[0].city'), '"', '') AS city,
-    REPLACE(JSON_EXTRACT(data, '$.address[0].state'), '"', '') AS state,
-    REPLACE(JSON_EXTRACT(data, '$.address[0].postalCode'), '"', '') AS zip,
+    REPLACE(JSON_EXTRACT(p, '$.address[0].city'), '"', '') AS city,
+    REPLACE(JSON_EXTRACT(p, '$.address[0].state'), '"', '') AS state,
+    REPLACE(JSON_EXTRACT(p, '$.address[0].postalCode'), '"', '') AS zip,
     NULL AS county,
-    REPLACE(JSON_EXTRACT(data, '$.id'), '"', '') AS location_source_value,
+    NULL AS location_source_value,
     CASE
-        WHEN REPLACE(JSON_EXTRACT(data, '$.address[0].country'), '"', '') = 'US' THEN 42046186
+        WHEN REPLACE(JSON_EXTRACT(p, '$.address[0].country'), '"', '') = 'US' THEN 42046186
         ELSE 0
     END AS country_concept_id,
-    REPLACE(JSON_EXTRACT(data, '$.address[0].country'), '"', '') AS country_source_value,
-    CAST(JSON_EXTRACT(data, '$.address[0].extension[0].extension[0].valueDecimal') AS FLOAT) AS latitude,
-    CAST(JSON_EXTRACT(data, '$.address[0].extension[0].extension[1].valueDecimal') AS FLOAT) AS longitude
-FROM {{ source('json', 'Patient') }}
-WHERE
-    location_id IS NOT NULL
+    REPLACE(JSON_EXTRACT(p, '$.address[0].country'), '"', '') AS country_source_value,
+    CAST(REPLACE(JSON_EXTRACT(JSON_EXTRACT(p, '$.address[0].extension[0].extension[0]'), '$.valueDecimal'), '"', '') AS DECIMAL(9,6)) AS latitude,
+    CAST(REPLACE(JSON_EXTRACT(JSON_EXTRACT(p, '$.address[0].extension[0].extension[1]'), '$.valueDecimal'), '"', '') AS DECIMAL(9,6)) AS longitude
+FROM {{ source('json', 'Patient') }} p

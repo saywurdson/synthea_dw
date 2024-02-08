@@ -466,3 +466,56 @@ models:
         description: This is provider’s gender as it appears in the source data.
       - name: gender_source_concept_id
         description: This is often zero as many sites use proprietary codes to store provider gender.
+
+  - name: note
+    description: This table stores notes, such as clinical or medical notes, associated with persons in the database. Each note is uniquely identified and linked to various attributes like note type, class, and content.
+    columns:
+      - name: note_id
+        description: A unique identifier for each note.
+        tests:
+          - unique
+          - not_null
+      - name: person_id
+        description: The identifier for the person to whom the note belongs.
+        tests:
+          - not_null
+      - name: note_date
+        description: The date the note was recorded.
+        tests:
+          - not_null
+      - name: note_datetime
+        description: The precise datetime when the note was recorded. If time is not given, set to midnight.      
+      - name: note_type_concept_id
+        description: The provenance of the note, most likely from an EHR system. Indicates the source system of the note.
+        tests:
+          - not_null
+      - name: note_class_concept_id
+        description: A Standard Concept Id representing the HL7 LOINC Document Type Vocabulary classification of the note.
+        tests:
+          - not_null
+      - name: note_title
+        description: The title of the note.
+      - name: note_text
+        description: The content of the note.
+        tests:
+          - not_null
+      - name: encoding_concept_id
+        description: The Concept representing the character encoding type of the note, with UTF-8 (32678) as the standard.
+        tests:
+          - not_null
+      - name: language_concept_id
+        description: The language in which the note is written, using Concepts that are descendants of World Languages (4182347).
+        tests:
+          - not_null
+      - name: provider_id
+        description: The provider who authored the note. Determination of the specific provider may be required by the ETL process.
+      - name: visit_occurrence_id
+        description: The visit occurrence during which the note was written.
+      - name: visit_detail_id
+        description: The visit detail during which the note was written.
+      - name: note_source_value
+        description: The source value that is mapped to the NOTE_CLASS_CONCEPT_ID.
+      - name: note_event_id
+        description: If the note is related to another record in the database, this field holds the primary key of that linked record.
+      - name: note_event_field_concept_id
+        description: If the note is related to another record, this field identifies the table and field from which the NOTE_EVENT_ID originates.
