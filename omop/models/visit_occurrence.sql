@@ -8,7 +8,7 @@ SELECT DISTINCT
         WHEN 'EMER' THEN 9203
         WHEN 'AMB' THEN 9202
         WHEN 'VR' THEN 5202
-        ELSE NULL
+        ELSE 0
     END AS visit_concept_id,
     CAST(SUBSTRING(REPLACE(JSON_EXTRACT(e, '$.period.start'), '"', ''), 1, 10) AS DATE) AS visit_start_date,
     CAST(REPLACE(JSON_EXTRACT(e, '$.period.start'), '"', '') AS TIMESTAMP) AS visit_start_datetime,
@@ -23,7 +23,7 @@ SELECT DISTINCT
         WHEN 'EMER' THEN 9203
         WHEN 'AMB' THEN 9202
         WHEN 'VR' THEN 5202
-        ELSE NULL
+        ELSE 0
     END AS visit_source_concept_id,
     0 AS admitted_from_concept_id,
     NULL AS admitted_from_source_value,

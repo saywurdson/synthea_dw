@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: vocabulary
-    database: synthea_fhir
+    database: synthea
     schema: vocabulary
     tables:
       - name: concept
@@ -17,7 +17,7 @@ sources:
       - name: drug_strength
   
   - name: json
-    database: synthea_fhir
+    database: synthea
     schema: json
     tables:
       - name: AllergyIntolerance

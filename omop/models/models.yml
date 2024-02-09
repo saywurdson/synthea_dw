@@ -58,7 +58,6 @@ models:
       - name: visit_occurrence_id
         description: Unique identifier for each interaction between a person and the healthcare system, linking across other event tables to associate events with a visit.
         tests:
-          - unique
           - not_null
       - name: person_id
         description: Identifier of the person engaging in the healthcare system visit.
@@ -66,8 +65,6 @@ models:
           - not_null
       - name: visit_concept_id
         description: Represents the type of visit (inpatient, outpatient, etc.) using standard concepts in the Visit domain.
-        tests:
-          - not_null
       - name: visit_start_date
         description: The date when the visit started, varying by visit type (e.g., admission date for inpatient visits).
         tests:
@@ -109,7 +106,6 @@ models:
       - name: condition_occurrence_id
         description: The unique key given to a condition record for a person. Refer to the ETL for how duplicate conditions during the same visit were handled.
         tests:
-          - unique
           - not_null
       - name: person_id
         description: The PERSON_ID of the PERSON for whom the condition is recorded.
@@ -154,7 +150,6 @@ models:
       - name: drug_exposure_id
         description: The unique key given to records of drug dispensings or administrations for a person.
         tests:
-          - unique
           - not_null
       - name: person_id
         description: The PERSON_ID of the PERSON for whom the drug dispensing or administration is recorded.

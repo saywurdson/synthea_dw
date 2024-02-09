@@ -7,6 +7,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import parseFhir
 
 # Update config paths as needed
-parseFhir.parse(r"config/configCoverage.ini")
+parseFhir.parse(r"config/configClaim.ini")
 parseFhir.parse(r"config/configPatient.ini")
 parseFhir.parse(r"config/configExplanationOfBenefit.ini")
