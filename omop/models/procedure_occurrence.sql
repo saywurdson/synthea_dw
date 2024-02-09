@@ -25,7 +25,7 @@ SELECT DISTINCT
     NULL AS modifier_source_value
 FROM
     {{ source('json', 'CarePlan') }} cp
-LEFT JOIN {{ source('reference', 'concept') }} c_procedure ON c_procedure.concept_code = (
+LEFT JOIN {{ source('vocabulary', 'concept') }} c_procedure ON c_procedure.concept_code = (
     CASE
         WHEN JSON_EXTRACT(cp, '$.category[0].coding[0].display') IS NOT NULL
             THEN REPLACE(JSON_EXTRACT(cp, '$.category[0].coding[0].code'), '"', '')
@@ -34,7 +34,7 @@ LEFT JOIN {{ source('reference', 'concept') }} c_procedure ON c_procedure.concep
         ELSE NULL
     END
 ) AND c_procedure.vocabulary_id = 'SNOMED' AND c_procedure.domain_id = 'Procedure'
-LEFT JOIN {{ source('reference', 'concept') }} c_source ON c_source.concept_code = (
+LEFT JOIN {{ source('vocabulary', 'concept') }} c_source ON c_source.concept_code = (
     CASE
         WHEN JSON_EXTRACT(cp, '$.category[0].coding[0].display') IS NOT NULL
             THEN REPLACE(JSON_EXTRACT(cp, '$.category[0].coding[0].code'), '"', '')
@@ -120,7 +120,7 @@ SELECT DISTINCT
     c_procedure.concept_id AS procedure_source_concept_id,
     NULL AS modifier_source_value
 FROM {{ source('json', 'Procedure') }} p
-INNER JOIN {{ source('reference', 'concept') }} c_procedure
+INNER JOIN {{ source('vocabulary', 'concept') }} c_procedure
     ON c_procedure.concept_code = REPLACE(JSON_EXTRACT(p, '$.code.coding[0].code'), '"', '')
     AND c_procedure.vocabulary_id = 'SNOMED'
     AND c_procedure.domain_id = 'Procedure'

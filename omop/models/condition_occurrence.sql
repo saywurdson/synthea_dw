@@ -49,12 +49,12 @@ concept_data AS (
         item_data.condition_status_source_value
     FROM
         item_data
-    LEFT JOIN {{ source('reference', 'concept') }} AS concept_standard
+    LEFT JOIN {{ source('vocabulary', 'concept') }} AS concept_standard
         ON item_data.condition_source_value = concept_standard.concept_code
         AND concept_standard.vocabulary_id = 'SNOMED'
         AND concept_standard.domain_id = 'Condition'
         AND concept_standard.standard_concept = 'S'
-    LEFT JOIN {{ source('reference', 'concept') }} AS concept_source
+    LEFT JOIN {{ source('vocabulary', 'concept') }} AS concept_source
         ON item_data.condition_source_value = concept_source.concept_code
         AND concept_source.vocabulary_id = 'SNOMED'
         AND concept_source.domain_id = 'Condition'

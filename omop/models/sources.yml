@@ -1,7 +1,7 @@
 version: 2
 
 sources:
-  - name: reference
+  - name: vocabulary
     database: synthea_fhir
     schema: vocabulary
     tables:

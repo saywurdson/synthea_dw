@@ -22,7 +22,7 @@ def process_state(state, num_patients, data_dir, db_path):
         logging.info(f"Output for {state}:\n{result.stdout}")
 
         # Connect to DuckDB database
-        con = duckdb.connect(database=os.path.join(db_path, 'synthea_fhir.db'), read_only=False)
+        con = duckdb.connect(database=os.path.join(db_path, 'synthea.db'), read_only=False)
 
         # Create raw schema if it doesn't exist
         con.execute("CREATE SCHEMA IF NOT EXISTS json")
@@ -44,7 +44,7 @@ def process_state(state, num_patients, data_dir, db_path):
 
 
 def process_vocabulary_tables(directory, db_path):
-    directory = '/workspaces/synthea_dw/omop/seeds'
+    directory = '/workspaces/synthea_dw/vocabulary'
     all_files = os.listdir(directory)
     csv_files = [f for f in all_files if f.endswith('.csv')]
 
@@ -81,7 +81,11 @@ def run_synthea(num_patients):
     os.chdir(synthea_path)
     
     # List of states
-    states = ["Alabama", "Wisconsin", "Wyoming", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana"]
+    states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", 
+              "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", 
+              "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", 
+              "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", 
+              "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
 
     # Use ThreadPoolExecutor to parallelize the process
     with ThreadPoolExecutor(max_workers=5) as executor:
@@ -312,7 +316,12 @@ terminology_tables = [
         'name': 'ssa_fips_state',
         'columns': 'ssa_fips_state_code VARCHAR, ssa_fips_state_name VARCHAR',
         's3_path': 'terminology/ssa_fips_state.csv'
-    }
+    },
+    {
+        'name': 'snomed_icd_10_map',
+        'columns': 'id VARCHAR, effective_time VARCHAR, active INTEGER, module_id VARCHAR, ref_set_id VARCHAR, referenced_component_id VARCHAR, referenced_component_name VARCHAR, map_group INTEGER, map_priority INTEGER, map_rule VARCHAR, map_advice VARCHAR, map_target VARCHAR, correlation_id VARCHAR, map_category_id VARCHAR, map_category_name VARCHAR',
+        's3_path': 'terminology/snomed_icd_10_map.csv'
+    },
 ]
 
 value_set_tables = [

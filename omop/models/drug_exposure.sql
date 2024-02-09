@@ -52,14 +52,14 @@ LEFT JOIN (
     FROM {{ ref('visit_occurrence') }}
     QUALIFY ROW_NUMBER() OVER(PARTITION BY person_id ORDER BY visit_occurrence_id) = 1
 ) vo ON REPLACE(REPLACE(JSON_EXTRACT(cl, '$.patient.reference'), '"Patient/', ''), '"', '') = vo.person_id
-LEFT JOIN {{ source('reference', 'drug_strength') }} ds ON {{ get_concept_id(
+LEFT JOIN {{ source('vocabulary', 'drug_strength') }} ds ON {{ get_concept_id(
     'concept_code',
     'cl',
     '$.item[0].productOrService.coding[0].code',
     'RxNorm',
     'Drug'
 ) }} = ds.drug_concept_id
-LEFT JOIN {{ source('reference', 'concept') }} c ON ds.numerator_unit_concept_id = c.concept_id
+LEFT JOIN {{ source('vocabulary', 'concept') }} c ON ds.numerator_unit_concept_id = c.concept_id
 WHERE REPLACE(JSON_EXTRACT(cl, '$.type.coding[0].code'), '"', '') = 'pharmacy'
 AND {{ get_concept_id(
     'concept_code',
@@ -119,13 +119,13 @@ LEFT JOIN (
     FROM {{ ref('visit_occurrence') }}
     QUALIFY ROW_NUMBER() OVER(PARTITION BY person_id ORDER BY visit_occurrence_id) = 1
 ) vo ON REPLACE(REPLACE(JSON_EXTRACT(im, '$.patient.reference'), '"Patient/', ''), '"', '') = vo.person_id
-LEFT JOIN {{ source('reference', 'drug_strength') }} ds ON {{ get_concept_id(
+LEFT JOIN {{ source('vocabulary', 'drug_strength') }} ds ON {{ get_concept_id(
     'concept_code',
     'im',
     '$.vaccineCode.coding[0].code',
     'CVX'
 ) }} = ds.drug_concept_id
-LEFT JOIN {{ source('reference', 'concept') }} c ON ds.numerator_unit_concept_id = c.concept_id
+LEFT JOIN {{ source('vocabulary', 'concept') }} c ON ds.numerator_unit_concept_id = c.concept_id
 WHERE {{ get_concept_id(
     'concept_code',
     'im',
@@ -187,14 +187,14 @@ LEFT JOIN (
     FROM {{ ref('visit_occurrence') }}
     QUALIFY ROW_NUMBER() OVER(PARTITION BY person_id ORDER BY visit_occurrence_id) = 1
 ) vo ON REPLACE(REPLACE(JSON_EXTRACT(ma, '$.subject.reference'), '"Patient/', ''), '"', '') = vo.person_id
-LEFT JOIN {{ source('reference', 'drug_strength') }} ds ON {{ get_concept_id(
+LEFT JOIN {{ source('vocabulary', 'drug_strength') }} ds ON {{ get_concept_id(
     'concept_code',
     'ma',
     '$.medicationCodeableConcept.coding[0].code',
     'RxNorm',
     'Drug'
 ) }} = ds.drug_concept_id
-LEFT JOIN {{ source('reference', 'concept') }} c ON ds.numerator_unit_concept_id = c.concept_id
+LEFT JOIN {{ source('vocabulary', 'concept') }} c ON ds.numerator_unit_concept_id = c.concept_id
 WHERE {{ get_concept_id(
     'concept_code',
     'ma',
@@ -250,14 +250,14 @@ SELECT DISTINCT
     NULL AS route_source_value,
     c.concept_name AS dose_unit_source_value
 FROM {{ source('json', 'MedicationRequest') }} mr
-LEFT JOIN {{ source('reference', 'drug_strength') }} ds ON {{ get_concept_id(
+LEFT JOIN {{ source('vocabulary', 'drug_strength') }} ds ON {{ get_concept_id(
     'concept_code',
     'mr',
     '$.medicationCodeableConcept.coding[0].code',
     'RxNorm',
     'Drug'
 ) }} = ds.drug_concept_id
-LEFT JOIN {{ source('reference', 'concept') }} c ON ds.numerator_unit_concept_id = c.concept_id
+LEFT JOIN {{ source('vocabulary', 'concept') }} c ON ds.numerator_unit_concept_id = c.concept_id
 WHERE {{ get_concept_id(
     'concept_code',
     'mr',
