@@ -59,6 +59,7 @@ models:
         description: Unique identifier for each interaction between a person and the healthcare system, linking across other event tables to associate events with a visit.
         tests:
           - not_null
+          - unique
       - name: person_id
         description: Identifier of the person engaging in the healthcare system visit.
         tests:
@@ -107,6 +108,7 @@ models:
         description: The unique key given to a condition record for a person. Refer to the ETL for how duplicate conditions during the same visit were handled.
         tests:
           - not_null
+          - unique
       - name: person_id
         description: The PERSON_ID of the PERSON for whom the condition is recorded.
         tests:

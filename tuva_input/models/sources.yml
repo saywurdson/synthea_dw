@@ -1,0 +1,31 @@
+version: 2
+
+sources:
+  - name: json
+    database: synthea
+    schema: json
+    tables:
+      - name: AllergyIntolerance
+      - name: CarePlan
+      - name: CareTeam
+      - name: Claim
+      - name: Condition
+      - name: Device
+      - name: DiagnosticReport
+      - name: DocumentReference
+      - name: Encounter
+      - name: ExplanationOfBenefit
+      - name: ImagingStudy
+      - name: Immunization
+      - name: Location
+      - name: Medication
+      - name: MedicationAdministration
+      - name: MedicationRequest
+      - name: Observation
+      - name: Organization
+      - name: Patient
+      - name: Practitioner
+      - name: PractitionerRole
+      - name: Procedure
+      - name: Provenance
+      - name: SupplyDelivery
