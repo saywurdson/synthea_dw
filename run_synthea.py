@@ -27,20 +27,12 @@ def process_state(state, num_patients, data_dir, db_path):
         # Create raw schema if it doesn't exist
         con.execute("CREATE SCHEMA IF NOT EXISTS json")
 
-        # Define the target folder for specific NDJSON files
-        target_folder = "/workspaces/synthea_dw/FHIR_connector/configuration_synthea/input_fhir"
-
         # Load ndjson files produced by Synthea into DuckDB
         for file in glob.glob(f"{data_dir}/**/*.ndjson", recursive=True):
             table_name = os.path.splitext(os.path.basename(file))[0]
 
             # Use read_json_auto to load the NDJSON file into the table
             con.execute(f"CREATE TABLE json.{table_name} AS SELECT * FROM read_ndjson_auto('{file}', auto_detect=true, records='true', sample_size=-1)")
-
-            # Check if this file is one of the specified files to be copied
-            if table_name in ['Claim', 'ExplanationOfBenefit', 'Patient']:
-                # Copy the file to the target folder
-                shutil.copy(file, target_folder)
             
             # Delete the file after it has been loaded into DuckDB
             os.remove(file)
