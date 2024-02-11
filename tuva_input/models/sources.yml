@@ -29,3 +29,24 @@ sources:
       - name: Procedure
       - name: Provenance
       - name: SupplyDelivery
+
+  - name: vocabulary
+    database: synthea
+    schema: vocabulary
+    tables:
+      - name: concept
+      - name: concept_cpt4
+      - name: concept_ancestor
+      - name: concept_synonym
+      - name: concept_class
+      - name: concept_relationship
+      - name: domain
+      - name: relationship
+      - name: vocabulary
+      - name: drug_strength
+
+  - name: terminology
+    database: synthea
+    schema: terminology
+    tables:
+      - name: loinc

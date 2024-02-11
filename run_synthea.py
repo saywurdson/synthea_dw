@@ -15,6 +15,8 @@ import requests
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def process_state(state, num_patients, data_dir, db_path):
+    localConfigFilePath = '/workspaces/synthea_dw/synthea.properties'
+    
     command = f"./run_synthea -p {num_patients} {state}"
     try:
         # Run the Synthea command
@@ -71,6 +73,34 @@ def process_vocabulary_tables(directory, db_path):
     logging.info("All vocabulary tables processed and loaded into DuckDB.")
 
 
+def process_reference_tables(directory, db_path):
+    directory = '/workspaces/synthea_dw/reference'
+    all_files = os.listdir(directory)
+    parquet_files = [f for f in all_files if f.endswith('.parquet')]
+
+    # Connect to DuckDB
+    con = duckdb.connect(db_path)
+
+    for file in parquet_files:
+        file_path = os.path.join(directory, file)
+        try:
+            df = pd.read_parquet(file_path)
+            dataframe_name = (os.path.splitext(file)[0]).lower()
+
+            # Insert DataFrame into DuckDB under the 'reference' schema
+            table_name = f"reference.{dataframe_name}"
+            con.execute(f"CREATE SCHEMA IF NOT EXISTS reference")
+            con.register(f"{dataframe_name}_df", df)
+            con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM {dataframe_name}_df")
+            logging.info(f"Successfully processed and loaded {file} into {table_name}")
+
+        except Exception as e:
+            logging.error(f"Error reading file '{file}': {e}")
+
+    con.close()
+    logging.info("All reference tables processed and loaded into DuckDB.")
+
+
 def run_synthea(num_patients):
     synthea_path = '/workspaces/synthea_dw/synthea'
     data_dir = '/workspaces/synthea_dw/data'
@@ -117,7 +147,7 @@ def download_and_decompress(url, local_file_path):
         logging.error(f"Error downloading from {url}: {e}")
 
 
-def process_terminology(schema_name, table_definitions, base_url, directory, db_path):
+def process_terminology_tables(schema_name, table_definitions, base_url, directory, db_path, parquet_directory=None):
     # Create the directory for file download
     os.makedirs(directory, exist_ok=True)
 
@@ -125,9 +155,9 @@ def process_terminology(schema_name, table_definitions, base_url, directory, db_
     con = duckdb.connect(db_path)
     con.execute(f"CREATE SCHEMA IF NOT EXISTS {schema_name}")
 
+    # Process tuva csvs
     for table_def in table_definitions:
         table_name = f"{schema_name}.{table_def['name']}"
-
         file_url = base_url + table_def['s3_path'] + '_0_0_0.csv.gz'
         local_file_path = os.path.join(directory, table_def['name'] + '.csv')
         download_and_decompress(file_url, local_file_path)
@@ -144,6 +174,22 @@ def process_terminology(schema_name, table_definitions, base_url, directory, db_
             logging.info(f"Successfully processed and loaded {table_def['name']}.csv into {table_name}")
         except Exception as e:
             logging.error(f"Error loading file '{table_def['name']}.csv' into DuckDB: {e}")
+
+    # Process all Parquet files in the parquet_directory
+    if parquet_directory:
+        for filename in os.listdir(parquet_directory):
+            if filename.endswith('.parquet'):
+                table_name = f"{schema_name}.{os.path.splitext(filename)[0]}"
+                parquet_file_path = os.path.join(parquet_directory, filename)
+
+                try:
+                    df = pd.read_parquet(parquet_file_path)
+                    dataframe_name = os.path.splitext(filename)[0].lower()
+                    con.register(f"{dataframe_name}_df", df)
+                    con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM {dataframe_name}_df")
+                    logging.info(f"Successfully processed and loaded {filename} into {table_name}")
+                except Exception as e:
+                    logging.error(f"Error processing file '{filename}': {e}")
 
     con.close()
 
@@ -398,9 +444,11 @@ value_set_tables = [
 ]
 
 if __name__ == "__main__":
-    directory = '/workspaces/synthea_dw/omop/seeds'
+    reference_directory = '/workspaces/synthea_dw/reference'
+    directory = '/workspaces/synthea_dw/vocabulary'
     db_path = '/workspaces/synthea_dw/synthea.db'
     base_url = 'https://tuva-public-resources.s3.amazonaws.com/'
+    parquet_directory = '/workspaces/synthea_dw/terminology'
     
     # Ask user for number of patients to create
     num_patients = input("Enter the number of patients to create: ")
@@ -410,14 +458,18 @@ if __name__ == "__main__":
         num_patients = int(num_patients)
         logging.info(f"Starting Synthea simulation for {num_patients} patient(s).")
         run_synthea(num_patients)
+        
         logging.info("Now processing vocabulary tables.")
         process_vocabulary_tables(directory, db_path)
-
-        # Processing terminology and value_set tables
+        
+        logging.info("Now processing reference tables.")
+        process_reference_tables(reference_directory, db_path)
+        
         logging.info("Now processing terminology tables.")
-        process_terminology('terminology', terminology_tables, base_url, '/workspaces/synthea_dw/data/', db_path)
+        process_terminology_tables('terminology', terminology_tables, base_url, '/workspaces/synthea_dw/data/', db_path, parquet_directory)
+        
         logging.info("Now processing value_set tables.")
-        process_terminology('value_sets', value_set_tables, base_url, '/workspaces/synthea_dw/data/', db_path)
+        process_terminology_tables('value_sets', value_set_tables, base_url, '/workspaces/synthea_dw/data/', db_path)
     except ValueError:
         logging.error("Please enter a valid integer for the number of patients.")
         exit()
