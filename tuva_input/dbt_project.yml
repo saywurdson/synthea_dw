@@ -32,4 +32,5 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   tuva_input:
-    materialized: view
+    materialized: table
+    schema: tuva_input

@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def process_state(state, num_patients, data_dir, db_path):
     localConfigFilePath = '/workspaces/synthea_dw/synthea.properties'
     
-    command = f"./run_synthea -p {num_patients} {state}"
+    command = f"./run_synthea -c {localConfigFilePath} -p {num_patients} {state}"
     try:
         # Run the Synthea command
         result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -34,7 +34,7 @@ def process_state(state, num_patients, data_dir, db_path):
             table_name = os.path.splitext(os.path.basename(file))[0]
 
             # Use read_json_auto to load the NDJSON file into the table
-            con.execute(f"CREATE TABLE json.{table_name} AS SELECT * FROM read_ndjson_auto('{file}', auto_detect=true, records='true', sample_size=-1)")
+            con.execute(f"CREATE TABLE IF NOT EXISTS json.{table_name} AS SELECT * FROM read_ndjson_auto('{file}', auto_detect=true, records='true', sample_size=-1)")
             
             # Delete the file after it has been loaded into DuckDB
             os.remove(file)
@@ -113,9 +113,9 @@ def run_synthea(num_patients):
     # List of states
     states = ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", 
               "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", 
-              "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", 
-              "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", 
-              "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"]
+              "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "'New Hampshire'", "'New Jersey'", "'New Mexico'", "'New York'", 
+              "'North Carolina'", "'North Dakota'", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "'Rhode Island'", "'South Carolina'", "'South Dakota'", 
+              "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "'West Virginia'", "Wisconsin", "Wyoming"]
 
     # Use ThreadPoolExecutor to parallelize the process
     with ThreadPoolExecutor(max_workers=5) as executor:

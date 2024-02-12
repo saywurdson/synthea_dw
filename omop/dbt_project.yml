@@ -33,3 +33,4 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   omop:
     materialized: table
+    schema: omop
