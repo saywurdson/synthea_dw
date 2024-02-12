@@ -21,7 +21,7 @@ SELECT DISTINCT
         AND c2.invalid_reason IS NULL
         AND c1.concept_class_id in ('Branded Drug', 'Clinical Drug', 'Quant Clinical Drug')
         AND LENGTH(c2.concept_code) = 11
-        ORDER BY RANDOM()
+        ORDER BY c2.concept_name
         LIMIT 1
     ) AS ndc_code,
     (
@@ -36,7 +36,7 @@ SELECT DISTINCT
         AND c2.invalid_reason IS NULL
         AND c1.concept_class_id in ('Branded Drug', 'Clinical Drug', 'Quant Clinical Drug')
         AND LENGTH(c2.concept_code) = 11
-        ORDER BY RANDOM()
+        ORDER BY c2.concept_name
         LIMIT 1
     ) AS ndc_description,
     REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') AS rxnorm_code,
@@ -47,7 +47,13 @@ SELECT DISTINCT
     NULL AS strength,
     NULL AS quantity,
     NULL AS quantity_unit,
-    NULL AS days_supply,
-    NULL AS practitioner_id,
+    30 AS days_supply,
+    REPLACE(REPLACE(JSON_EXTRACT(m, '$.requester.reference'), '"Practitioner/', ''), '"', '') AS practitioner_id,
     'SyntheaFhir' AS data_source
 FROM {{ source('json', 'MedicationRequest') }} m
+LEFT JOIN {{ source('vocabulary', 'concept') }} c
+    ON REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') = c.concept_code
+    AND c.vocabulary_id = 'RxNorm'
+    AND c.domain_id = 'Drug'
+    AND c.invalid_reason IS NULL
+    AND c.standard_concept = 'S'

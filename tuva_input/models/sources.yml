@@ -50,3 +50,11 @@ sources:
     schema: terminology
     tables:
       - name: loinc
+      - name: snomed_icd_10_map
+
+  - name: reference
+    database: synthea
+    schema: reference
+    tables:
+      - name: icd10cm_to_msdrg_v41
+      - name: icd10pcs_to_msdrg_v41

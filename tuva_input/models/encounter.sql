@@ -41,8 +41,8 @@ SELECT DISTINCT
     'snomed' AS primary_diagnosis_code_type,
     REPLACE(JSON_EXTRACT(e, '$.reasonCode[0].coding[0].code'), '"', '') AS primary_diagnosis_code,
     REPLACE(JSON_EXTRACT(e, '$.reasonCode[0].coding[0].display'), '"', '') AS primary_diagnosis_description,
-    NULL AS ms_drg_code,
-    NULL AS ms_drg_description,
+    icd."MS-DRG" AS ms_drg_code,
+    icd."MS-DRG_description" AS ms_drg_description,
     NULL AS apr_drug_code,
     NULL AS apr_drug_description,
     REPLACE(JSON_EXTRACT(ex, '$.payment.amount.value'), '"', '') AS paid_amount,
@@ -52,4 +52,7 @@ SELECT DISTINCT
 FROM {{ source('json', 'Encounter') }} e
 LEFT JOIN {{ source('json', 'ExplanationOfBenefit') }} ex
     ON REPLACE(JSON_EXTRACT(e, '$.id'), '"', '') = REPLACE(REPLACE(JSON_EXTRACT(ex, '$.item[0].encounter[0].reference'), '"Encounter/', ''), '"', '')
-    
+JOIN {{ source('terminology', 'snomed_icd_10_map') }} sno
+    ON REPLACE(JSON_EXTRACT(e, '$.reasonCode[0].coding[0].code'), '"', '') = sno.referenced_component_id
+JOIN {{ source('reference', 'icd10cm_to_msdrg_v41') }} icd
+    ON sno.map_target = REPLACE(icd.ICD10, '.', '')
