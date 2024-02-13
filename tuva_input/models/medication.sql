@@ -21,7 +21,7 @@ SELECT DISTINCT
         AND c2.invalid_reason IS NULL
         AND c1.concept_class_id in ('Branded Drug', 'Clinical Drug', 'Quant Clinical Drug')
         AND LENGTH(c2.concept_code) = 11
-        ORDER BY c2.concept_name
+        ORDER BY c2.concept_id
         LIMIT 1
     ) AS ndc_code,
     (
@@ -36,18 +36,31 @@ SELECT DISTINCT
         AND c2.invalid_reason IS NULL
         AND c1.concept_class_id in ('Branded Drug', 'Clinical Drug', 'Quant Clinical Drug')
         AND LENGTH(c2.concept_code) = 11
-        ORDER BY c2.concept_name
+        ORDER BY c2.concept_id
         LIMIT 1
     ) AS ndc_description,
     REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') AS rxnorm_code,
     REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].display'), '"', '') AS rxnorm_description,
-    NULL AS atc_code,
-    NULL AS atc_description,
+    r."atc class id" AS atc_code,
+    r.rxstring AS atc_description,
     NULL AS route,
-    NULL AS strength,
-    NULL AS quantity,
+    CASE
+        WHEN ds.amount_value IS NOT NULL THEN ds.amount_value
+        WHEN ds.amount_value IS NULL AND ds.numerator_value IS NOT NULL AND ds.denominator_value IS NULL THEN ds.numerator_value
+        WHEN ds.amount_value IS NULL AND ds.numerator_value IS NOT NULL AND ds.denominator_value IS NOT NULL THEN ds.numerator_value / ds.denominator_value
+        ELSE 1
+    END AS strength,
+    CASE
+        WHEN REPLACE(JSON_EXTRACT(m, '$.dosageInstruction[0].doseAndRate[0].doseQuantity.value'), '"', '') IS NOT NULL 
+        THEN CAST(REPLACE(JSON_EXTRACT(m, '$.dosageInstruction[0].doseAndRate[0].doseQuantity.value'), '"', '') AS INTEGER) * 30
+        ELSE 1
+    END AS quantity,
     NULL AS quantity_unit,
-    30 AS days_supply,
+    CASE
+        WHEN REPLACE(JSON_EXTRACT(m, '$.dosageInstruction[0].doseAndRate[0].doseQuantity.value'), '"', '') IS NOT NULL 
+        THEN 30
+        ELSE 1
+    END AS days_supply,
     REPLACE(REPLACE(JSON_EXTRACT(m, '$.requester.reference'), '"Practitioner/', ''), '"', '') AS practitioner_id,
     'SyntheaFhir' AS data_source
 FROM {{ source('json', 'MedicationRequest') }} m
@@ -57,3 +70,9 @@ LEFT JOIN {{ source('vocabulary', 'concept') }} c
     AND c.domain_id = 'Drug'
     AND c.invalid_reason IS NULL
     AND c.standard_concept = 'S'
+JOIN {{ source('reference', 'rxcuis_ndcs_atc') }} r
+    ON REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') = r.rxcui
+JOIN {{ source('vocabulary', 'drug_strength') }} ds
+    ON c.concept_id = ds.drug_concept_id
+WHERE 
+    REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') IS NOT NULL

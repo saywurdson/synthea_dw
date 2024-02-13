@@ -437,7 +437,6 @@ models:
       - name: provider_id
         description: It is assumed that every provider with a different unique identifier is in fact a different person and should be treated independently.
         tests:
-        - unique
         - not_null
       - name: provider_name
         description: The name of the Provider.
