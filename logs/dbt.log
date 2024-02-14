@@ -180,3 +180,34 @@ Happy modeling!
 [0m00:06:09.738955 [debug] [MainThread]: Command `dbt init` succeeded at 00:06:09.738861 after 23.72 seconds
 [0m00:06:09.739311 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff85d67dd0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff85d67bd0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8bbc37d0>]}
 [0m00:06:09.739687 [debug] [MainThread]: Flushing usage events
+[0m21:27:39.598807 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8db9b6d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8db9b3d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8db9b610>]}
+
+
+============================== 21:27:39.600783 | e8cb1767-73d5-4c27-92a7-226f38223a0d ==============================
+[0m21:27:39.600783 [info ] [MainThread]: Running with dbt=1.7.7
+[0m21:27:39.601350 [debug] [MainThread]: running dbt with arguments {'partial_parse': 'True', 'static_parser': 'True', 'warn_error': 'None', 'fail_fast': 'False', 'use_colors': 'True', 'printer_width': '80', 'indirect_selection': 'eager', 'target_path': 'None', 'no_print': 'None', 'invocation_command': 'dbt init', 'send_anonymous_usage_stats': 'True', 'introspect': 'True', 'debug': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'log_cache_events': 'False', 'cache_selected_only': 'False', 'quiet': 'False', 'profiles_dir': '/home/jovyan/.dbt', 'write_json': 'True', 'version_check': 'True', 'log_format': 'default', 'log_path': 'logs', 'use_experimental_parser': 'False'}
+[0m21:27:39.601844 [warn ] [MainThread]: [ConfigFolderDirectory]: Unable to parse dict {'dir': PosixPath('/home/jovyan/.dbt')}
+[0m21:27:39.602198 [info ] [MainThread]: Creating dbt configuration folder at 
+[0m21:27:50.001698 [debug] [MainThread]: Starter project path: /opt/conda/lib/python3.11/site-packages/dbt/include/starter_project
+[0m21:27:50.053562 [info ] [MainThread]: 
+Your new dbt project "tuva" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m21:27:50.054481 [info ] [MainThread]: Setting up your profile.
+[0m21:27:56.928363 [info ] [MainThread]: Profile tuva written to /home/jovyan/.dbt/profiles.yml using target's sample configuration. Once updated, you'll be able to start developing with dbt.
+[0m21:27:56.929826 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 17.332552, "process_user_time": 1.099307, "process_kernel_time": 0.162677, "process_mem_max_rss": "131308", "process_in_blocks": "142328", "process_out_blocks": "8"}
+[0m21:27:56.930320 [debug] [MainThread]: Command `dbt init` succeeded at 21:27:56.930207 after 17.33 seconds
+[0m21:27:56.930719 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff93611610>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff937738d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff93773910>]}
+[0m21:27:56.931150 [debug] [MainThread]: Flushing usage events

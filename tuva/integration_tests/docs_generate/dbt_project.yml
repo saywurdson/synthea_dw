@@ -1,0 +1,130 @@
+name: 'input_layer'
+version: '1.0.0'
+config-version: 2
+
+profile: default
+
+vars:
+  test_data_override: true
+
+
+  ## Update these vars to use your own data as input, do not comment out
+  # enabled logic has been added to the sources config
+  #input_database: tuva
+  #input_schema: tuva_claims
+
+  tuva_last_run: '{{ run_started_at.astimezone(modules.pytz.timezone("UTC")) }}'
+
+  ## The Tuva Project can support claims and clinical data.
+  # By default, all models are disabled.
+  # Use the vars below to enabled or disable sections of The Tuva Project.
+
+  ## The vars directly below enable all models related to the type of healthcare data being used
+  # clinical_enabled: true
+#  claims_enabled: true
+  tuva_marts_enabled: true
+
+
+dispatch:
+  - macro_namespace: dbt
+    search_order: [ 'the_tuva_project', 'dbt']
+
+model-paths: ["models"]
+analysis-paths: ["../analyses"]
+test-paths: ["../tests"]
+seed-paths: ["../seeds"]
+macro-paths: ["../macros"]
+snapshot-paths: ["../snapshots"]
+docs-paths: ["docs"]
+
+target-path: "../target"
+log-path: "../logs"
+packages-install-path: "../dbt_packages"
+clean-targets:
+  - "../target"
+  - "../dbt_packages"
+
+models:
+  +bind: false
+  claims_data_model:
+    +materialized: view
+    +docs:
+      node_color: "#1a0707"
+  the_tuva_project:
+    claims_preprocessing:
+      acute_inpatient:
+        +docs:
+          node_color: "#0f3d0b"
+#        staging:
+#          +docs:
+#            show: false
+#        intermediate:
+#          +docs:
+#            show: false
+      input_layer:
+        +docs:
+          node_color: "#0f3d0b"
+#          staging:
+#            +docs:
+#              show: false
+#        intermediate:
+#          +docs:
+#            show: false
+#    analytics:
+    core:
+      +docs:
+        node_color: "#0f3d0b"
+
+    chronic_conditions:
+      +docs:
+        node_color: "#2e0e0e"
+#        staging:
+#          +docs:
+#            show: false
+    data_quality:
+      +docs:
+        node_color: "#141161"
+#        staging:
+#          +docs:
+#            show: false
+#        intermediate:
+#          +docs:
+#            show: false
+    financial_pmpm:
+      +docs:
+        node_color: "#abab26"
+#        intermediate:
+#          +docs:
+#            show: false
+    readmissions:
+      +docs:
+        node_color: "#161a7d"
+#        staging:
+#          +docs:
+#            show: false
+#        intermediate:
+#          +docs:
+#            show: false
+
+
+
+seeds:
+  the_tuva_project:
+    terminology:
+      +docs:
+        node_color: "#460d4f"
+    value_sets:
+      data_quality:
+        +docs:
+          node_color: "#141161"
+      chronic_conditions:
+        +docs:
+          node_color: "#804912"
+      readmissions:
+        +docs:
+          node_color: "#161a7d"
+
+#snapshots:
+#  data_profiling:
+#    +docs:
+#      show: false

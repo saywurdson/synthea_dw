@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: input
+    database: synthea
+    schema: tuva_input
+    tables:
+      - name: condition
+      - name: eligibility
+      - name: encounter
+      - name: lab_result
+      - name: location
+      - name: medical_claim
+      - name: medication
+      - name: observation
+      - name: patient
+      - name: pharmacy_claim
+      - name: practitioner
+      - name: procedure
