@@ -87,7 +87,7 @@ with date_stage as(
 , all_date_range as (
     select distinct 
         replace(cal.year_month,'-','') as year_month
-    from {{ ref('terminology__calendar') }} cal
+    from {{ source('terminology', 'calendar') }} cal
     where (cal.year_month >= (select min(year_month) from date_stage)
     and cal.year_month <= (select max(year_month) from date_stage))
     

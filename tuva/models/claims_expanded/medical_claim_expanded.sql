@@ -6,4 +6,4 @@
 
 
 select *
-from {{ ref('medical_claim') }}
+from {{ source('tuva_input', 'medical_claim') }}

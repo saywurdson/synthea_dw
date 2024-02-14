@@ -4,5 +4,5 @@ models:
   - name: medical_claim_expanded
     config:
       schema: claims_expanded
-      materialized: table
+      materialized: view
       tags: claims_expanded

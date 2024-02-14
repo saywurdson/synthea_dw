@@ -24,4 +24,4 @@ select
     , cast(present_on_admit_description as {{ dbt.type_string() }} ) as present_on_admit_description
     , cast(data_source as {{ dbt.type_string() }} ) as data_source
     , cast('{{ var('tuva_last_run')}}' as {{ dbt.type_timestamp() }} ) as tuva_last_run
-from {{ ref('condition') }}
+from {{ source('tuva_input', 'condition') }}

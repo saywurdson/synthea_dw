@@ -27,7 +27,7 @@ with conditions as (
     select
           referenced_component_id as snomed_code
         , map_target as icd_10_code
-    from {{ ref('terminology__snomed_icd_10_map') }}
+    from {{ source('terminology', 'snomed_icd_10_map') }}
     where lower(map_rule) in ('true', 'otherwise true')
     and map_group = '1'
 

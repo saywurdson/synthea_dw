@@ -1,0 +1,8 @@
+duckdb:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      threads: 4
+      database: 'synthea'
+      path: /workspaces/synthea_dw/synthea.db

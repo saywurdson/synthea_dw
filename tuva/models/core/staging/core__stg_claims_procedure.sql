@@ -530,9 +530,9 @@ select distinct
     , cast(unpivot_cte.data_source as {{ dbt.type_string() }} ) as data_source
     , cast('{{ var('tuva_last_run')}}' as {{ dbt.type_timestamp() }} ) as tuva_last_run
 from unpivot_cte
-left join {{ ref('terminology__icd_10_pcs') }} as icd
+left join {{ source('terminology', 'icd_10_pcs') }} as icd
     on unpivot_cte.source_code = icd.icd_10_pcs
-left join {{ ref('terminology__hcpcs_level_2') }} as hcpcs
+left join {{ source('terminology', 'hcpcs_level_2') }} as hcpcs
     on unpivot_cte.source_code = hcpcs.hcpcs
 left join {{ ref('acute_inpatient__encounter_id')}} as ap
     on unpivot_cte.claim_id = ap.claim_id

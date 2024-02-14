@@ -29,4 +29,4 @@ select
     , zip_code
     , phone
     , data_source
-from {{ ref('eligibility') }}
+from {{ source('tuva_input', 'eligibility') }}

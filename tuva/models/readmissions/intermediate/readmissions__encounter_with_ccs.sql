@@ -31,7 +31,7 @@ select
 
 from
     {{ ref('readmissions__encounter') }} aa
-    left join {{ ref('terminology__icd_10_cm') }} bb
+    left join {{ source('terminology', 'icd_10_cm') }} bb
     on aa.primary_diagnosis_code = bb.icd_10_cm
     left join {{ ref('readmissions__icd_10_cm_to_ccs') }} cc
     on aa.primary_diagnosis_code = cc.icd_10_cm

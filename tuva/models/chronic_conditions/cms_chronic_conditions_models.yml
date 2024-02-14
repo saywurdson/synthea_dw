@@ -11,7 +11,7 @@ models:
       tags:
         - cms_chronic_conditions
         - chronic_conditions
-      materialized: table
+      materialized: view
     description: >
       This model pivots conditions on the patient level (i.e. one record per 
       patient) with flags for each chronic condition.
@@ -259,7 +259,7 @@ models:
       tags:
         - cms_chronic_conditions
         - chronic_conditions
-      materialized: table
+      materialized: view
     description: >
       This model unions condition flags from the 3 upstream stage models that
       calculate them.
@@ -312,7 +312,7 @@ models:
       tags:
         - cms_chronic_conditions
         - chronic_conditions
-      materialized: table
+      materialized: view
     description: >
       This model contains logic for all chronic conditions where 
       additional_logic is not 'None'. This model includes standard exclusions
@@ -355,7 +355,7 @@ models:
       tags:
         - cms_chronic_conditions
         - chronic_conditions
-      materialized: table
+      materialized: view
     description: >
       This model contains logic for the chronic condition Human
       Immunodeficiency Virus and/or Acquired Immunodeficiency Syndrome
@@ -399,7 +399,7 @@ models:
       tags:
         - cms_chronic_conditions
         - chronic_conditions
-      materialized: table
+      materialized: view
     description: >
       This model contains logic for the chronic condition Opioid Use Disorder 
       (OUD). This model maps ICD-10-CM diagnosis codes, ICD-10-PCS procedure

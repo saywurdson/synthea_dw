@@ -146,4 +146,4 @@ select
     , procedure_date_24
     , procedure_date_25
     , data_source
-from {{ ref('medical_claim') }}
+from {{ source('tuva_input', 'medical_claim') }}

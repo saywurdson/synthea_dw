@@ -8,7 +8,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_hcc_suspecting{% else %}hcc_suspecting{%- endif -%}
       alias: list
       tags: hcc_suspecting
-      materialized: table
+      materialized: view
     description: >
       This final model displays the list of suspecting conditions per patient 
       with the reason and contributing factors.
@@ -41,7 +41,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_hcc_suspecting{% else %}hcc_suspecting{%- endif -%}
       alias: summary
       tags: hcc_suspecting
-      materialized: table
+      materialized: view
     description: >
       This final model displays a rollup of suspecting conditions per patient.
     columns:
@@ -67,7 +67,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_hcc_suspecting{% else %}hcc_suspecting{%- endif -%}
       alias: _int_all_conditions
       tags: hcc_suspecting
-      materialized: table
+      materialized: view
     description: All historical conditions mapped to HCCs.
     columns:
       - name: patient_id
@@ -97,7 +97,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_hcc_suspecting{% else %}hcc_suspecting{%- endif -%}
       alias: _int_patient_hcc_history
       tags: hcc_suspecting
-      materialized: table
+      materialized: view
     description: >
       This intermediate model displays the full history of a patient's recorded HCCs
       with a flag for recorded during the current year.
@@ -145,7 +145,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_hcc_suspecting{% else %}hcc_suspecting{%- endif -%}
       alias: _int_prep_conditions
       tags: hcc_suspecting
-      materialized: table
+      materialized: view
     description: Preparing conditions; mapping snomed-ct conditions to icd-10-cm.
     columns:
       - name: patient_id

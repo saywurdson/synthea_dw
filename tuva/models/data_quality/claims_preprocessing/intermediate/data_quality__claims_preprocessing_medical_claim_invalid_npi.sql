@@ -35,7 +35,7 @@ with medical_claim as (
         , count(medical_claim.billing_npi) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__provider')}} pro
+         left join {{ source('terminology', 'provider')}} pro
            on medical_claim.billing_npi = pro.npi
          left join test_catalog
            on test_catalog.test_name = 'billing_npi invalid'
@@ -66,7 +66,7 @@ with medical_claim as (
         , count(medical_claim.facility_npi) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__provider')}} pro
+         left join {{ source('terminology', 'provider')}} pro
            on medical_claim.facility_npi = pro.npi
          left join test_catalog
            on test_catalog.test_name = 'facility_npi invalid'
@@ -97,7 +97,7 @@ with medical_claim as (
         , count(medical_claim.rendering_npi) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__provider')}} pro
+         left join {{ source('terminology', 'provider')}} pro
            on medical_claim.rendering_npi = pro.npi
          left join test_catalog
            on test_catalog.test_name = 'rendering_npi invalid'

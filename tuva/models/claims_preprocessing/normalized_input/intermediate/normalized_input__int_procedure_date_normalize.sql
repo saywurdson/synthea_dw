@@ -281,7 +281,7 @@ select
     , count(*) as procedure_date_occurrence_count
     , '{{ var('tuva_last_run')}}' as tuva_last_run
 from pivot_procedure piv
-left join {{ ref('terminology__calendar') }} cal
+left join {{ source('terminology', 'calendar') }} cal
     on piv.procedure_date = cal.full_date
 where claim_type = 'institutional'
 group by 

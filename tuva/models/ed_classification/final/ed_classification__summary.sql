@@ -34,7 +34,7 @@ select
 from {{ ref('ed_classification__int_filter_encounter_with_classification') }} class
 inner join {{ ref('ed_classification__categories') }} cat
     using(classification)
-left join {{ ref('terminology__provider') }} fac_prov 
+left join {{ source('terminology', 'provider') }} fac_prov 
     on class.facility_npi = fac_prov.npi
 left join {{ ref('ed_classification__stg_patient') }} pat
     on class.patient_id = pat.patient_id

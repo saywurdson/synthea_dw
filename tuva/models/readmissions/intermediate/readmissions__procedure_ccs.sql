@@ -23,7 +23,7 @@ select
     '{{ var('tuva_last_run')}}' as tuva_last_run
 from
     {{ ref('readmissions__stg_core__procedure') }} aa
-    left join {{ ref('terminology__icd_10_pcs') }} bb
+    left join {{ source('terminology', 'icd_10_pcs') }} bb
     on aa.normalized_code = bb.icd_10_pcs
     left join {{ ref('readmissions__icd_10_pcs_to_ccs') }} cc
     on aa.normalized_code = cc.icd_10_pcs

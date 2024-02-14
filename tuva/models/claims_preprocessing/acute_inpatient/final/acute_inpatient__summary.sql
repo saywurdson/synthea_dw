@@ -83,7 +83,7 @@ group by 1
         , b.provider_last_name
         , count(distinct facility_npi) as npi_count
     from {{ ref('acute_inpatient__institutional_encounter_id') }} a
-    left join {{ ref('terminology__provider') }} b
+    left join {{ source('terminology', 'provider') }} b
     on a.facility_npi = b.npi
     group by 1,3,4
 )
@@ -132,19 +132,19 @@ left join patient e
   on a.patient_id = e.patient_id
 left join provider f
   on a.encounter_id = f.encounter_id
-left join {{ ref('terminology__discharge_disposition') }} g
+left join {{ source('terminology', 'discharge_disposition') }} g
   on c.discharge_disposition_code = g.discharge_disposition_code
-left join {{ ref('terminology__admit_source') }} h
+left join {{ source('terminology', 'admit_source') }} h
   on c.admit_source_code = h.admit_source_code
-left join {{ ref('terminology__admit_type') }} i
+left join {{ source('terminology', 'admit_type') }} i
   on c.admit_type_code = i.admit_type_code
-left join {{ ref('terminology__ms_drg') }} j
+left join {{ source('terminology', 'ms_drg') }} j
   on c.ms_drg_code = j.ms_drg_code
-left join {{ ref('terminology__apr_drg') }} k
+left join {{ source('terminology', 'apr_drg') }} k
   on c.apr_drg_code = k.apr_drg_code
-left join {{ ref('terminology__icd_10_cm')}} icd10cm
+left join {{ source('terminology', 'icd_10_cm')}} icd10cm
   on c.diagnosis_code_1 = icd10cm.icd_10_cm
   and c.diagnosis_code_type = 'icd-10-cm'
-left join {{ ref('terminology__icd_9_cm')}} icd9cm
+left join {{ source('terminology', 'icd_9_cm')}} icd9cm
   on c.diagnosis_code_1 = icd9cm.icd_9_cm
   and c.diagnosis_code_type = 'icd-9-cm'

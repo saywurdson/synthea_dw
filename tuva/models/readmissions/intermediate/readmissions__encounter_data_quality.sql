@@ -73,9 +73,9 @@ select
     end as invalid_ms_drg_flag
 
 from {{ ref('readmissions__encounter_with_ccs') }} aa
-     left join {{ ref('terminology__discharge_disposition') }} bb
+     left join {{ source('terminology', 'discharge_disposition') }} bb
      on aa.discharge_disposition_code = bb.discharge_disposition_code
-     left join {{ ref('terminology__ms_drg') }} cc
+     left join {{ source('terminology', 'ms_drg') }} cc
      on aa.ms_drg_code = cc.ms_drg_code
 ),
 

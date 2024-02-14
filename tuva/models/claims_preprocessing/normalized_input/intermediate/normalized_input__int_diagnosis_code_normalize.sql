@@ -307,10 +307,10 @@ select
     , count(*) as diagnosis_code_occurrence_count
     , '{{ var('tuva_last_run')}}' as tuva_last_run
 from pivot_diagnosis piv
-left join {{ ref('terminology__icd_10_cm') }} icd_10
+left join {{ source('terminology', 'icd_10_cm') }} icd_10
     on replace(piv.diagnosis_code,'.','') = icd_10.icd_10_cm
     and piv.diagnosis_code_type = 'icd-10-cm'
-left join {{ ref('terminology__icd_9_cm') }} icd_9
+left join {{ source('terminology', 'icd_9_cm') }} icd_9
     on replace(piv.diagnosis_code,'.','') = icd_9.icd_9_cm
     and piv.diagnosis_code_type = 'icd-9-cm'
 where claim_type <> 'undetermined'

@@ -14,12 +14,12 @@ select distinct
   , fac_prov.npi as normalized_facility_npi
   , '{{ var('tuva_last_run')}}' as tuva_last_run
 from {{ ref('normalized_input__stg_medical_claim') }} med
-left join {{ ref('terminology__provider') }} rend_prov
+left join {{ source('terminology', 'provider') }} rend_prov
     on med.rendering_npi = rend_prov.npi
     and rend_prov.entity_type_description = 'Individual'
-left join {{ ref('terminology__provider') }} bill_prov
+left join {{ source('terminology', 'provider') }} bill_prov
     on med.billing_npi = bill_prov.npi
-left join {{ ref('terminology__provider') }} fac_prov
+left join {{ source('terminology', 'provider') }} fac_prov
     on med.facility_npi = fac_prov.npi
     and fac_prov.entity_type_description = 'Organization'
     and med.claim_type = 'institutional'

@@ -17,7 +17,7 @@ models:
       tags:
         - tuva_chronic_conditions
         - chronic_conditions
-      materialized: table
+      materialized: view
     tests:
       - unique:
           column_name: "(patient_id || '_' || condition)"
@@ -61,7 +61,7 @@ models:
       tags:
         - tuva_chronic_conditions
         - chronic_conditions
-      materialized: table
+      materialized: view
     tests:
       - unique:
           column_name: patient_id
