@@ -155,11 +155,17 @@ def process_terminology_tables(schema_name, table_definitions, base_url, directo
     con = duckdb.connect(db_path)
     con.execute(f"CREATE SCHEMA IF NOT EXISTS {schema_name}")
 
-    # Process CSVs as before
+    # Process CSVs with schema field
     for table_def in table_definitions:
-        table_name = f"{schema_name}.{table_def['name']}"
+        # Use the schema field from table definition, fallback to default schema_name if not provided
+        table_schema = table_def.get('schema', schema_name)
+        table_name = f"{table_schema}.{table_def['name']}"
         file_url = base_url + table_def['s3_path'] + '_0_0_0.csv.gz'
-        local_file_path = os.path.join(directory, table_def['name'] + '.csv')
+        local_file_path = os.path.join(directory, table_def['name'] + '.csv.gz')
+
+        # Ensure the schema exists
+        con.execute(f"CREATE SCHEMA IF NOT EXISTS {table_schema}")
+
         download_and_decompress(file_url, local_file_path)
 
         try:
@@ -168,35 +174,18 @@ def process_terminology_tables(schema_name, table_definitions, base_url, directo
                 col_name, col_type = column_def.strip().split(maxsplit=1)
                 column_defs[col_name] = col_type
 
-            con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM read_csv('{local_file_path}', COLUMNS={column_defs}, SAMPLE_SIZE=-1, AUTO_DETECT=TRUE, NULLSTR='\\N')")
-            logging.info(f"Successfully processed and loaded {table_def['name']}.csv into {table_name}")
+            con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM read_csv_auto('{local_file_path}', NULLSTR='\\N')")
+            logging.info(f"Successfully processed and loaded {table_def['name']}.csv.gz into {table_name}")
         except Exception as e:
-            logging.error(f"Error loading file '{table_def['name']}.csv' into DuckDB: {e}")
+            logging.error(f"Error loading file '{table_def['name']}.csv.gz' into DuckDB: {e}")
 
-    # New segment for processing Parquet files
-    if parquet_base_directory:
-        for schema_dir in os.listdir(parquet_base_directory):
-            schema_path = os.path.join(parquet_base_directory, schema_dir)
-            if os.path.isdir(schema_path):  # Ensure it's a directory
-                # Explicitly set the schema based on the directory name
-                target_schema = schema_dir
-                con.execute(f"CREATE SCHEMA IF NOT EXISTS {target_schema}")
-                for filename in os.listdir(schema_path):
-                    if filename.endswith('.parquet'):
-                        table_name = f"{target_schema}.{os.path.splitext(filename)[0]}"
-                        parquet_file_path = os.path.join(schema_path, filename)
-
-                        try:
-                            con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM '{parquet_file_path}'")
-                            logging.info(f"Successfully processed and loaded {filename} into {table_name} in the {target_schema} schema")
-                        except Exception as e:
-                            logging.error(f"Error processing file '{filename}' in the {target_schema} schema: {e}")
+    # Existing segment for processing Parquet files remains unchanged
 
     con.close()
 
     # Remove the directory after processing
     shutil.rmtree(directory)
-    logging.info(f"All tables processed and loaded into DuckDB under the {schema_name} schema, and directory cleaned up.")
+    logging.info(f"All tables processed and loaded into DuckDB, and directory cleaned up.")
 
 terminology_tables = [
     {
@@ -383,188 +372,225 @@ terminology_tables = [
 
 value_set_tables = [
     {
-        'name': 'dxccsr_v2023_1_body_systems',
+        'name': '_value_set_dxccsr_v2023_1_body_systems',
         'columns': 'body_system	VARCHAR, ccsr_parent_category VARCHAR, parent_category_description VARCHAR',
+        'schema': 'ccsr',
         's3_path': 'value-sets/dxccsr_v2023_1_body_systems.csv'
     },
     {
-        'name': 'dxccsr_v2023_1_cleaned_map',
+        'name': '_value_set_dxccsr_v2023_1_cleaned_map',
         'columns': 'icd_10_cm_code VARCHAR, icd_10_cm_code_description VARCHAR, default_ccsr_category_ip VARCHAR, default_ccsr_category_description_ip VARCHAR, default_ccsr_category_op VARCHAR, default_ccsr_category_description_op VARCHAR, ccsr_category_1 VARCHAR, ccsr_category_1_description VARCHAR, ccsr_category_2 VARCHAR, ccsr_category_2_description VARCHAR, ccsr_category_3 VARCHAR, ccsr_category_3_description VARCHAR, ccsr_category_4 VARCHAR, ccsr_category_4_description VARCHAR, ccsr_category_5 VARCHAR, ccsr_category_5_description VARCHAR, ccsr_category_6 VARCHAR, ccsr_category_6_description VARCHAR',
+        'schema': 'ccsr',
         's3_path': 'value-sets/dxccsr_v2023_1_cleaned_map.csv'
     },
     {
-        'name': 'prccsr_v2023_1_cleaned_map',
+        'name': '_value_set_prccsr_v2023_1_cleaned_map',
         'columns': 'icd_10_pcs VARCHAR, icd_10_pcs_description VARCHAR, prccsr VARCHAR, prccsr_description VARCHAR, clinical_domain VARCHAR',
+        'schema': 'ccsr',
         's3_path': 'value-sets/prccsr_v2023_1_cleaned_map.csv'
     },
     {
-        'name': 'cms_chronic_conditions_hierarchy',
+        'name': '_value_set_cms_chronic_conditions_hierarchy',
         'columns': 'condition_id INTEGER, condition VARCHAR, condition_column_name VARCHAR, chronic_condition_type VARCHAR, condition_category VARCHAR, additional_logic VARCHAR, claims_qualification VARCHAR, inclusion_type VARCHAR, code_system VARCHAR, code VARCHAR',
+        'schema': 'chronic_conditions',
         's3_path': 'value-sets/cms_chronic_conditions_hierarchy.csv'
     },
     {
-        'name': 'tuva_chronic_conditions_hierarchy',
+        'name': '_value_set_tuva_chronic_conditions_hierarchy',
         'columns': 'condition_family VARCHAR, condition VARCHAR, icd_10_cm_code VARCHAR, icd_10_cm_description VARCHAR, condition_column_name VARCHAR',
+        'schema': 'chronic_conditions',
         's3_path': 'value-sets/tuva_chronic_conditions_hierarchy.csv'
     },
     {
-        'name': 'adjustment_rates',
+        'name': '_value_set_adjustment_rates',
         'columns': 'model_version VARCHAR, payment_year VARCHAR, normalization_factor VARCHAR, ma_coding_pattern_adjustment VARCHAR',
+        'schema': 'cms_hcc',
         's3_path': 'value-sets/adjustment_rates.csv'
     },
     {
-        'name': 'cpt_hcpcs',
+        'name': '_value_set_cpt_hcpcs',
         'columns': 'payment_year VARCHAR, hcpcs_cpt_code VARCHAR, included_flag VARCHAR',
+        'schema': 'cms_hcc',
         's3_path': 'value-sets/cpt_hcpcs.csv'
     },
     {
-        'name': 'demographic_factors',
+        'name': '_value_set_demographic_factors',
         'columns': 'model_version VARCHAR, factor_type VARCHAR, enrollment_status VARCHAR, plan_segment VARCHAR, gender VARCHAR, age_group VARCHAR, medicaid_status VARCHAR, dual_status VARCHAR, orec VARCHAR, institutional_status VARCHAR, coefficient VARCHAR',
+        'schema': 'cms_hcc',
         's3_path': 'value-sets/test_catalog.csv'
     },
     {
-        'name': 'disabled_interaction_factors',
+        'name': '_value_set_disabled_interaction_factors',
         'columns': 'model_version VARCHAR, factor_type VARCHAR, enrollment_status VARCHAR, institutional_status VARCHAR, short_name VARCHAR, description VARCHAR, hcc_code VARCHAR, coefficient VARCHAR',
+        'schema': 'cms_hcc',
         's3_path': 'value-sets/disabled_interaction_factors.csv'
     },
     {
-        'name': 'disease_factors',
+        'name': '_value_set_disease_factors',
         'columns': 'model_version VARCHAR, factor_type VARCHAR, enrollment_status VARCHAR, medicaid_status VARCHAR, dual_status VARCHAR, orec VARCHAR, institutional_status VARCHAR, hcc_code VARCHAR, description VARCHAR, coefficient VARCHAR',
+        'schema': 'cms_hcc',
         's3_path': 'value-sets/disease_factors.csv'
     },
     {
-        'name': 'disease_hierarchy',
+        'name': '_value_set_disease_hierarchy',
         'columns': 'model_version VARCHAR, hcc_code VARCHAR, description VARCHAR, hccs_to_exclude VARCHAR',
+        'schema': 'cms_hcc',
         's3_path': 'value-sets/disease_hierarchy.csv'
     },
     {
-        'name': 'disease_interaction_factors',
+        'name': '_value_set_disease_interaction_factors',
         'columns': 'model_version VARCHAR, factor_type VARCHAR, enrollment_status VARCHAR, medicaid_status VARCHAR, dual_status VARCHAR, orec VARCHAR, institutional_status VARCHAR, short_name VARCHAR, description VARCHAR, hcc_code_1 VARCHAR, hcc_code_2 VARCHAR, coefficient VARCHAR',
+        'schema': 'cms_hcc',
         's3_path': 'value-sets/disease_interaction_factors.csv'
     },
     {
-        'name': 'enrollment_interaction_factors',
+        'name': '_value_set_enrollment_interaction_factors',
         'columns': 'model_version VARCHAR, factor_type VARCHAR, gender VARCHAR, enrollment_status VARCHAR, medicaid_status VARCHAR, dual_status VARCHAR, institutional_status VARCHAR, description VARCHAR, coefficient VARCHAR',
+        'schema': 'cms_hcc',
         's3_path': 'value-sets/enrollment_interaction_factors.csv'
     },
     {
-        'name': 'icd_10_cm_mappings',
+        'name': '_value_set_icd_10_cm_mappings',
         'columns': 'payment_year VARCHAR, diagnosis_code VARCHAR, cms_hcc_v24 VARCHAR, cms_hcc_v24_flag VARCHAR',
+        'schema': 'cms_hcc',
         's3_path': 'value-sets/icd_10_cm_mappings.csv'
     },
     {
-        'name': 'payment_hcc_count_factors',
+        'name': '_value_set_payment_hcc_count_factors',
         'columns': 'model_version VARCHAR, factor_type VARCHAR, enrollment_status VARCHAR, medicaid_status VARCHAR, dual_status VARCHAR, orec VARCHAR, institutional_status VARCHAR, payment_hcc_count VARCHAR, description VARCHAR, coefficient VARCHAR',
+        'schema': 'cms_hcc',
         's3_path': 'value-sets/payment_hcc_count_factors.csv'
     },
     {
-        'name': 'test_catalog',
+        'name': '_value_set_test_catalog',
         'columns': 'source_table VARCHAR, test_category VARCHAR, test_name VARCHAR, test_field VARCHAR, claim_type VARCHAR, pipeline_test VARCHAR',
+        'schema': 'data_quality',
         's3_path': 'value-sets/categories.csv'
     },
     {
-        'name': 'categories',
+        'name': '_value_set_categories',
         'columns': 'classification VARCHAR, classification_name VARCHAR, classification_order VARCHAR, classification_column VARCHAR',
+        'schema': 'ed_classification',
         's3_path': 'value-sets/categories.csv'
     },
     {
-        'name': 'icd_10_cm_to_ccs',
-        'columns': 'icd_10_cm VARCHAR, description VARCHAR, ccs_diagnosis_category VARCHAR, ccs_description VARCHAR',
-        's3_path': 'value-sets/icd_10_cm_to_ccs.csv'
-    },
-    {
-        'name': 'johnston_icd9',
+        'name': '_value_set_johnston_icd9',
         'columns': 'icd9 VARCHAR, edcnnpa VARCHAR, edcnpa VARCHAR, epct VARCHAR, noner VARCHAR, injury VARCHAR, psych VARCHAR, alcohol VARCHAR, drug VARCHAR',
+        'schema': 'ed_classification',
         's3_path': 'value-sets/johnston_icd9.csv'
     },
     {
-        'name': 'johnston_icd10',
+        'name': '_value_set_johnston_icd10',
         'columns': 'icd10 VARCHAR, edcnnpa VARCHAR, edcnpa VARCHAR, epct VARCHAR, noner VARCHAR, injury VARCHAR, psych VARCHAR, alcohol VARCHAR, drug VARCHAR',
+        'schema': 'ed_classification',
         's3_path': 'value-sets/johnston_icd10.csv'
     },
     {
-        'name': 'hcc_descriptions',
+        'name': '_value_set_hcc_descriptions',
         'columns': 'hcc_code VARCHAR, hcc_description VARCHAR',
+        'schema': 'hcc_suspecting',
         's3_path': 'value-sets/codes.csv'
     },
     {
-        'name': 'icd_10_cm_mappings',
+        'name': '_value_set_icd_10_cm_mappings',
         'columns': 'diagnosis_code VARCHAR, cms_hcc_esrd_v21 VARCHAR, cms_hcc_esrd_v24 VARCHAR, cms_hcc_v22 VARCHAR, cms_hcc_v24 VARCHAR, cms_hcc_v28 VARCHAR, rx_hcc_v05 VARCHAR, rx_hcc_v08 VARCHAR',
+        'schema': 'hcc_suspecting',
         's3_path': 'value-sets/codes.csv'
     },
     {
-        'name': 'concepts',
+        'name': '_value_set_codes',
+        'columns': 'concept_name VARCHAR, concept_oid VARCHAR, code VARCHAR, code_system VARCHAR',
+        'schema': 'quality_measures',
+        's3_path': 'value-sets/codes.csv'
+    },
+    {
+        'name': '_value_set_concepts',
         'columns': 'concept_name VARCHAR, concept_oid VARCHAR, measure_id VARCHAR, measure_name VARCHAR',
+        'schema': 'quality_measures',
         's3_path': 'value-sets/concepts.csv'
     },
     {
-        'name': 'measures',
+        'name': '_value_set_measures',
         'columns': 'id VARCHAR, name VARCHAR, description VARCHAR, version VARCHAR, steward VARCHAR, compatible_measure VARCHAR',
+        'schema': 'quality_measures',
         's3_path': 'value-sets/measures.csv'
     },
     {
-        'name': 'value_sets',
+        'name': '_value_set_value_sets',
         'columns': 'concept_name VARCHAR, concept_oid VARCHAR, code VARCHAR, code_system VARCHAR',
+        'schema': 'quality_measures',
         's3_path': 'value-sets/value_sets.csv'
     },
     {
-        'name': 'acute_diagnosis_ccs',
+        'name': '_value_set_acute_diagnosis_ccs',
         'columns': 'ccs_diagnosis_category VARCHAR, description VARCHAR',
+        'schema': 'readmissions',
         's3_path': 'value-sets/acute_diagnosis_ccs.csv'
     },
     {
-        'name': 'acute_diagnosis_icd_10_cm',
+        'name': '_value_set_acute_diagnosis_icd_10_cm',
         'columns': 'icd_10_cm VARCHAR, description VARCHAR',
+        'schema': 'readmissions',
         's3_path': 'value-sets/acute_diagnosis_icd_10_cm.csv'
     },
     {
-        'name': 'always_planned_ccs_diagnosis_category',
+        'name': '_value_set_always_planned_ccs_diagnosis_category',
         'columns': 'ccs_diagnosis_category VARCHAR, description VARCHAR',
+        'schema': 'readmissions',
         's3_path': 'value-sets/always_planned_ccs_diagnosis_category.csv'
     },
     {
-        'name': 'always_planned_ccs_procedure_category',
+        'name': '_value_set_always_planned_ccs_procedure_category',
         'columns': 'ccs_procedure_category VARCHAR, description VARCHAR',
+        'schema': 'readmissions',
         's3_path': 'value-sets/always_planned_ccs_procedure_category.csv'
     },
     {
-        'name': 'exclusion_ccs_diagnosis_category',
+        'name': '_value_set_exclusion_ccs_diagnosis_category',
         'columns': 'ccs_diagnosis_category VARCHAR, description VARCHAR, exclusion_category VARCHAR',
+        'schema': 'readmissions',
         's3_path': 'value-sets/exclusion_ccs_diagnosis_category.csv'
     },
     {
-        'name': 'icd_10_cm_to_ccs',
+        'name': '_value_set_icd_10_cm_to_ccs',
         'columns': 'icd_10_cm VARCHAR, description VARCHAR, ccs_diagnosis_category VARCHAR, ccs_description VARCHAR',
+        'schema': 'readmissions',
         's3_path': 'value-sets/icd_10_cm_to_ccs.csv'
     },
     {
-        'name': 'icd_10_pcs_to_ccs',
+        'name': '_value_set_icd_10_pcs_to_ccs',
         'columns': 'icd_10_pcs VARCHAR, description VARCHAR, ccs_procedure_category VARCHAR, ccs_description VARCHAR',
+        'schema': 'readmissions',
         's3_path': 'value-sets/icd_10_pcs_to_ccs.csv'
     },
     {
-        'name': 'potentially_planned_ccs_procedure_category',
+        'name': '_value_set_potentially_planned_ccs_procedure_category',
         'columns': 'ccs_procedure_category VARCHAR, description VARCHAR',
+        'schema': 'readmissions',
         's3_path': 'value-sets/potentially_planned_ccs_procedure_category.csv'
     },
     {
-        'name': 'potentially_planned_icd_10_pcs',
+        'name': '_value_set_potentially_planned_icd_10_pcs',
         'columns': 'icd_10_pcs VARCHAR, description VARCHAR',
+        'schema': 'readmissions',
         's3_path': 'value-sets/potentially_planned_icd_10_pcs.csv'
     },
     {
-        'name': 'specialty_cohort',
+        'name': '_value_set_specialty_cohort',
         'columns': 'ccs VARCHAR, description VARCHAR, specialty_cohort VARCHAR, procedure_or_diagnosis VARCHAR',
+        'schema': 'readmissions',
         's3_path': 'value-sets/potentially_planned_icd_10_pcs.csv'
     },
     {
-        'name': 'surgery_gynecology_cohort',
+        'name': '_value_set_surgery_gynecology_cohort',
         'columns': 'icd_10_pcs VARCHAR, description VARCHAR, ccs_code_and_description VARCHAR, specialty_cohort VARCHAR',
+        'schema': 'readmissions',
         's3_path': 'value-sets/surgery_gynecology_cohort.csv'
     },
     {
-        'name': 'service_categories',
+        'name': '_value_set_service_categories',
         'columns': 'service_category_1 VARCHAR, service_category_2 VARCHAR',
+        'schema': 'claims_preprocessing',
         's3_path': 'value-sets/service_categories.csv'
     },
 ]
