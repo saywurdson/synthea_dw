@@ -1,0 +1,41 @@
+[0m23:27:28.829702 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9bcb3f90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9bb0f8d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9bb1e0d0>]}
+
+
+============================== 23:27:28.831130 | 1372c707-87c8-4566-acf1-6b109780f435 ==============================
+[0m23:27:28.831130 [info ] [MainThread]: Running with dbt=1.7.7
+[0m23:27:28.831730 [debug] [MainThread]: running dbt with arguments {'cache_selected_only': 'False', 'profiles_dir': '/workspaces/synthea_dw/tuva', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'use_colors': 'True', 'partial_parse': 'True', 'printer_width': '80', 'log_format': 'default', 'log_path': '/workspaces/synthea_dw/tuva/logs', 'write_json': 'True', 'quiet': 'False', 'send_anonymous_usage_stats': 'True', 'no_print': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'log_cache_events': 'False', 'version_check': 'True', 'debug': 'False', 'fail_fast': 'False', 'target_path': 'None', 'warn_error': 'None', 'static_parser': 'True', 'invocation_command': 'dbt deps'}
+[0m23:27:28.909462 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '1372c707-87c8-4566-acf1-6b109780f435', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9bb5cd10>]}
+[0m23:27:28.910755 [debug] [MainThread]: Set downloads directory='/tmp/dbt-downloads-_5c3lf3g'
+[0m23:27:28.911390 [debug] [MainThread]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m23:27:29.096170 [debug] [MainThread]: Response from registry index: GET https://hub.getdbt.com/api/v1/index.json 200
+[0m23:27:29.098781 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json
+[0m23:27:29.158359 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json 200
+[0m23:27:29.171386 [info ] [MainThread]: Updating lock file in file path: /workspaces/synthea_dw/tuva/package-lock.yml
+[0m23:27:29.175517 [debug] [MainThread]: Set downloads directory='/tmp/dbt-downloads-yg3_3npc'
+[0m23:27:29.179486 [info ] [MainThread]: Installing dbt-labs/dbt_utils
+[0m23:27:29.501769 [info ] [MainThread]: Installed from version 1.1.1
+[0m23:27:29.502619 [info ] [MainThread]: Up to date!
+[0m23:27:29.503305 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'package', 'label': '1372c707-87c8-4566-acf1-6b109780f435', 'property_': 'install', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9bb93690>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9bb52d10>]}
+[0m23:27:29.504465 [debug] [MainThread]: Resource report: {"command_name": "deps", "command_success": true, "command_wall_clock_time": 0.70888096, "process_user_time": 1.247435, "process_kernel_time": 0.117796, "process_mem_max_rss": "109632", "process_out_blocks": "200", "process_in_blocks": "0"}
+[0m23:27:29.505233 [debug] [MainThread]: Command `dbt deps` succeeded at 23:27:29.505125 after 0.71 seconds
+[0m23:27:29.506009 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9bb1ef90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9bb1d7d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa17215d0>]}
+[0m23:27:29.506809 [debug] [MainThread]: Flushing usage events
+[0m23:27:34.210621 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff99deb010>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff99deacd0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff99deb0d0>]}
+
+
+============================== 23:27:34.211946 | 51e8cc81-f24b-4e3b-ab46-154d64d3f702 ==============================
+[0m23:27:34.211946 [info ] [MainThread]: Running with dbt=1.7.7
+[0m23:27:34.212488 [debug] [MainThread]: running dbt with arguments {'log_format': 'default', 'use_experimental_parser': 'False', 'introspect': 'True', 'fail_fast': 'False', 'log_cache_events': 'False', 'version_check': 'True', 'send_anonymous_usage_stats': 'True', 'log_path': '/workspaces/synthea_dw/tuva/logs', 'printer_width': '80', 'static_parser': 'True', 'no_print': 'None', 'target_path': 'None', 'use_colors': 'True', 'cache_selected_only': 'False', 'write_json': 'True', 'profiles_dir': '/workspaces/synthea_dw/tuva', 'debug': 'False', 'partial_parse': 'True', 'indirect_selection': 'eager', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'quiet': 'False', 'warn_error': 'None', 'invocation_command': 'dbt run'}
+[0m23:27:34.383844 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '51e8cc81-f24b-4e3b-ab46-154d64d3f702', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff99cd0450>]}
+[0m23:27:34.462050 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '51e8cc81-f24b-4e3b-ab46-154d64d3f702', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9273be90>]}
+[0m23:27:34.462823 [info ] [MainThread]: Registered adapter: duckdb=1.7.1
+[0m23:27:34.470203 [debug] [MainThread]: checksum: 54188551c516f4dd1c42b8d9c289f2bf49f18ae42632e2ba36a64ad29fd60da4, vars: {}, profile: , target: , version: 1.7.7
+[0m23:27:34.471801 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m23:27:34.472226 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '51e8cc81-f24b-4e3b-ab46-154d64d3f702', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff99cabdd0>]}
+[0m23:27:37.885342 [error] [MainThread]: Encountered an error:
+Compilation Error
+  Model 'model.the_tuva_project.data_quality__claims_preprocessing_medical_claim_invalid_npi' (models/data_quality/claims_preprocessing/intermediate/data_quality__claims_preprocessing_medical_claim_invalid_npi.sql) depends on a node named 'data_quality__test_catalog' which was not found
+[0m23:27:37.886422 [debug] [MainThread]: Resource report: {"command_name": "run", "command_wall_clock_time": 3.7086172, "process_user_time": 4.608005, "process_kernel_time": 0.137567, "process_mem_max_rss": "162036", "process_in_blocks": "136", "command_success": false, "process_out_blocks": "0"}
+[0m23:27:37.886956 [debug] [MainThread]: Command `dbt run` failed at 23:27:37.886830 after 3.71 seconds
+[0m23:27:37.887414 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff99df0490>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff99c59350>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff90b7b590>]}
+[0m23:27:37.887846 [debug] [MainThread]: Flushing usage events

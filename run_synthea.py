@@ -324,6 +324,11 @@ terminology_tables = [
         's3_path': 'terminology/ms_drg.csv'
     },
     {
+        'name': 'ndc',
+        'columns': 'ndc VARCHAR, rxcui VARCHAR, rxnorm_description VARCHAR, fda_description VARCHAR',
+        's3_path': 'terminology/ndc.csv'
+    },
+    {
         'name': 'other_provider_taxonomy',
         'columns': 'npi VARCHAR, taxonomy_code VARCHAR, medicare_specialty_code VARCHAR, description VARCHAR, primary_flag INTEGER',
         's3_path': 'terminology/other_provider_taxonomy.csv'
@@ -359,6 +364,11 @@ terminology_tables = [
         's3_path': 'terminology/revenue_center.csv'
     },
     {
+        'name': 'rxnorm_to_atc',
+        'columns': 'rxcui VARCHAR, rxnorm_description VARCHAR, atc_1_name VARCHAR, atc_2_name VARCHAR, atc_3_name VARCHAR, atc_4_name VARCHAR',
+        's3_path': 'terminology/rxnorm_to_atc.csv'
+    },
+    {
         'name': 'ssa_fips_state',
         'columns': 'ssa_fips_state_code VARCHAR, ssa_fips_state_name VARCHAR',
         's3_path': 'terminology/ssa_fips_state.csv'
@@ -371,6 +381,131 @@ terminology_tables = [
 ]
 
 value_set_tables = [
+    {
+        'name': 'dxccsr_v2023_1_body_systems',
+        'columns': 'body_system	VARCHAR, ccsr_parent_category VARCHAR, parent_category_description VARCHAR',
+        's3_path': 'value-sets/dxccsr_v2023_1_body_systems.csv'
+    },
+    {
+        'name': 'dxccsr_v2023_1_cleaned_map',
+        'columns': 'icd_10_cm_code VARCHAR, icd_10_cm_code_description VARCHAR, default_ccsr_category_ip VARCHAR, default_ccsr_category_description_ip VARCHAR, default_ccsr_category_op VARCHAR, default_ccsr_category_description_op VARCHAR, ccsr_category_1 VARCHAR, ccsr_category_1_description VARCHAR, ccsr_category_2 VARCHAR, ccsr_category_2_description VARCHAR, ccsr_category_3 VARCHAR, ccsr_category_3_description VARCHAR, ccsr_category_4 VARCHAR, ccsr_category_4_description VARCHAR, ccsr_category_5 VARCHAR, ccsr_category_5_description VARCHAR, ccsr_category_6 VARCHAR, ccsr_category_6_description VARCHAR',
+        's3_path': 'value-sets/dxccsr_v2023_1_cleaned_map.csv'
+    },
+    {
+        'name': 'prccsr_v2023_1_cleaned_map',
+        'columns': 'icd_10_pcs VARCHAR, icd_10_pcs_description VARCHAR, prccsr VARCHAR, prccsr_description VARCHAR, clinical_domain VARCHAR',
+        's3_path': 'value-sets/prccsr_v2023_1_cleaned_map.csv'
+    },
+    {
+        'name': 'cms_chronic_conditions_hierarchy',
+        'columns': 'condition_id INTEGER, condition VARCHAR, condition_column_name VARCHAR, chronic_condition_type VARCHAR, condition_category VARCHAR, additional_logic VARCHAR, claims_qualification VARCHAR, inclusion_type VARCHAR, code_system VARCHAR, code VARCHAR',
+        's3_path': 'value-sets/cms_chronic_conditions_hierarchy.csv'
+    },
+    {
+        'name': 'tuva_chronic_conditions_hierarchy',
+        'columns': 'condition_family VARCHAR, condition VARCHAR, icd_10_cm_code VARCHAR, icd_10_cm_description VARCHAR, condition_column_name VARCHAR',
+        's3_path': 'value-sets/tuva_chronic_conditions_hierarchy.csv'
+    },
+    {
+        'name': 'adjustment_rates',
+        'columns': 'model_version VARCHAR, payment_year VARCHAR, normalization_factor VARCHAR, ma_coding_pattern_adjustment VARCHAR',
+        's3_path': 'value-sets/adjustment_rates.csv'
+    },
+    {
+        'name': 'cpt_hcpcs',
+        'columns': 'payment_year VARCHAR, hcpcs_cpt_code VARCHAR, included_flag VARCHAR',
+        's3_path': 'value-sets/cpt_hcpcs.csv'
+    },
+    {
+        'name': 'demographic_factors',
+        'columns': 'model_version VARCHAR, factor_type VARCHAR, enrollment_status VARCHAR, plan_segment VARCHAR, gender VARCHAR, age_group VARCHAR, medicaid_status VARCHAR, dual_status VARCHAR, orec VARCHAR, institutional_status VARCHAR, coefficient VARCHAR',
+        's3_path': 'value-sets/test_catalog.csv'
+    },
+    {
+        'name': 'disabled_interaction_factors',
+        'columns': 'model_version VARCHAR, factor_type VARCHAR, enrollment_status VARCHAR, institutional_status VARCHAR, short_name VARCHAR, description VARCHAR, hcc_code VARCHAR, coefficient VARCHAR',
+        's3_path': 'value-sets/disabled_interaction_factors.csv'
+    },
+    {
+        'name': 'disease_factors',
+        'columns': 'model_version VARCHAR, factor_type VARCHAR, enrollment_status VARCHAR, medicaid_status VARCHAR, dual_status VARCHAR, orec VARCHAR, institutional_status VARCHAR, hcc_code VARCHAR, description VARCHAR, coefficient VARCHAR',
+        's3_path': 'value-sets/disease_factors.csv'
+    },
+    {
+        'name': 'disease_hierarchy',
+        'columns': 'model_version VARCHAR, hcc_code VARCHAR, description VARCHAR, hccs_to_exclude VARCHAR',
+        's3_path': 'value-sets/disease_hierarchy.csv'
+    },
+    {
+        'name': 'disease_interaction_factors',
+        'columns': 'model_version VARCHAR, factor_type VARCHAR, enrollment_status VARCHAR, medicaid_status VARCHAR, dual_status VARCHAR, orec VARCHAR, institutional_status VARCHAR, short_name VARCHAR, description VARCHAR, hcc_code_1 VARCHAR, hcc_code_2 VARCHAR, coefficient VARCHAR',
+        's3_path': 'value-sets/disease_interaction_factors.csv'
+    },
+    {
+        'name': 'enrollment_interaction_factors',
+        'columns': 'model_version VARCHAR, factor_type VARCHAR, gender VARCHAR, enrollment_status VARCHAR, medicaid_status VARCHAR, dual_status VARCHAR, institutional_status VARCHAR, description VARCHAR, coefficient VARCHAR',
+        's3_path': 'value-sets/enrollment_interaction_factors.csv'
+    },
+    {
+        'name': 'icd_10_cm_mappings',
+        'columns': 'payment_year VARCHAR, diagnosis_code VARCHAR, cms_hcc_v24 VARCHAR, cms_hcc_v24_flag VARCHAR',
+        's3_path': 'value-sets/icd_10_cm_mappings.csv'
+    },
+    {
+        'name': 'payment_hcc_count_factors',
+        'columns': 'model_version VARCHAR, factor_type VARCHAR, enrollment_status VARCHAR, medicaid_status VARCHAR, dual_status VARCHAR, orec VARCHAR, institutional_status VARCHAR, payment_hcc_count VARCHAR, description VARCHAR, coefficient VARCHAR',
+        's3_path': 'value-sets/payment_hcc_count_factors.csv'
+    },
+    {
+        'name': 'test_catalog',
+        'columns': 'source_table VARCHAR, test_category VARCHAR, test_name VARCHAR, test_field VARCHAR, claim_type VARCHAR, pipeline_test VARCHAR',
+        's3_path': 'value-sets/categories.csv'
+    },
+    {
+        'name': 'categories',
+        'columns': 'classification VARCHAR, classification_name VARCHAR, classification_order VARCHAR, classification_column VARCHAR',
+        's3_path': 'value-sets/categories.csv'
+    },
+    {
+        'name': 'icd_10_cm_to_ccs',
+        'columns': 'icd_10_cm VARCHAR, description VARCHAR, ccs_diagnosis_category VARCHAR, ccs_description VARCHAR',
+        's3_path': 'value-sets/icd_10_cm_to_ccs.csv'
+    },
+    {
+        'name': 'johnston_icd9',
+        'columns': 'icd9 VARCHAR, edcnnpa VARCHAR, edcnpa VARCHAR, epct VARCHAR, noner VARCHAR, injury VARCHAR, psych VARCHAR, alcohol VARCHAR, drug VARCHAR',
+        's3_path': 'value-sets/johnston_icd9.csv'
+    },
+    {
+        'name': 'johnston_icd10',
+        'columns': 'icd10 VARCHAR, edcnnpa VARCHAR, edcnpa VARCHAR, epct VARCHAR, noner VARCHAR, injury VARCHAR, psych VARCHAR, alcohol VARCHAR, drug VARCHAR',
+        's3_path': 'value-sets/johnston_icd10.csv'
+    },
+    {
+        'name': 'hcc_descriptions',
+        'columns': 'hcc_code VARCHAR, hcc_description VARCHAR',
+        's3_path': 'value-sets/codes.csv'
+    },
+    {
+        'name': 'icd_10_cm_mappings',
+        'columns': 'diagnosis_code VARCHAR, cms_hcc_esrd_v21 VARCHAR, cms_hcc_esrd_v24 VARCHAR, cms_hcc_v22 VARCHAR, cms_hcc_v24 VARCHAR, cms_hcc_v28 VARCHAR, rx_hcc_v05 VARCHAR, rx_hcc_v08 VARCHAR',
+        's3_path': 'value-sets/codes.csv'
+    },
+    {
+        'name': 'concepts',
+        'columns': 'concept_name VARCHAR, concept_oid VARCHAR, measure_id VARCHAR, measure_name VARCHAR',
+        's3_path': 'value-sets/concepts.csv'
+    },
+    {
+        'name': 'measures',
+        'columns': 'id VARCHAR, name VARCHAR, description VARCHAR, version VARCHAR, steward VARCHAR, compatible_measure VARCHAR',
+        's3_path': 'value-sets/measures.csv'
+    },
+    {
+        'name': 'value_sets',
+        'columns': 'concept_name VARCHAR, concept_oid VARCHAR, code VARCHAR, code_system VARCHAR',
+        's3_path': 'value-sets/value_sets.csv'
+    },
     {
         'name': 'acute_diagnosis_ccs',
         'columns': 'ccs_diagnosis_category VARCHAR, description VARCHAR',
@@ -390,11 +525,6 @@ value_set_tables = [
         'name': 'always_planned_ccs_procedure_category',
         'columns': 'ccs_procedure_category VARCHAR, description VARCHAR',
         's3_path': 'value-sets/always_planned_ccs_procedure_category.csv'
-    },
-    {
-        'name': 'cms_chronic_conditions_hierarchy',
-        'columns': 'condition_id INTEGER, condition VARCHAR, condition_column_name VARCHAR, chronic_condition_type VARCHAR, condition_category VARCHAR, additional_logic VARCHAR, claims_qualification VARCHAR, inclusion_type VARCHAR, code_system VARCHAR, code VARCHAR',
-        's3_path': 'value-sets/cms_chronic_conditions_hierarchy.csv'
     },
     {
         'name': 'exclusion_ccs_diagnosis_category',
@@ -422,14 +552,9 @@ value_set_tables = [
         's3_path': 'value-sets/potentially_planned_icd_10_pcs.csv'
     },
     {
-        'name': 'service_category',
-        'columns': 'service_category_1 VARCHAR, service_category_2 VARCHAR, claim_type VARCHAR, hcpcs_code VARCHAR, bill_type_code_first_2_digits VARCHAR, revenue_center_code VARCHAR, valid_drg_flag VARCHAR, place_of_service_code VARCHAR',
-        's3_path': 'value-sets/service_category.csv'
-    },
-    {
         'name': 'specialty_cohort',
         'columns': 'ccs VARCHAR, description VARCHAR, specialty_cohort VARCHAR, procedure_or_diagnosis VARCHAR',
-        's3_path': 'value-sets/specialty_cohort.csv'
+        's3_path': 'value-sets/potentially_planned_icd_10_pcs.csv'
     },
     {
         'name': 'surgery_gynecology_cohort',
@@ -437,10 +562,10 @@ value_set_tables = [
         's3_path': 'value-sets/surgery_gynecology_cohort.csv'
     },
     {
-        'name': 'tuva_chronic_conditions_hierarchy',
-        'columns': 'condition_family VARCHAR, condition VARCHAR, icd_10_cm_code VARCHAR, icd_10_cm_description VARCHAR, condition_column_name VARCHAR',
-        's3_path': 'value-sets/tuva_chronic_conditions_hierarchy.csv'
-    }
+        'name': 'service_categories',
+        'columns': 'service_category_1 VARCHAR, service_category_2 VARCHAR',
+        's3_path': 'value-sets/service_categories.csv'
+    },
 ]
 
 if __name__ == "__main__":
