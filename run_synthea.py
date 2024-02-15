@@ -147,7 +147,7 @@ def download_and_decompress(url, local_file_path):
         logging.error(f"Error downloading from {url}: {e}")
 
 
-def process_terminology_tables(schema_name, table_definitions, base_url, directory, db_path, parquet_directory=None):
+def process_terminology_tables(schema_name, table_definitions, base_url, directory, db_path, parquet_base_directory=None):
     # Create the directory for file download
     os.makedirs(directory, exist_ok=True)
 
@@ -155,7 +155,7 @@ def process_terminology_tables(schema_name, table_definitions, base_url, directo
     con = duckdb.connect(db_path)
     con.execute(f"CREATE SCHEMA IF NOT EXISTS {schema_name}")
 
-    # Process tuva csvs
+    # Process CSVs as before
     for table_def in table_definitions:
         table_name = f"{schema_name}.{table_def['name']}"
         file_url = base_url + table_def['s3_path'] + '_0_0_0.csv.gz'
@@ -163,33 +163,34 @@ def process_terminology_tables(schema_name, table_definitions, base_url, directo
         download_and_decompress(file_url, local_file_path)
 
         try:
-            # Define columns and their data types for read_csv
             column_defs = {}
             for column_def in table_def['columns'].split(','):
                 col_name, col_type = column_def.strip().split(maxsplit=1)
                 column_defs[col_name] = col_type
 
-            # Use DuckDB's read_csv to directly create and load the data into the table
             con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM read_csv('{local_file_path}', COLUMNS={column_defs}, SAMPLE_SIZE=-1, AUTO_DETECT=TRUE, NULLSTR='\\N')")
             logging.info(f"Successfully processed and loaded {table_def['name']}.csv into {table_name}")
         except Exception as e:
             logging.error(f"Error loading file '{table_def['name']}.csv' into DuckDB: {e}")
 
-    # Process all Parquet files in the parquet_directory
-    if parquet_directory:
-        for filename in os.listdir(parquet_directory):
-            if filename.endswith('.parquet'):
-                table_name = f"{schema_name}.{os.path.splitext(filename)[0]}"
-                parquet_file_path = os.path.join(parquet_directory, filename)
+    # New segment for processing Parquet files
+    if parquet_base_directory:
+        for schema_dir in os.listdir(parquet_base_directory):
+            schema_path = os.path.join(parquet_base_directory, schema_dir)
+            if os.path.isdir(schema_path):  # Ensure it's a directory
+                # Explicitly set the schema based on the directory name
+                target_schema = schema_dir
+                con.execute(f"CREATE SCHEMA IF NOT EXISTS {target_schema}")
+                for filename in os.listdir(schema_path):
+                    if filename.endswith('.parquet'):
+                        table_name = f"{target_schema}.{os.path.splitext(filename)[0]}"
+                        parquet_file_path = os.path.join(schema_path, filename)
 
-                try:
-                    df = pd.read_parquet(parquet_file_path)
-                    dataframe_name = os.path.splitext(filename)[0].lower()
-                    con.register(f"{dataframe_name}_df", df)
-                    con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM {dataframe_name}_df")
-                    logging.info(f"Successfully processed and loaded {filename} into {table_name}")
-                except Exception as e:
-                    logging.error(f"Error processing file '{filename}': {e}")
+                        try:
+                            con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM '{parquet_file_path}'")
+                            logging.info(f"Successfully processed and loaded {filename} into {table_name} in the {target_schema} schema")
+                        except Exception as e:
+                            logging.error(f"Error processing file '{filename}' in the {target_schema} schema: {e}")
 
     con.close()
 
