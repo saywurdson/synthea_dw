@@ -4,7 +4,7 @@ SELECT DISTINCT
     REPLACE(JSON_EXTRACT(p, '$.id'), '"', '') AS procedure_id,
     REPLACE(REPLACE(JSON_EXTRACT(p, '$.subject.reference'), '"Patient/', ''), '"', '') AS patient_id,
     REPLACE(REPLACE(JSON_EXTRACT(p, '$.encounter.reference'), '"Encounter/', ''), '"', '') AS encounter_id,
-    NULL AS claim_id,
+    REPLACE(JSON_EXTRACT(cl, '$.id'), '"', '') AS claim_id,
     CAST(REPLACE(JSON_EXTRACT(p, '$.performedPeriod.start'), '"', '') AS DATE) AS procedure_date,
     REPLACE(JSON_EXTRACT(p, '$.code.coding[0].code'), '"', '') AS procedure_code,
     'snomed' AS source_code_type,
@@ -23,3 +23,5 @@ SELECT DISTINCT
 FROM {{ source('json', 'Procedure') }} p
 LEFT JOIN {{ source('json', 'Encounter') }} e
     ON REPLACE(REPLACE(JSON_EXTRACT(p, '$.encounter.reference'), '"Encounter/', ''), '"', '') = REPLACE(JSON_EXTRACT(e, '$.id'), '"', '')
+LEFT JOIN {{ source('json', 'Claim') }} cl
+    ON REPLACE(REPLACE(JSON_EXTRACT(p, '$.encounter.reference'), '"Encounter/', ''), '"', '') = REPLACE(REPLACE(JSON_EXTRACT(cl, '$.item[0].encounter[0].reference'), '"Encounter/', ''), '"', '')
