@@ -1,0 +1,58 @@
+version: 2
+
+sources:
+  - name: tuva_input
+    database: synthea
+    schema: tuva_input
+    tables:
+      - name: condition
+      - name: eligibility
+      - name: encounter
+      - name: lab_result
+      - name: location
+      - name: medical_claim
+      - name: medication
+      - name: observation
+      - name: patient
+      - name: pharmacy_claim
+      - name: practitioner
+      - name: procedure
+
+  - name: terminology
+    database: synthea
+    schema: terminology
+    tables:
+      - name: admit_source
+      - name: admit_type
+      - name: ansi_fips_state
+      - name: apr_drg
+      - name: bill_type
+      - name: calendar
+      - name: claim_type
+      - name: code_type
+      - name: discharge_disposition
+      - name: encounter_type
+      - name: ethnicity
+      - name: fips_county
+      - name: gender
+      - name: hcpcs_level_2
+      - name: icd_10_cm
+      - name: icd_10_pcs
+      - name: icd_9_cm
+      - name: icd_9_pcs
+      - name: loinc
+      - name: loinc_deprecated_mapping
+      - name: mdc
+      - name: medicare_dual_eligibility
+      - name: medicare_orec
+      - name: medicare_status
+      - name: ms_drg
+      - name: other_provider_taxonomy
+      - name: payer_type
+      - name: place_of_service
+      - name: present_on_admission
+      - name: provider
+      - name: race
+      - name: revenue_center
+      - name: snomed_icd_10_map
+      - name: ssa_fips_state
