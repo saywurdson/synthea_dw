@@ -8,8 +8,7 @@ from concurrent.futures import ThreadPoolExecutor
 import pandas as pd
 from tqdm import tqdm
 import shutil
-import gzip
-import requests
+import re
 
 # Configure logging to output to console
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -109,25 +108,41 @@ def process_terminology_tables(db_path, terminology_base_directory):
     for subdirectory_name in os.listdir(terminology_base_directory):
         subdirectory_path = os.path.join(terminology_base_directory, subdirectory_name)
 
-        # Check if the path is a directory
         if os.path.isdir(subdirectory_path):
             # Create a schema for the subdirectory
             con.execute(f"CREATE SCHEMA IF NOT EXISTS {subdirectory_name}")
 
-            # Process Parquet files in the subdirectory
+            # Group files by their base name (without trailing numbers)
+            file_groups = {}
             for filename in os.listdir(subdirectory_path):
                 if filename.endswith('.parquet'):
-                    parquet_file_path = os.path.join(subdirectory_path, filename)
-                    table_name = f"{subdirectory_name}.{os.path.splitext(filename)[0]}"
+                    # Use regex to find the base name by removing trailing _number
+                    base_name = re.sub(r'(_\d+)?\.parquet$', '', filename)
+                    if base_name not in file_groups:
+                        file_groups[base_name] = []
+                    file_groups[base_name].append(filename)
 
+            # Process each group of files
+            for base_name, filenames in file_groups.items():
+                combined_df = None
+                for filename in filenames:
+                    parquet_file_path = os.path.join(subdirectory_path, filename)
                     try:
-                        # Load Parquet file into the DuckDB table
+                        # Append data to the combined DataFrame
                         df = pd.read_parquet(parquet_file_path)
-                        con.register(f"{os.path.splitext(filename)[0]}_df", df)
-                        con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM {os.path.splitext(filename)[0]}_df")
-                        logging.info(f"Successfully processed and loaded {filename} into {table_name} in the {subdirectory_name} schema")
+                        if combined_df is None:
+                            combined_df = df
+                        else:
+                            combined_df = pd.concat([combined_df, df], ignore_index=True)
                     except Exception as e:
                         logging.error(f"Error processing file '{filename}' in the {subdirectory_name} schema: {e}")
+
+                if combined_df is not None:
+                    # Load the combined DataFrame into the DuckDB table
+                    table_name = f"{subdirectory_name}.{base_name}"
+                    con.register(f"{base_name}_df", combined_df)
+                    con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM {base_name}_df")
+                    logging.info(f"Successfully processed and loaded data into {table_name} in the {subdirectory_name} schema")
 
     con.close()
     logging.info("All terminology tables processed and loaded into DuckDB.")
