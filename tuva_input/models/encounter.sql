@@ -43,8 +43,8 @@ SELECT DISTINCT
     REPLACE(JSON_EXTRACT(e, '$.reasonCode[0].coding[0].display'), '"', '') AS primary_diagnosis_description,
     icd."MS-DRG" AS ms_drg_code,
     icd."MS-DRG_description" AS ms_drg_description,
-    NULL AS apr_drug_code,
-    NULL AS apr_drug_description,
+    apr.apr_drg_code AS apr_drg_code,
+    apr.apr_drg_description AS apr_drg_description,
     REPLACE(JSON_EXTRACT(ex, '$.payment.amount.value'), '"', '') AS paid_amount,
     REPLACE(JSON_EXTRACT(ex, '$.total[0].amount.value'), '"', '') AS allowed_amount,
     REPLACE(JSON_EXTRACT(ex, '$.total[0].amount.value'), '"', '') AS charge_amount,
@@ -56,3 +56,5 @@ JOIN {{ source('terminology', 'snomed_icd_10_map') }} sno
     ON REPLACE(JSON_EXTRACT(e, '$.reasonCode[0].coding[0].code'), '"', '') = sno.referenced_component_id
 JOIN {{ source('reference', 'icd10cm_to_msdrg_v41') }} icd
     ON sno.map_target = REPLACE(icd.ICD10, '.', '')
+JOIN {{ source('terminology', 'apr_drg') }} apr
+    ON icd.MDC = apr.mdc_code

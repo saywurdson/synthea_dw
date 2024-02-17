@@ -35,7 +35,7 @@ sources:
       - name: ethnicity
       - name: fips_county
       - name: gender
-      - name: hcpcs_level_2
+      - name: hcpcs_level
       - name: icd_10_cm
       - name: icd_10_pcs
       - name: icd_9_cm
@@ -56,3 +56,91 @@ sources:
       - name: revenue_center
       - name: snomed_icd_10_map
       - name: ssa_fips_state
+
+  - name: ccsr
+    database: synthea
+    schema: ccsr
+    tables:
+      - name: _value_set_dxccsr_v2023_1_body_systems
+      - name: _value_set_dxccsr_v2023_1_cleaned_map
+      - name: _value_set_prccsr_v2023_1_cleaned_map
+
+  - name: chronic_conditions
+    database: synthea
+    schema: chronic_conditions
+    tables:
+      - name: _value_set_cms_chronic_conditions_hierarchy
+      - name: _value_set_tuva_chronic_conditions_hierarchy
+
+  - name: claims_preprocessing
+    database: synthea
+    schema: claims_preprocessing
+    tables:
+      - name: _value_set_service_category__service_categories
+
+  - name: cms_hcc
+    database: synthea
+    schema: cms_hcc
+    tables:
+      - name: _value_set_adjustment_rates
+      - name: _value_set_cpt_hcpcs
+      - name: _value_set_demographic_factors
+      - name: _value_set_disabled_interaction_factors
+      - name: _value_set_disease_factors
+      - name: _value_set_disease_hierarchy
+      - name: _value_set_disease_interaction_factors
+      - name: _value_set_enrollment_interaction_factors
+      - name: _value_set_icd_10_cm_mappings
+      - name: _value_set_payment_hcc_count_factors
+
+  - name: data_quality
+    database: synthea
+    schema: data_quality
+    tables:
+      - name: _value_set_icd_10_cm_to_ccs
+      - name: _value_set_test_catalog
+
+  - name: ed_classification
+    database: synthea
+    schema: ed_classification
+    tables:
+      - name: _value_set_categories
+      - name: _value_set_johnston_icd10
+      - name: _value_set_johnston_icd9
+
+  - name: hcc_suspecting
+    database: synthea
+    schema: hcc_suspecting
+    tables:
+      - name: _value_set_hcc_descriptions
+      - name: _value_set_icd_10_cm_mappings
+
+  - name: quality_measures
+    database: synthea
+    schema: quality_measures
+    tables:
+      - name: _value_set_concepts
+      - name: _value_set_measures
+      - name: _value_set_value_sets
+
+  - name: readmissions
+    database: synthea
+    schema: readmissions
+    tables:
+      - name: _value_set_acute_diagnosis_ccs
+      - name: _value_set_acute_diagnosis_icd_10_cm
+      - name: _value_set_always_planned_ccs_diagnosis_category
+      - name: _value_set_always_planned_ccs_procedure_category
+      - name: _value_set_exclusion_ccs_diagnosis_category
+      - name: _value_set_icd_10_cm_to_ccs
+      - name: _value_set_icd_10_pcs_to_ccs
+      - name: _value_set_potentially_planned_ccs_procedure_category
+      - name: _value_set_potentially_planned_icd_10_pcs
+      - name: _value_set_specialty_cohort
+      - name: _value_set_surgery_gynecology_cohort
+
+  - name: service_categories
+    database: synthea
+    schema: service_categories
+    tables:
+      - name: _value_set_service_categories

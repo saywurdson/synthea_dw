@@ -24340,3 +24340,130 @@ drop table if exists "synthea"."data_quality"."_int_claims_preprocessing_test_de
 [0m00:16:43.934050 [debug] [MainThread]: Command `dbt build` failed at 00:16:43.933932 after 11.64 seconds
 [0m00:16:43.934562 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9852e310>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff98510590>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9e0a8bd0>]}
 [0m00:16:43.935136 [debug] [MainThread]: Flushing usage events
+[0m21:28:46.288460 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff98bc2910>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff98b93110>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff98b92e50>]}
+
+
+============================== 21:28:46.289744 | 6341f0a8-7972-4332-96a8-786f3881fcb9 ==============================
+[0m21:28:46.289744 [info ] [MainThread]: Running with dbt=1.7.7
+[0m21:28:46.290303 [debug] [MainThread]: running dbt with arguments {'debug': 'False', 'log_format': 'default', 'write_json': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'log_cache_events': 'False', 'profiles_dir': '/workspaces/synthea_dw/tuva', 'fail_fast': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'introspect': 'True', 'indirect_selection': 'eager', 'send_anonymous_usage_stats': 'True', 'no_print': 'None', 'target_path': 'None', 'invocation_command': 'dbt deps', 'use_colors': 'True', 'partial_parse': 'True', 'quiet': 'False', 'log_path': '/workspaces/synthea_dw/tuva/logs', 'version_check': 'True', 'use_experimental_parser': 'False', 'printer_width': '80', 'static_parser': 'True'}
+[0m21:28:46.368066 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '6341f0a8-7972-4332-96a8-786f3881fcb9', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff98ab7710>]}
+[0m21:28:46.426750 [debug] [MainThread]: Set downloads directory='/tmp/dbt-downloads-6qzbra98'
+[0m21:28:46.427586 [debug] [MainThread]: Making package index registry request: GET https://hub.getdbt.com/api/v1/index.json
+[0m21:28:46.598365 [debug] [MainThread]: Response from registry index: GET https://hub.getdbt.com/api/v1/index.json 200
+[0m21:28:46.600309 [debug] [MainThread]: Making package registry request: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json
+[0m21:28:46.653811 [debug] [MainThread]: Response from registry: GET https://hub.getdbt.com/api/v1/dbt-labs/dbt_utils.json 200
+[0m21:28:46.661520 [info ] [MainThread]: Installing dbt-labs/dbt_utils
+[0m21:28:46.999511 [info ] [MainThread]: Installed from version 1.1.1
+[0m21:28:47.000061 [info ] [MainThread]: Up to date!
+[0m21:28:47.000786 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'package', 'label': '6341f0a8-7972-4332-96a8-786f3881fcb9', 'property_': 'install', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff98bbfed0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff997befd0>]}
+[0m21:28:47.002180 [debug] [MainThread]: Resource report: {"command_name": "deps", "command_success": true, "command_wall_clock_time": 0.7471932, "process_user_time": 1.224009, "process_kernel_time": 0.117634, "process_mem_max_rss": "109360", "process_out_blocks": "200", "process_in_blocks": "0"}
+[0m21:28:47.003118 [debug] [MainThread]: Command `dbt deps` succeeded at 21:28:47.002946 after 0.75 seconds
+[0m21:28:47.003811 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff98beb890>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff98beb650>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9e7d1610>]}
+[0m21:28:47.004455 [debug] [MainThread]: Flushing usage events
+[0m21:28:51.665608 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa5eba650>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa5eba290>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa5eb98d0>]}
+
+
+============================== 21:28:51.666941 | 08d0cd6c-df50-4175-bb0f-89af6453d6b5 ==============================
+[0m21:28:51.666941 [info ] [MainThread]: Running with dbt=1.7.7
+[0m21:28:51.667494 [debug] [MainThread]: running dbt with arguments {'write_json': 'True', 'fail_fast': 'False', 'profiles_dir': '/workspaces/synthea_dw/tuva', 'quiet': 'False', 'send_anonymous_usage_stats': 'True', 'log_cache_events': 'False', 'indirect_selection': 'eager', 'printer_width': '80', 'introspect': 'True', 'no_print': 'None', 'static_parser': 'True', 'debug': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'log_format': 'default', 'use_colors': 'True', 'use_experimental_parser': 'False', 'cache_selected_only': 'False', 'invocation_command': 'dbt build', 'partial_parse': 'True', 'warn_error': 'None', 'target_path': 'None', 'version_check': 'True', 'log_path': '/workspaces/synthea_dw/tuva/logs'}
+[0m21:28:51.841222 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '08d0cd6c-df50-4175-bb0f-89af6453d6b5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa5d7c4d0>]}
+[0m21:28:51.916390 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '08d0cd6c-df50-4175-bb0f-89af6453d6b5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9e616890>]}
+[0m21:28:51.917103 [info ] [MainThread]: Registered adapter: duckdb=1.7.1
+[0m21:28:51.924176 [debug] [MainThread]: checksum: 54188551c516f4dd1c42b8d9c289f2bf49f18ae42632e2ba36a64ad29fd60da4, vars: {}, profile: , target: , version: 1.7.7
+[0m21:28:51.991002 [info ] [MainThread]: Unable to do partial parsing because a project config has changed
+[0m21:28:51.991662 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '08d0cd6c-df50-4175-bb0f-89af6453d6b5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9dc1b750>]}
+[0m21:28:53.262366 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'experimental_parser', 'label': '08d0cd6c-df50-4175-bb0f-89af6453d6b5', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9de06890>]}
+[0m21:28:55.284468 [error] [MainThread]: Encountered an error:
+Compilation Error
+  Model 'model.the_tuva_project.insights__count_claim_by_date_column' (models/insights/final/insights__count_claim_by_date_column.sql) depends on a node named 'terminology__calendar' which was not found
+[0m21:28:55.285504 [debug] [MainThread]: Resource report: {"command_name": "build", "command_wall_clock_time": 3.6530025, "process_user_time": 4.521508, "process_kernel_time": 0.147951, "process_mem_max_rss": "161720", "command_success": false, "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m21:28:55.286173 [debug] [MainThread]: Command `dbt build` failed at 21:28:55.286046 after 3.65 seconds
+[0m21:28:55.286702 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa5ec06d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa6278550>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9e18a810>]}
+[0m21:28:55.287217 [debug] [MainThread]: Flushing usage events
+[0m21:36:15.099008 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff87659650>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff87492b10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff87491410>]}
+
+
+============================== 21:36:15.100313 | 0357dcd5-03fb-4eff-8cfc-fcba60ed199a ==============================
+[0m21:36:15.100313 [info ] [MainThread]: Running with dbt=1.7.7
+[0m21:36:15.100869 [debug] [MainThread]: running dbt with arguments {'quiet': 'False', 'profiles_dir': '/workspaces/synthea_dw/tuva', 'log_cache_events': 'False', 'static_parser': 'True', 'invocation_command': 'dbt build', 'debug': 'False', 'warn_error': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'log_format': 'default', 'partial_parse': 'True', 'write_json': 'True', 'indirect_selection': 'eager', 'cache_selected_only': 'False', 'log_path': '/workspaces/synthea_dw/tuva/logs', 'version_check': 'True', 'use_experimental_parser': 'False', 'send_anonymous_usage_stats': 'True', 'introspect': 'True', 'target_path': 'None', 'fail_fast': 'False', 'no_print': 'None', 'use_colors': 'True', 'printer_width': '80'}
+[0m21:36:15.271281 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '0357dcd5-03fb-4eff-8cfc-fcba60ed199a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8751e9d0>]}
+[0m21:36:15.345971 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '0357dcd5-03fb-4eff-8cfc-fcba60ed199a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff7fe86050>]}
+[0m21:36:15.346700 [info ] [MainThread]: Registered adapter: duckdb=1.7.1
+[0m21:36:15.353849 [debug] [MainThread]: checksum: 54188551c516f4dd1c42b8d9c289f2bf49f18ae42632e2ba36a64ad29fd60da4, vars: {}, profile: , target: , version: 1.7.7
+[0m21:36:15.420524 [info ] [MainThread]: Unable to do partial parsing because a project config has changed
+[0m21:36:15.421187 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '0357dcd5-03fb-4eff-8cfc-fcba60ed199a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff7f41b6d0>]}
+[0m21:36:18.859300 [error] [MainThread]: Encountered an error:
+Compilation Error
+  Model 'model.the_tuva_project.data_quality__claims_preprocessing_medical_claim_invalid_npi' (models/data_quality/claims_preprocessing/intermediate/data_quality__claims_preprocessing_medical_claim_invalid_npi.sql) depends on a node named 'data_quality__test_catalog' which was not found
+[0m21:36:18.860465 [debug] [MainThread]: Resource report: {"command_name": "build", "command_wall_clock_time": 3.7945101, "process_user_time": 4.650273, "process_kernel_time": 0.149438, "process_mem_max_rss": "161772", "command_success": false, "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m21:36:18.861010 [debug] [MainThread]: Command `dbt build` failed at 21:36:18.860903 after 3.80 seconds
+[0m21:36:18.861461 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff87660410>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff7dfe1a50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8d233950>]}
+[0m21:36:18.861889 [debug] [MainThread]: Flushing usage events
+[0m21:52:39.350493 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa811b110>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa7f88790>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa7f91690>]}
+
+
+============================== 21:52:39.351763 | fdd4915c-bebd-4ada-a6ad-e2b966b5d312 ==============================
+[0m21:52:39.351763 [info ] [MainThread]: Running with dbt=1.7.7
+[0m21:52:39.352310 [debug] [MainThread]: running dbt with arguments {'write_json': 'True', 'debug': 'False', 'target_path': 'None', 'warn_error': 'None', 'use_experimental_parser': 'False', 'cache_selected_only': 'False', 'send_anonymous_usage_stats': 'True', 'fail_fast': 'False', 'log_cache_events': 'False', 'use_colors': 'True', 'indirect_selection': 'eager', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'no_print': 'None', 'profiles_dir': '/workspaces/synthea_dw/tuva', 'log_path': '/workspaces/synthea_dw/tuva/logs', 'static_parser': 'True', 'invocation_command': 'dbt build', 'printer_width': '80', 'partial_parse': 'True', 'quiet': 'False', 'log_format': 'default', 'version_check': 'True', 'introspect': 'True'}
+[0m21:52:39.521683 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'fdd4915c-bebd-4ada-a6ad-e2b966b5d312', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa7fe32d0>]}
+[0m21:52:39.600260 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'fdd4915c-bebd-4ada-a6ad-e2b966b5d312', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa0898d90>]}
+[0m21:52:39.601123 [info ] [MainThread]: Registered adapter: duckdb=1.7.1
+[0m21:52:39.608544 [debug] [MainThread]: checksum: 54188551c516f4dd1c42b8d9c289f2bf49f18ae42632e2ba36a64ad29fd60da4, vars: {}, profile: , target: , version: 1.7.7
+[0m21:52:39.675259 [info ] [MainThread]: Unable to do partial parsing because a project config has changed
+[0m21:52:39.675956 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': 'fdd4915c-bebd-4ada-a6ad-e2b966b5d312', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9fe1b650>]}
+[0m21:52:42.559943 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'data_quality__test_catalog' in the 'models' section of file 'models/data_quality/data_quality_models.yml'
+[0m21:52:42.595551 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'service_category__service_categories' in the 'seeds' section of file 'models/service_categories/service_categories_models.yml'
+[0m21:52:42.609924 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'ed_classification__categories' in the 'models' section of file 'models/ed_classification/ed_classification_models.yml'
+[0m21:52:42.614313 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'ed_classification__icd_10_cm_to_ccs' in the 'models' section of file 'models/ed_classification/ed_classification_models.yml'
+[0m21:52:42.618327 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'ed_classification__johnston_icd9' in the 'models' section of file 'models/ed_classification/ed_classification_models.yml'
+[0m21:52:42.621684 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'ed_classification__johnston_icd10' in the 'models' section of file 'models/ed_classification/ed_classification_models.yml'
+[0m21:52:42.703207 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'cms_hcc__adjustment_rates' in the 'models' section of file 'models/cms_hcc/cms_hcc_models.yml'
+[0m21:52:42.706256 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'cms_hcc__cpt_hcpcs' in the 'models' section of file 'models/cms_hcc/cms_hcc_models.yml'
+[0m21:52:42.707967 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'cms_hcc__demographic_factors' in the 'models' section of file 'models/cms_hcc/cms_hcc_models.yml'
+[0m21:52:42.710085 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'cms_hcc__disabled_interaction_factors' in the 'models' section of file 'models/cms_hcc/cms_hcc_models.yml'
+[0m21:52:42.712337 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'cms_hcc__disease_factors' in the 'models' section of file 'models/cms_hcc/cms_hcc_models.yml'
+[0m21:52:42.714914 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'cms_hcc__disease_hierarchy' in the 'models' section of file 'models/cms_hcc/cms_hcc_models.yml'
+[0m21:52:42.717600 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'cms_hcc__disease_interaction_factors' in the 'models' section of file 'models/cms_hcc/cms_hcc_models.yml'
+[0m21:52:42.719963 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'cms_hcc__enrollment_interaction_factors' in the 'models' section of file 'models/cms_hcc/cms_hcc_models.yml'
+[0m21:52:42.723777 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'cms_hcc__icd_10_cm_mappings' in the 'models' section of file 'models/cms_hcc/cms_hcc_models.yml'
+[0m21:52:42.726402 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'cms_hcc__payment_hcc_count_factors' in the 'models' section of file 'models/cms_hcc/cms_hcc_models.yml'
+[0m21:52:43.014410 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'quality_measures__measures' in the 'models' section of file 'models/quality_measures/quality_measures_models.yml'
+[0m21:52:43.016466 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'quality_measures__concepts' in the 'models' section of file 'models/quality_measures/quality_measures_models.yml'
+[0m21:52:43.018586 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'quality_measures__value_sets' in the 'models' section of file 'models/quality_measures/quality_measures_models.yml'
+[0m21:52:43.055616 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'ccsr__dxccsr_v2023_1_cleaned_map' in the 'models' section of file 'models/ccsr/ccsr_models.yml'
+[0m21:52:43.059411 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'ccsr__prccsr_v2023_1_cleaned_map' in the 'models' section of file 'models/ccsr/ccsr_models.yml'
+[0m21:52:43.061132 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'ccsr__dxccsr_v2023_1_body_systems' in the 'models' section of file 'models/ccsr/ccsr_models.yml'
+[0m21:52:43.108789 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'hcc_suspecting__hcc_descriptions' in the 'models' section of file 'models/hcc_suspecting/hcc_suspecting_models.yml'
+[0m21:52:43.113712 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'hcc_suspecting__icd_10_cm_mappings' in the 'models' section of file 'models/hcc_suspecting/hcc_suspecting_models.yml'
+[0m21:52:43.143071 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'chronic_conditions__cms_chronic_conditions_hierarchy' in the 'models' section of file 'models/chronic_conditions/cms_chronic_conditions_models.yml'
+[0m21:52:43.176279 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'chronic_conditions__tuva_chronic_conditions_hierarchy' in the 'models' section of file 'models/chronic_conditions/tuva_chronic_conditions_models.yml'
+[0m21:52:43.186158 [error] [MainThread]: Encountered an error:
+Compilation Error
+  Model 'model.the_tuva_project.data_quality__claims_preprocessing_medical_claim_invalid_npi' (models/data_quality/claims_preprocessing/intermediate/data_quality__claims_preprocessing_medical_claim_invalid_npi.sql) depends on a node named 'data_quality__test_catalog' which was not found
+[0m21:52:43.187027 [debug] [MainThread]: Resource report: {"command_name": "build", "command_wall_clock_time": 3.8688822, "process_user_time": 4.731227, "process_kernel_time": 0.157808, "process_mem_max_rss": "159940", "command_success": false, "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m21:52:43.187523 [debug] [MainThread]: Command `dbt build` failed at 21:52:43.187427 after 3.87 seconds
+[0m21:52:43.187930 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa8120390>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9e56d010>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffadb915d0>]}
+[0m21:52:43.188329 [debug] [MainThread]: Flushing usage events
+[0m23:24:16.940207 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff7b573790>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff7b0d08d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff7b0d2a90>]}
+
+
+============================== 23:24:16.941539 | 4bb80b0d-b6a8-4b4c-a2d0-2f0390893d48 ==============================
+[0m23:24:16.941539 [info ] [MainThread]: Running with dbt=1.7.7
+[0m23:24:16.942107 [debug] [MainThread]: running dbt with arguments {'use_experimental_parser': 'False', 'warn_error': 'None', 'cache_selected_only': 'False', 'log_path': '/workspaces/synthea_dw/tuva/logs', 'send_anonymous_usage_stats': 'True', 'partial_parse': 'True', 'debug': 'False', 'write_json': 'True', 'no_print': 'None', 'log_format': 'default', 'invocation_command': 'dbt build', 'printer_width': '80', 'use_colors': 'True', 'introspect': 'True', 'profiles_dir': '/workspaces/synthea_dw/tuva', 'version_check': 'True', 'quiet': 'False', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'fail_fast': 'False', 'target_path': 'None', 'indirect_selection': 'eager', 'log_cache_events': 'False'}
+[0m23:24:17.113731 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '4bb80b0d-b6a8-4b4c-a2d0-2f0390893d48', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff7af50450>]}
+[0m23:24:17.188740 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '4bb80b0d-b6a8-4b4c-a2d0-2f0390893d48', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff7b0a8c90>]}
+[0m23:24:17.189582 [info ] [MainThread]: Registered adapter: duckdb=1.7.1
+[0m23:24:17.196969 [debug] [MainThread]: checksum: 54188551c516f4dd1c42b8d9c289f2bf49f18ae42632e2ba36a64ad29fd60da4, vars: {}, profile: , target: , version: 1.7.7
+[0m23:24:17.268835 [info ] [MainThread]: Unable to do partial parsing because a project config has changed
+[0m23:24:17.269473 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '4bb80b0d-b6a8-4b4c-a2d0-2f0390893d48', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff72e1ae50>]}
+[0m23:24:20.232593 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'ed_classification__categories' in the 'models' section of file 'models/ed_classification/ed_classification_models.yml'
+[0m23:24:20.236168 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'ed_classification__icd_10_cm_to_ccs' in the 'models' section of file 'models/ed_classification/ed_classification_models.yml'
+[0m23:24:20.240163 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'ed_classification__johnston_icd9' in the 'models' section of file 'models/ed_classification/ed_classification_models.yml'
+[0m23:24:20.242911 [warn ] [MainThread]: [[33mWARNING[0m]: Did not find matching node for patch with name 'ed_classification__johnston_icd10' in the 'models' section of file 'models/ed_classification/ed_classification_models.yml'
+[0m23:24:20.732121 [error] [MainThread]: Encountered an error:
+Compilation Error
+  Model 'model.the_tuva_project.core__stg_claims_procedure' (models/core/staging/core__stg_claims_procedure.sql) depends on a source named 'terminology.hcpcs_level_2' which was not found
+[0m23:24:20.733191 [debug] [MainThread]: Resource report: {"command_name": "build", "command_wall_clock_time": 3.8265798, "process_user_time": 4.661474, "process_kernel_time": 0.169653, "process_mem_max_rss": "159808", "command_success": false, "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m23:24:20.733722 [debug] [MainThread]: Command `dbt build` failed at 23:24:20.733611 after 3.83 seconds
+[0m23:24:20.734173 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff7b0b0690>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff7c98ddd0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff80c83950>]}
+[0m23:24:20.734594 [debug] [MainThread]: Flushing usage events

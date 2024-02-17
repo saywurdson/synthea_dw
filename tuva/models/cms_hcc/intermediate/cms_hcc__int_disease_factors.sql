@@ -43,7 +43,7 @@ with demographics as (
         , hcc_code
         , description
         , coefficient
-    from {{ ref('cms_hcc__disease_factors') }}
+    from {{ source('cms_hcc', '_value_set_disease_factors') }}
 
 )
 

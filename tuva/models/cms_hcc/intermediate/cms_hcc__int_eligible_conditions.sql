@@ -56,7 +56,7 @@ with medical_claims as (
     select
           payment_year
         , hcpcs_cpt_code
-    from {{ ref('cms_hcc__cpt_hcpcs') }}
+    from {{ source('cms_hcc', '_value_set_cpt_hcpcs') }}
 
 )
 

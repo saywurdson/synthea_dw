@@ -51,6 +51,7 @@ sources:
     tables:
       - name: loinc
       - name: snomed_icd_10_map
+      - name: apr_drg
 
   - name: reference
     database: synthea

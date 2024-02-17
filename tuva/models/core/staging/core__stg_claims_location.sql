@@ -23,7 +23,7 @@ from {{ ref('core__stg_claims_medical_claim') }}
 
 provider as (
 select aa.*, bb.data_source
-from {{ ref('terminology__provider') }} aa
+from {{ source('terminology', 'provider') }} aa
 inner join all_providers_in_claims_dataset bb
 on aa.npi = bb.npi
 where lower(aa.entity_type_description) = 'organization'

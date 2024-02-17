@@ -32,7 +32,7 @@ with demographics as (
         , institutional_status
         , description
         , coefficient
-    from {{ ref('cms_hcc__enrollment_interaction_factors') }}
+    from {{ source('cms_hcc', '_value_set_enrollment_interaction_factors') }}
 
 )
 

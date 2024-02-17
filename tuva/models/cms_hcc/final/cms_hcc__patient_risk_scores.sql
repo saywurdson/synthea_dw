@@ -9,7 +9,7 @@ with seed_adjustment_rates as (
         , payment_year
         , normalization_factor
         , ma_coding_pattern_adjustment
-    from {{ ref('cms_hcc__adjustment_rates') }}
+    from {{ source('cms_hcc', '_value_set_adjustment_rates') }}
 
 )
 

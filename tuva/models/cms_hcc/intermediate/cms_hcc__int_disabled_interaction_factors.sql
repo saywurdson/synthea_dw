@@ -36,7 +36,7 @@ with demographics as (
         , description
         , hcc_code
         , coefficient
-    from {{ ref('cms_hcc__disabled_interaction_factors') }}
+    from {{ source('cms_hcc', '_value_set_disabled_interaction_factors') }}
 
 )
 

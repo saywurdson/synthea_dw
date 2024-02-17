@@ -27,9 +27,9 @@ where claim_type = 'institutional'
 select distinct 
   mc.claim_id
 from {{ ref('service_category__stg_medical_claim') }} mc
-left join {{ ref('terminology__ms_drg')}} msdrg
+left join {{ source('terminology', 'ms_drg')}} msdrg
   on mc.ms_drg_code = msdrg.ms_drg_code
-left join {{ ref('terminology__apr_drg')}} aprdrg
+left join {{ source('terminology', 'apr_drg')}} aprdrg
   on mc.apr_drg_code = aprdrg.apr_drg_code
 where claim_type = 'institutional'
   and (msdrg.ms_drg_code is not null or aprdrg.apr_drg_code is not null)

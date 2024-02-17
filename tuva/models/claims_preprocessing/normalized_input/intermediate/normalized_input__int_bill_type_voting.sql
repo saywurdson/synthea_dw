@@ -10,7 +10,7 @@ with normalize as(
         , med.data_source
         , bill.bill_type_code
     from {{ ref('normalized_input__stg_medical_claim') }} med
-    inner join {{ ref('terminology__bill_type') }} bill
+    inner join {{ source('terminology', 'bill_type') }} bill
         on med.bill_type_code = bill.bill_type_code
     where claim_type = 'institutional'
 )

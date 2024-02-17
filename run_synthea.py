@@ -112,12 +112,17 @@ def process_terminology_tables(db_path, terminology_base_directory):
             # Create a schema for the subdirectory
             con.execute(f"CREATE SCHEMA IF NOT EXISTS {subdirectory_name}")
 
-            # Group files by their base name (without trailing numbers)
+            # Group files by their base name (without trailing numbers), special handling for "hcpcs_level_2"
             file_groups = {}
             for filename in os.listdir(subdirectory_path):
                 if filename.endswith('.parquet'):
-                    # Use regex to find the base name by removing trailing _number
-                    base_name = re.sub(r'(_\d+)?\.parquet$', '', filename)
+                    # Special handling for "hcpcs_level_2" to keep the "_2" in the table name
+                    if "hcpcs_level_2" in filename:
+                        base_name = "hcpcs_level_2"
+                    else:
+                        # Use regex to find the base name by removing trailing _number for other files
+                        base_name = re.sub(r'(_\d+)?\.parquet$', '', filename)
+
                     if base_name not in file_groups:
                         file_groups[base_name] = []
                     file_groups[base_name].append(filename)

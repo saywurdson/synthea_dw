@@ -13,7 +13,7 @@
 {% macro eligibility_denominator_invalid_values(relation) %}
 {%- set sql_statement -%}
     select test_field
-    from {{ ref('data_quality__test_catalog') }}
+    from {{ source('data_quality', '_value_set_test_catalog') }}
     where source_table = 'normalized_input__eligibility'
     and test_category = 'invalid_values'
 {%- endset -%}
@@ -32,7 +32,7 @@
         , count(distinct rel.patient_id) as denominator
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from {{ relation }} as rel
-         left join {{ ref('data_quality__test_catalog') }} as cat
+         left join {{ source('data_quality', '_value_set_test_catalog') }} as cat
            on cat.test_category = 'invalid_values'
            and cat.source_table = 'normalized_input__eligibility'
            and cat.test_field = '{{ test_field }}'

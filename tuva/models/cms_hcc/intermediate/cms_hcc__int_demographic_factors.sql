@@ -36,7 +36,7 @@ with members as (
         , orec
         , institutional_status
         , coefficient
-    from {{ ref('cms_hcc__demographic_factors') }}
+    from {{ source('cms_hcc', '_value_set_demographic_factors') }}
     where plan_segment is null /* data not available */
 
 )

@@ -24,7 +24,7 @@ with encounter_exclusion_codes as (
             else 'Other Encounter' end as concept_category
         , case when concept_name = 'Acute Inpatient' then 1
             else 2 end as qualifying_count
-    from {{ ref('quality_measures__value_sets') }}
+    from {{ source('quality_measures', '_value_set_value_sets') }}
     where concept_name in (
          'Acute Inpatient'
         , 'Encounter Inpatient'
@@ -42,7 +42,7 @@ with encounter_exclusion_codes as (
           code
         , code_system
         , concept_name
-    from {{ ref('quality_measures__value_sets') }}
+    from {{ source('quality_measures', '_value_set_value_sets') }}
     where concept_name in (
          'Advanced Illness'
     )

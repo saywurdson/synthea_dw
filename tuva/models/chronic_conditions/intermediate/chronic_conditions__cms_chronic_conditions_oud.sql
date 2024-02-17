@@ -20,7 +20,7 @@
 
 with chronic_conditions as (
 
-    select * from {{ ref('chronic_conditions__cms_chronic_conditions_hierarchy') }}
+    select * from {{ source('chronic_conditions', '_value_set_cms_chronic_conditions_hierarchy') }}
     where condition = '{{ condition_filter }}'
 
 )

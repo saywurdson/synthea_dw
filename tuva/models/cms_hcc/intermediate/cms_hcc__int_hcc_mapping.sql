@@ -30,7 +30,7 @@ with conditions as (
         , cms_hcc_v24_flag
         , cms_hcc_v28
         , cms_hcc_v28_flag
-    from {{ ref('cms_hcc__icd_10_cm_mappings') }}
+    from {{ source('cms_hcc', '_value_set_icd_10_cm_mappings') }}
 
 )
 

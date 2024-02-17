@@ -516,7 +516,7 @@ left join {{ ref('acute_inpatient__encounter_id')}} as ap
     on unpivot_cte.claim_id = ap.claim_id
 left join {{ ref('emergency_department__int_encounter_id')}} as ed
     on unpivot_cte.claim_id = ed.claim_id
-left join {{ ref('terminology__icd_10_cm') }} icd
+left join {{ source('terminology', 'icd_10_cm') }} icd
     on unpivot_cte.source_code = icd.icd_10_cm
-left join {{ ref('terminology__present_on_admission') }} as poa
+left join {{ source('terminology', 'present_on_admission') }} as poa
     on unpivot_cte.present_on_admit_code = poa.present_on_admit_code

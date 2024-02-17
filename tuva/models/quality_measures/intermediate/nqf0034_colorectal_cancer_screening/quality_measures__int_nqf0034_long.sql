@@ -7,7 +7,7 @@
 {%- set measure_id -%}
 (
     select id
-from {{ ref('quality_measures__measures') }}
+from {{ source('quality_measures', '_value_set_measures') }}
 where id = 'NQF0034'
     )
 {%- endset -%}
@@ -16,7 +16,7 @@ where id = 'NQF0034'
 (
 
     select name
-from {{ ref('quality_measures__measures') }}
+from {{ source('quality_measures', '_value_set_measures') }}
 where id = 'NQF0034'
 
     )
@@ -25,7 +25,7 @@ where id = 'NQF0034'
 {%- set measure_version -%}
 (
     select version
-from {{ ref('quality_measures__measures') }}
+from {{ source('quality_measures', '_value_set_measures') }}
 where id = 'NQF0034'
 
     )

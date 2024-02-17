@@ -31,7 +31,7 @@ with demographics as (
         , payment_hcc_count
         , description
         , coefficient
-    from {{ ref('cms_hcc__payment_hcc_count_factors') }}
+    from {{ source('cms_hcc', '_value_set_payment_hcc_count_factors') }}
 
 )
 

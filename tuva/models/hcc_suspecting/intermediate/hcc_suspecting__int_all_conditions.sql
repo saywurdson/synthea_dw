@@ -21,7 +21,7 @@ with conditions as (
     select
           diagnosis_code
         , cms_hcc_v28 as hcc_code
-    from {{ ref('hcc_suspecting__icd_10_cm_mappings') }}
+    from {{ source('hcc_suspecting', '_value_set_icd_10_cm_mappings') }}
     where cms_hcc_v28 is not null
 
 )
@@ -31,7 +31,7 @@ with conditions as (
     select distinct
           hcc_code
         , hcc_description
-    from {{ ref('hcc_suspecting__hcc_descriptions') }}
+    from {{ source('hcc_suspecting', '_value_set_hcc_descriptions') }}
 
 )
 

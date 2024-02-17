@@ -281,7 +281,7 @@ select
     , count(*) as present_on_admit_occurrence_count
     , '{{ var('tuva_last_run')}}' as tuva_last_run
 from pivot_poa piv
-left join {{ ref('terminology__present_on_admission') }} poa
+left join {{ source('terminology', 'present_on_admission') }} poa
     on replace(piv.present_on_admit_code,'.','') = poa.present_on_admit_code
 where claim_type = 'institutional'
 group by 

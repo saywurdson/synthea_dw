@@ -16,7 +16,7 @@ with
           code
         , code_system
         , concept_name
-    from {{ ref('quality_measures__value_sets') }}
+    from {{ source('quality_measures', '_value_set_value_sets') }}
     where concept_name in (
         ( 'Dementia Medications')
     )

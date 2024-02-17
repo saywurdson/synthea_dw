@@ -10,7 +10,7 @@ with normalize as(
         , med.data_source
         , disch.discharge_disposition_code
     from {{ ref('normalized_input__stg_medical_claim') }} med
-    inner join {{ ref('terminology__discharge_disposition') }} disch
+    inner join {{ source('terminology', 'discharge_disposition') }} disch
         on med.discharge_disposition_code = disch.discharge_disposition_code
     where claim_type = 'institutional'
 )

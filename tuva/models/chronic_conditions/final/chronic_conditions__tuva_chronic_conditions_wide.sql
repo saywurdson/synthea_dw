@@ -8,7 +8,7 @@ with condition_columns as (
     select distinct
           condition
         , condition_column_name
-    from {{ ref('chronic_conditions__tuva_chronic_conditions_hierarchy') }}
+    from {{ source('chronic_conditions', '_value_set_tuva_chronic_conditions_hierarchy') }}
 
 )
 

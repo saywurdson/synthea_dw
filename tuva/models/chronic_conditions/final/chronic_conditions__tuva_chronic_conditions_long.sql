@@ -56,7 +56,7 @@ select
     , min(first_diagnosis_date) as first_diagnosis_date
     , max(last_diagnosis_date) as last_diagnosis_date
     , '{{ var('tuva_last_run')}}' as tuva_last_run
-from {{ ref('chronic_conditions__tuva_chronic_conditions_hierarchy') }} h
+from {{ source('chronic_conditions', '_value_set_tuva_chronic_conditions_hierarchy') }} h
      inner join patient_conditions pc
         on h.icd_10_cm_code = pc.icd_10_cm
 group by 

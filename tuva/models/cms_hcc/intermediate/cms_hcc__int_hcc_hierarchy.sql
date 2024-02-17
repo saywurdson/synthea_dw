@@ -28,7 +28,7 @@ with hcc_mapping as (
         , hcc_code
         , description
         , hccs_to_exclude
-    from {{ ref('cms_hcc__disease_hierarchy') }}
+    from {{ source('cms_hcc', '_value_set_disease_hierarchy') }}
 
 )
 

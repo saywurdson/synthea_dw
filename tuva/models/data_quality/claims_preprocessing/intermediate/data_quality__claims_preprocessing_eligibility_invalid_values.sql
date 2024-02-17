@@ -17,7 +17,7 @@ with eligiblity as (
         , test_category
         , test_name
         , pipeline_test
-    from {{ ref('data_quality__test_catalog') }}
+    from {{ source('data_quality', '_value_set_test_catalog') }}
 
 )
 
@@ -36,7 +36,7 @@ with eligiblity as (
         , count(eligiblity.gender) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from eligiblity
-         left join {{ ref('terminology__gender') }} gender
+         left join {{ source('terminology', 'gender') }} gender
            on eligiblity.gender = gender.gender
          left join test_catalog
            on test_catalog.test_name = 'gender invalid'
@@ -69,7 +69,7 @@ with eligiblity as (
         , count(eligiblity.race) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from eligiblity
-         left join {{ ref('terminology__race') }} race
+         left join {{ source('terminology', 'race') }} race
            on eligiblity.race = race.description
          left join test_catalog
            on test_catalog.test_name = 'race invalid'
@@ -102,7 +102,7 @@ with eligiblity as (
         , count(eligiblity.payer_type) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from eligiblity
-         left join {{ ref('terminology__payer_type') }} payer
+         left join {{ source('terminology', 'payer_type') }} payer
            on eligiblity.payer_type = payer.payer_type
          left join test_catalog
            on test_catalog.test_name = 'payer_type invalid'
@@ -135,7 +135,7 @@ with eligiblity as (
         , count(eligiblity.original_reason_entitlement_code) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from eligiblity
-         left join {{ ref('terminology__medicare_orec') }} orec
+         left join {{ source('terminology', 'medicare_orec') }} orec
            on eligiblity.original_reason_entitlement_code = orec.original_reason_entitlement_code
          left join test_catalog
            on test_catalog.test_name = 'original_reason_entitlement_code invalid'
@@ -168,7 +168,7 @@ with eligiblity as (
         , count(eligiblity.dual_status_code) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from eligiblity
-         left join {{ ref('terminology__medicare_dual_eligibility') }} dual
+         left join {{ source('terminology', 'medicare_dual_eligibility') }} dual
            on eligiblity.dual_status_code = dual.dual_status_code
          left join test_catalog
            on test_catalog.test_name = 'dual_status_code invalid'
@@ -201,7 +201,7 @@ with eligiblity as (
         , count(eligiblity.medicare_status_code) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from eligiblity
-         left join {{ ref('terminology__medicare_status') }} status
+         left join {{ source('terminology', 'medicare_status') }} status
            on eligiblity.medicare_status_code = status.medicare_status_code
          left join test_catalog
            on test_catalog.test_name = 'medicare_status_code invalid'

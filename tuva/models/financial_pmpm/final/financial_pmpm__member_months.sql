@@ -8,7 +8,7 @@ select
   concat(cast(year as {{ dbt.type_string() }} ),lpad(cast(month as {{ dbt.type_string() }}),2,'0')) as year_month
 , min(full_date) as month_start_date
 , max(full_date) as month_end_date
-from {{ ref('terminology__calendar')}}
+from {{ source('terminology', 'calendar')}}
 group by 1
 )
 

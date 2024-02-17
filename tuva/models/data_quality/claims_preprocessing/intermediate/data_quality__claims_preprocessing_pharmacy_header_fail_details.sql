@@ -26,7 +26,7 @@ with pharmacy_header_duplicates as (
         , test_name
         , pipeline_test
         , claim_type
-    from {{ ref('data_quality__test_catalog') }}
+    from {{ source('data_quality', '_value_set_test_catalog') }}
 
 )
 

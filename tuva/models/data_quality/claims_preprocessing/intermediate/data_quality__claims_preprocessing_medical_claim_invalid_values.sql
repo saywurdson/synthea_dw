@@ -17,7 +17,7 @@ with medical_claim as (
         , test_category
         , test_name
         , pipeline_test
-    from {{ ref('data_quality__test_catalog') }}
+    from {{ source('data_quality', '_value_set_test_catalog') }}
 
 )
 
@@ -35,7 +35,7 @@ with medical_claim as (
         , count(medical_claim.bill_type_code) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__bill_type')}} tob
+         left join {{ source('terminology', 'bill_type')}} tob
            on medical_claim.bill_type_code = tob.bill_type_code
          left join test_catalog
            on test_catalog.test_name = 'bill_type_code invalid'
@@ -67,7 +67,7 @@ with medical_claim as (
         , count(medical_claim.revenue_center_code) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__revenue_center') }} rev
+         left join {{ source('terminology', 'revenue_center') }} rev
            on medical_claim.revenue_center_code = rev.revenue_center_code
          left join test_catalog
            on test_catalog.test_name = 'revenue_center_code invalid'
@@ -99,7 +99,7 @@ with medical_claim as (
         , count(medical_claim.discharge_disposition_code) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__discharge_disposition') }} discharge
+         left join {{ source('terminology', 'discharge_disposition') }} discharge
            on medical_claim.discharge_disposition_code = discharge.discharge_disposition_code
          left join test_catalog
            on test_catalog.test_name = 'discharge_disposition_code invalid'
@@ -131,7 +131,7 @@ with medical_claim as (
         , count(medical_claim.admit_source_code) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__admit_source') }} adsource
+         left join {{ source('terminology', 'admit_source') }} adsource
            on medical_claim.admit_source_code = adsource.admit_source_code
          left join test_catalog
            on test_catalog.test_name = 'admit_source_code invalid'
@@ -163,7 +163,7 @@ with medical_claim as (
         , count(medical_claim.admit_type_code) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__admit_type') }} adtype
+         left join {{ source('terminology', 'admit_type') }} adtype
            on medical_claim.admit_type_code = adtype.admit_type_code
          left join test_catalog
            on test_catalog.test_name = 'admit_type_code invalid'
@@ -195,7 +195,7 @@ with medical_claim as (
         , count(medical_claim.ms_drg_code) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__ms_drg') }} msdrg
+         left join {{ source('terminology', 'ms_drg') }} msdrg
            on medical_claim.ms_drg_code = msdrg.ms_drg_code
          left join test_catalog
            on test_catalog.test_name = 'ms_drg_code invalid'
@@ -227,7 +227,7 @@ with medical_claim as (
         , count(medical_claim.apr_drg_code) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__apr_drg') }} aprdrg
+         left join {{ source('terminology', 'apr_drg') }} aprdrg
            on medical_claim.apr_drg_code = aprdrg.apr_drg_code
          left join test_catalog
            on test_catalog.test_name = 'apr_drg_code invalid'
@@ -259,7 +259,7 @@ with medical_claim as (
         , count(medical_claim.diagnosis_poa_1) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__present_on_admission') }} poa
+         left join {{ source('terminology', 'present_on_admission') }} poa
            on medical_claim.diagnosis_poa_1 = poa.present_on_admit_code
          left join test_catalog
            on test_catalog.test_name = 'diagnosis_poa_1 invalid'
@@ -291,7 +291,7 @@ with medical_claim as (
         , count(medical_claim.procedure_code_type) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__code_type') }} codetype
+         left join {{ source('terminology', 'code_type') }} codetype
            on medical_claim.procedure_code_type = codetype.code_type
          left join test_catalog
            on test_catalog.test_name = 'procedure_code_type invalid'
@@ -323,7 +323,7 @@ with medical_claim as (
         , count(medical_claim.place_of_service_code) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__place_of_service') }} pos
+         left join {{ source('terminology', 'place_of_service') }} pos
            on medical_claim.place_of_service_code = pos.place_of_service_code
          left join test_catalog
            on test_catalog.test_name = 'place_of_service_code invalid'
@@ -355,7 +355,7 @@ with medical_claim as (
         , count(medical_claim.diagnosis_code_type) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__code_type') }} codetype
+         left join {{ source('terminology', 'code_type') }} codetype
            on medical_claim.diagnosis_code_type = codetype.code_type
          left join test_catalog
            on test_catalog.test_name = 'diagnosis_code_type invalid'
@@ -386,7 +386,7 @@ with medical_claim as (
         , count(medical_claim.diagnosis_code_1) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__icd_10_cm') }} icd
+         left join {{ source('terminology', 'icd_10_cm') }} icd
            on medical_claim.diagnosis_code_1 = icd.icd_10_cm
          left join test_catalog
            on test_catalog.test_name = 'diagnosis_code_1 invalid'
@@ -418,7 +418,7 @@ with medical_claim as (
         , count(medical_claim.claim_type) as filled_row_count
         , '{{ var('tuva_last_run')}}' as tuva_last_run
     from medical_claim
-         left join {{ ref('terminology__claim_type') }} claimtype
+         left join {{ source('terminology', 'claim_type') }} claimtype
            on medical_claim.claim_type = claimtype.claim_type
          left join test_catalog
            on test_catalog.test_name = 'claim_type invalid'

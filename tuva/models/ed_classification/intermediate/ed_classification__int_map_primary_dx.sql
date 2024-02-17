@@ -21,7 +21,7 @@ with condition as (
      , {{colname}}
      {% endfor %}
      , 1 as ed_classification_capture
-  from {{ ref('ed_classification__johnston_icd9') }}
+  from {{ source('ed_classification', '_value_set_johnston_icd9') }}
 )
 , icd10 as (
   select
@@ -30,7 +30,7 @@ with condition as (
      , {{colname}}
      {% endfor %}
      , 1 as ed_classification_capture
-  from {{ ref('ed_classification__johnston_icd10') }}
+  from {{ source('ed_classification', '_value_set_johnston_icd10') }}
 )
 
 select

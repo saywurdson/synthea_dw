@@ -17,7 +17,7 @@ with eligiblity as (
         , test_category
         , test_name
         , pipeline_test
-    from {{ ref('data_quality__test_catalog') }}
+    from {{ source('data_quality', '_value_set_test_catalog') }}
 
 )
 
