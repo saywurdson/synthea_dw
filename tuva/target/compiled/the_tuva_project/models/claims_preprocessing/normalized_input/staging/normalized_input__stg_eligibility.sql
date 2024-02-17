@@ -26,4 +26,4 @@ select
     , zip_code
     , phone
     , data_source
-from "synthea"."tuva_input"."eligibility"
+from "synthea"."main"."eligibility"

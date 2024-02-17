@@ -20,7 +20,7 @@ with exclusion_codes as (
             when 'ICD10PCS' then 'icd-10-pcs'
           else lower(code_system) end as code_system
         , concept_name
-    From {{ref('quality_measures__value_sets')}}
+    From {{ source('quality_measures', '_value_set_value_sets')}}
     where concept_name in  (
           'Hospice Care Ambulatory'
         , 'Hospice Encounter'

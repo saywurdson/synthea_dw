@@ -23,7 +23,7 @@ and
 (
 ccs_diagnosis_category in
     (select distinct ccs_diagnosis_category
-     from {{ ref('readmissions__exclusion_ccs_diagnosis_category') }} )
+     from {{ source('readmissions', '_value_set_exclusion_ccs_diagnosis_category') }} )
 )
 )
 

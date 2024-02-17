@@ -17,7 +17,7 @@ select
     , {{ dbt_utils.pivot(
           column='cc.condition_column_name'
         , values=dbt_utils.get_column_values(
-              ref('chronic_conditions__tuva_chronic_conditions_hierarchy')
+              source('chronic_conditions', '_value_set_tuva_chronic_conditions_hierarchy')
             , 'condition_column_name'
             ,'condition_column_name'
           )

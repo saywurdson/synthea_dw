@@ -35,7 +35,7 @@ select
     , copayment_amount
     , deductible_amount
     , data_source
-from "synthea"."tuva_input"."pharmacy_claim"
+from "synthea"."main"."pharmacy_claim"
 ) select
       cast(claim_id as TEXT ) as claim_id
     , cast(claim_line_number as int ) as claim_line_number
@@ -57,7 +57,7 @@ from "synthea"."tuva_input"."pharmacy_claim"
     , cast(copayment_amount as numeric(28,6) ) as copayment_amount
     , cast(deductible_amount as numeric(28,6) ) as deductible_amount
     , cast(data_source as TEXT ) as data_source
-    , cast('2024-02-16 00:16:32.331507+00:00' as TEXT ) as tuva_last_run
+    , cast('2024-02-17 06:16:59.503923+00:00' as TEXT ) as tuva_last_run
 from __dbt__cte__normalized_input__stg_pharmacy_claim
     );
   

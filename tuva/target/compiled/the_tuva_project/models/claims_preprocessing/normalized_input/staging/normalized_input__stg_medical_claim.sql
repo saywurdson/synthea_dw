@@ -143,4 +143,4 @@ select
     , procedure_date_24
     , procedure_date_25
     , data_source
-from "synthea"."tuva_input"."medical_claim"
+from "synthea"."main"."medical_claim"

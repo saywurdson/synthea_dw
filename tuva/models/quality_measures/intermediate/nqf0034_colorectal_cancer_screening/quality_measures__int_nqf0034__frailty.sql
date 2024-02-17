@@ -30,7 +30,7 @@ with aged_patients as (
           else lower(code_system) end as code_system
         , concept_name
         , case when code in ('G2100','G2101') then 1 else  0 end as meets_all_criteria
-    From {{ref('quality_measures__value_sets')}}
+    From {{ source('quality_measures', '_value_set_value_sets')}}
     where concept_name in  (
           'Frailty Device'
         , 'Frailty Diagnosis'

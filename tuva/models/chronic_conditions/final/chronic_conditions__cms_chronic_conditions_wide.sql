@@ -8,7 +8,7 @@ with chronic_conditions as (
     select distinct
           condition
         , condition_column_name
-    from {{ ref('chronic_conditions__cms_chronic_conditions_hierarchy') }}
+    from {{ source('chronic_conditions', '_value_set_cms_chronic_conditions_hierarchy') }}
 
 )
 
@@ -29,7 +29,7 @@ select
     , {{ dbt_utils.pivot(
           column='condition_column_name'
         , values=dbt_utils.get_column_values(
-              ref ('chronic_conditions__cms_chronic_conditions_hierarchy')
+               source('chronic_conditions', '_value_set_cms_chronic_conditions_hierarchy')
             , 'condition_column_name'
             , order_by= 'condition_column_name'
           )

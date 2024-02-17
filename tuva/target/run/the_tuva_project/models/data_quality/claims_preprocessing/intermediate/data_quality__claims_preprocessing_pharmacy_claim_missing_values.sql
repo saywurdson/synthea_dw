@@ -154,7 +154,7 @@ select
     , test_catalog.test_category
     , test_catalog.test_name
     , test_catalog.pipeline_test
-    , '2024-02-16 00:16:32.331507+00:00' as tuva_last_run
+    , '2024-02-17 06:16:59.503923+00:00' as tuva_last_run
 from pharmacy_claim_missing
      left join test_catalog
        on test_catalog.test_name = pharmacy_claim_missing.column_checked||' missing'

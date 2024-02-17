@@ -35,7 +35,7 @@ sources:
       - name: ethnicity
       - name: fips_county
       - name: gender
-      - name: hcpcs_level
+      - name: hcpcs_level_2
       - name: icd_10_cm
       - name: icd_10_pcs
       - name: icd_9_cm

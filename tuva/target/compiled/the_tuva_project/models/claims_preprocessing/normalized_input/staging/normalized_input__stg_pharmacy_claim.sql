@@ -22,4 +22,4 @@ select
     , copayment_amount
     , deductible_amount
     , data_source
-from "synthea"."tuva_input"."pharmacy_claim"
+from "synthea"."main"."pharmacy_claim"
