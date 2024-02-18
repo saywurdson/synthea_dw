@@ -37,7 +37,7 @@ select
     , max(case when lower(column_name) = 'procedure_date_23' then normalized_code else null end) as procedure_date_23
     , max(case when lower(column_name) = 'procedure_date_24' then normalized_code else null end) as procedure_date_24
     , max(case when lower(column_name) = 'procedure_date_14' then normalized_code else null end) as procedure_date_25
-    , '2024-02-18 04:24:25.074170+00:00' as tuva_last_run
+    , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."_int_normalized_input_procedure_date_voting"
 where (occurrence_row_count = 1
         and occurrence_count > next_occurrence_count)

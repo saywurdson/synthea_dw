@@ -162,7 +162,7 @@ from "synthea"."tuva_input"."medical_claim"
     , claim_line_number
     , data_source
     , pos.place_of_service_code as normalized_code
-    , '2024-02-18 04:24:25.074170+00:00' as tuva_last_run
+    , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
 from __dbt__cte__normalized_input__stg_medical_claim med
 left join "synthea"."terminology"."place_of_service" pos
     on lpad(med.place_of_service_code, 2, '0') = pos.place_of_service_code

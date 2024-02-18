@@ -23,6 +23,6 @@ select
     , cast(present_on_admit_code as TEXT ) as present_on_admit_code
     , cast(present_on_admit_description as TEXT ) as present_on_admit_description
     , cast(data_source as TEXT ) as data_source
-    , cast('2024-02-18 04:24:25.074170+00:00' as timestamp ) as tuva_last_run
+    , cast('2024-02-18 20:58:36.138008+00:00' as timestamp ) as tuva_last_run
 from "synthea"."tuva_input"."condition"
   );

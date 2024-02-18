@@ -31,6 +31,6 @@ select
     , cast(specimen as TEXT ) as specimen
     , cast(ordering_practitioner_id as TEXT ) as ordering_practitioner_id
     , cast(data_source as TEXT ) as data_source
-    , cast('2024-02-18 04:24:25.074170+00:00' as timestamp ) as tuva_last_run
+    , cast('2024-02-18 20:58:36.138008+00:00' as timestamp ) as tuva_last_run
 from "synthea"."tuva_input"."lab_result"
   );

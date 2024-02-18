@@ -449,7 +449,7 @@ select
     , procedure_column
     , coalesce(icd_9.icd_9_pcs,icd_10.icd_10_pcs) as normalized_procedure_code
     , count(*) as procedure_code_occurrence_count
-    , '2024-02-18 04:24:25.074170+00:00' as tuva_last_run
+    , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
 from pivot_procedure piv
 left join "synthea"."terminology"."icd_10_pcs" icd_10
     on replace(piv.procedure_code,'.','') = icd_10.icd_10_pcs

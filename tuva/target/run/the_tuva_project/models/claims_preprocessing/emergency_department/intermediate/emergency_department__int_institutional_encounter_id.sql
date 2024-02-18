@@ -153,6 +153,6 @@ from add_min_closing_row_to_every_claim aa
      and aa.min_closing_row = bb.row_num
 )
 
-select *, '2024-02-18 04:24:25.074170+00:00' as tuva_last_run
+select *, '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
 from add_encounter_id
   );

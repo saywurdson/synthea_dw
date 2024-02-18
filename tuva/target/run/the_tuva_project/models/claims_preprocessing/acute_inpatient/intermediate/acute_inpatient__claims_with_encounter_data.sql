@@ -109,7 +109,7 @@ from useful_fields_at_claim_id_level aa
 
 
 select 
- *, '2024-02-18 04:24:25.074170+00:00' as tuva_last_run
+ *, '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
 from all_useful_fields_at_claim_id_level
     );
   

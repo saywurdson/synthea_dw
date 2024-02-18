@@ -57,7 +57,7 @@ from "synthea"."tuva_input"."pharmacy_claim"
     , cast(copayment_amount as numeric(28,6) ) as copayment_amount
     , cast(deductible_amount as numeric(28,6) ) as deductible_amount
     , cast(data_source as TEXT ) as data_source
-    , cast('2024-02-18 04:24:25.074170+00:00' as TEXT ) as tuva_last_run
+    , cast('2024-02-18 20:58:36.138008+00:00' as TEXT ) as tuva_last_run
 from __dbt__cte__normalized_input__stg_pharmacy_claim
     );
   

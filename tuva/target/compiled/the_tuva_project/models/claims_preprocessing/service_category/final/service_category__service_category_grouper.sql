@@ -12,7 +12,7 @@ HCPCS_CODE,
 MS_DRG_CODE,
 PLACE_OF_SERVICE_CODE,
 REVENUE_CENTER_CODE,
-'2024-02-18 04:24:25.074170+00:00' as tuva_last_run
+'2024-02-18 20:58:36.138008+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."normalized_input_medical_claim"
 ), service_category_1_mapping as(
     select distinct 
@@ -43,7 +43,7 @@ from "synthea"."claims_preprocessing"."normalized_input_medical_claim"
             when service_category_2 is null then 'Other'
             else service_category_2
         end service_category_2
-        , '2024-02-18 04:24:25.074170+00:00' as tuva_last_run
+        , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
     from __dbt__cte__service_category__stg_medical_claim a
     left join "synthea"."claims_preprocessing"."_int_combined_professional" b
     on a.claim_id = b.claim_id
@@ -77,7 +77,7 @@ from "synthea"."claims_preprocessing"."normalized_input_medical_claim"
             when service_category_2 is null then 'Other'
             else service_category_2
         end service_category_2
-        , '2024-02-18 04:24:25.074170+00:00' as tuva_last_run
+        , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
     from __dbt__cte__service_category__stg_medical_claim a
     left join "synthea"."claims_preprocessing"."_int_combined_institutional" b
     on a.claim_id = b.claim_id
