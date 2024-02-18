@@ -147,7 +147,7 @@ select
     , procedure_date_24
     , procedure_date_25
     , data_source
-from "synthea"."main"."medical_claim"
+from "synthea"."tuva_input"."medical_claim"
 ), pivot_diagnosis as(
     select
         claim_id
@@ -449,7 +449,7 @@ select
     , diagnosis_column
     , coalesce(icd_9.icd_9_cm,icd_10.icd_10_cm) as normalized_diagnosis_code
     , count(*) as diagnosis_code_occurrence_count
-    , '2024-02-17 06:16:59.503923+00:00' as tuva_last_run
+    , '2024-02-18 04:24:25.074170+00:00' as tuva_last_run
 from pivot_diagnosis piv
 left join "synthea"."terminology"."icd_10_cm" icd_10
     on replace(piv.diagnosis_code,'.','') = icd_10.icd_10_cm

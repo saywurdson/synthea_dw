@@ -20,6 +20,6 @@ select
     , cast(latitude as float ) as latitude
     , cast(longitude as float ) as longitude
     , cast(data_source as TEXT ) as data_source
-    , cast('2024-02-17 06:16:59.503923+00:00' as timestamp ) as tuva_last_run
-from "synthea"."main"."patient"
+    , cast('2024-02-18 04:24:25.074170+00:00' as timestamp ) as tuva_last_run
+from "synthea"."tuva_input"."patient"
   );

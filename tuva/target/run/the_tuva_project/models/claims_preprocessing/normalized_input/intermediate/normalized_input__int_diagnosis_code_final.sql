@@ -1,0 +1,50 @@
+
+  
+    
+    
+
+    create  table
+      "synthea"."claims_preprocessing"."_int_normalized_input_diagnosis_code_final__dbt_tmp"
+  
+    as (
+      
+
+
+select
+    claim_id
+    , data_source
+    , max(case when lower(column_name) = 'diagnosis_code_1' then normalized_code else null end) as diagnosis_code_1
+    , max(case when lower(column_name) = 'diagnosis_code_2' then normalized_code else null end) as diagnosis_code_2
+    , max(case when lower(column_name) = 'diagnosis_code_3' then normalized_code else null end) as diagnosis_code_3
+    , max(case when lower(column_name) = 'diagnosis_code_4' then normalized_code else null end) as diagnosis_code_4
+    , max(case when lower(column_name) = 'diagnosis_code_5' then normalized_code else null end) as diagnosis_code_5
+    , max(case when lower(column_name) = 'diagnosis_code_6' then normalized_code else null end) as diagnosis_code_6
+    , max(case when lower(column_name) = 'diagnosis_code_7' then normalized_code else null end) as diagnosis_code_7
+    , max(case when lower(column_name) = 'diagnosis_code_8' then normalized_code else null end) as diagnosis_code_8
+    , max(case when lower(column_name) = 'diagnosis_code_9' then normalized_code else null end) as diagnosis_code_9
+    , max(case when lower(column_name) = 'diagnosis_code_10' then normalized_code else null end) as diagnosis_code_10
+    , max(case when lower(column_name) = 'diagnosis_code_11' then normalized_code else null end) as diagnosis_code_11
+    , max(case when lower(column_name) = 'diagnosis_code_12' then normalized_code else null end) as diagnosis_code_12
+    , max(case when lower(column_name) = 'diagnosis_code_13' then normalized_code else null end) as diagnosis_code_13
+    , max(case when lower(column_name) = 'diagnosis_code_14' then normalized_code else null end) as diagnosis_code_14
+    , max(case when lower(column_name) = 'diagnosis_code_15' then normalized_code else null end) as diagnosis_code_15
+    , max(case when lower(column_name) = 'diagnosis_code_16' then normalized_code else null end) as diagnosis_code_16
+    , max(case when lower(column_name) = 'diagnosis_code_17' then normalized_code else null end) as diagnosis_code_17
+    , max(case when lower(column_name) = 'diagnosis_code_18' then normalized_code else null end) as diagnosis_code_18
+    , max(case when lower(column_name) = 'diagnosis_code_19' then normalized_code else null end) as diagnosis_code_19
+    , max(case when lower(column_name) = 'diagnosis_code_20' then normalized_code else null end) as diagnosis_code_20
+    , max(case when lower(column_name) = 'diagnosis_code_21' then normalized_code else null end) as diagnosis_code_21
+    , max(case when lower(column_name) = 'diagnosis_code_22' then normalized_code else null end) as diagnosis_code_22
+    , max(case when lower(column_name) = 'diagnosis_code_23' then normalized_code else null end) as diagnosis_code_23
+    , max(case when lower(column_name) = 'diagnosis_code_24' then normalized_code else null end) as diagnosis_code_24
+    , max(case when lower(column_name) = 'diagnosis_code_25' then normalized_code else null end) as diagnosis_code_25
+    , '2024-02-18 04:24:25.074170+00:00' as tuva_last_run
+from "synthea"."claims_preprocessing"."_int_normalized_input_diagnosis_code_voting"
+where (occurrence_row_count = 1
+        and occurrence_count > next_occurrence_count)
+group by
+    claim_id
+    , data_source
+    );
+  
+  

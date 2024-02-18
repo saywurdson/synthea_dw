@@ -156,7 +156,7 @@ select
     , procedure_date_24
     , procedure_date_25
     , data_source
-from "synthea"."main"."medical_claim"
+from "synthea"."tuva_input"."medical_claim"
 ) select distinct
   med.claim_id
   , med.claim_line_number
@@ -168,7 +168,7 @@ from "synthea"."main"."medical_claim"
   , cal_claim_line_end.full_date as normalized_claim_line_end_date
   , cal_admission.full_date as normalized_admission_date
   , cal_discharge.full_date as normalized_discharge_date
-  , '2024-02-17 06:16:59.503923+00:00' as tuva_last_run
+  , '2024-02-18 04:24:25.074170+00:00' as tuva_last_run
 from __dbt__cte__normalized_input__stg_medical_claim med
 left join "synthea"."terminology"."calendar" cal_claim_start
     on med.claim_start_date = cal_claim_start.full_date

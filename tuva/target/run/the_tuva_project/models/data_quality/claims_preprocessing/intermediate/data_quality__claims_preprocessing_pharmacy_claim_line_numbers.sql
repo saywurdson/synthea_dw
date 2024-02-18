@@ -69,7 +69,7 @@ select
     , test_catalog.test_category
     , test_catalog.test_name
     , test_catalog.pipeline_test
-    , '2024-02-17 06:16:59.503923+00:00' as tuva_last_run
+    , '2024-02-18 04:24:25.074170+00:00' as tuva_last_run
 from line_num_check
      left join test_catalog
        on test_catalog.test_name = 'claim_line_number non-sequential'

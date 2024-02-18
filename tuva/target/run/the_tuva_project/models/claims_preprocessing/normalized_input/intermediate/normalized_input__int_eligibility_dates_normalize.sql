@@ -39,7 +39,7 @@ select
     , zip_code
     , phone
     , data_source
-from "synthea"."main"."eligibility"
+from "synthea"."tuva_input"."eligibility"
 ) select distinct
   elig.patient_id
   , elig.patient_id||elig.data_source||elig.payer||elig.plan||elig.enrollment_start_date||elig.enrollment_end_date as patient_id_key
@@ -47,7 +47,7 @@ from "synthea"."main"."eligibility"
   , cal_death.full_date as normalized_death_date
   , cal_enroll_start.full_date as normalized_enrollment_start_date
   , cal_enroll_end.full_date as normalized_enrollment_end_date
-  , '2024-02-17 06:16:59.503923+00:00' as tuva_last_run
+  , '2024-02-18 04:24:25.074170+00:00' as tuva_last_run
 from __dbt__cte__normalized_input__stg_eligibility elig
 left join "synthea"."terminology"."calendar" cal_dob
     on elig.birth_date = cal_dob.full_date

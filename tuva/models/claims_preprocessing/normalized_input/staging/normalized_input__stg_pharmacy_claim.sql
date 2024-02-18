@@ -25,4 +25,4 @@ select
     , copayment_amount
     , deductible_amount
     , data_source
-from {{ source('tuva_input', 'pharmacy_claim') }}
+from {{ ref('pharmacy_claim') }}

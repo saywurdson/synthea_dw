@@ -1,6 +1,35 @@
 version: 2
 
 sources:
+  - name: json
+    database: synthea
+    schema: json
+    tables:
+      - name: AllergyIntolerance
+      - name: CarePlan
+      - name: CareTeam
+      - name: Claim
+      - name: Condition
+      - name: Device
+      - name: DiagnosticReport
+      - name: DocumentReference
+      - name: Encounter
+      - name: ExplanationOfBenefit
+      - name: ImagingStudy
+      - name: Immunization
+      - name: Location
+      - name: Medication
+      - name: MedicationAdministration
+      - name: MedicationRequest
+      - name: Observation
+      - name: Organization
+      - name: Patient
+      - name: Practitioner
+      - name: PractitionerRole
+      - name: Procedure
+      - name: Provenance
+      - name: SupplyDelivery
+  
   - name: tuva_input
     database: synthea
     schema: tuva_input
@@ -144,3 +173,27 @@ sources:
     schema: service_categories
     tables:
       - name: _value_set_service_categories
+
+
+  - name: vocabulary
+    database: synthea
+    schema: vocabulary
+    tables:
+      - name: concept
+      - name: concept_cpt4
+      - name: concept_ancestor
+      - name: concept_synonym
+      - name: concept_class
+      - name: concept_relationship
+      - name: domain
+      - name: relationship
+      - name: vocabulary
+      - name: drug_strength
+
+  - name: reference
+    database: synthea
+    schema: reference
+    tables:
+      - name: icd10cm_to_msdrg_v41
+      - name: icd10pcs_to_msdrg_v41
+      - name: rxcuis_ndcs_atc
