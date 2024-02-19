@@ -64,7 +64,7 @@ from "synthea"."tuva_input"."eligibility"
     , cast(elig.zip_code as TEXT ) as zip_code
     , cast(elig.phone as TEXT ) as phone
     , cast(elig.data_source as TEXT ) as data_source
-    , cast('2024-02-19 03:16:19.141363+00:00'  as TEXT ) as tuva_last_run
+    , cast('2024-02-19 14:47:32.336131+00:00'  as TEXT ) as tuva_last_run
 from __dbt__cte__normalized_input__stg_eligibility elig
 left join "synthea"."claims_preprocessing"."_int_normalized_input_eligibility_dates_normalize" date_norm
     on elig.patient_id_key = date_norm.patient_id_key

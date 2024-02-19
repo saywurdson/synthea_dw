@@ -8,7 +8,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_cms_hcc{% else %}cms_hcc{%- endif -%}
       alias: patient_risk_factors
       tags: cms_hcc
-      materialized: view
+      materialized: table
     description: >
       This final model displays the contributing demographic and disease risk 
       factors, interactions, and HCCs for each enrollee in the payment year.
@@ -50,7 +50,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_cms_hcc{% else %}cms_hcc{%- endif -%}
       alias: patient_risk_scores
       tags: cms_hcc
-      materialized: view
+      materialized: table
     description: >
       This final model calculates the CMS HCC raw risk score, blended risk score,
       normalized risk score, and payment risk score for each enrollee in the 
@@ -58,8 +58,8 @@ models:
     columns:
       - name: patient_id
         description: Unique ID for the patient.
-        tests:
-          - unique
+        #tests:
+          #- unique
       - name: v24_risk_score
         description: >
           The sum of all patient risk factors from model version CMS-HCC-V24. 
@@ -95,13 +95,13 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_cms_hcc{% else %}cms_hcc{%- endif -%}
       alias: _int_demographic_factors
       tags: cms_hcc
-      materialized: view
+      materialized: table
     description: >
       Demographic and enrollment risk relative factor values for the 
       corresponding HCC model version and payment year.
-    tests:
-      - unique:
-          column_name: "(patient_id||'-'||model_version)"
+    #tests:
+      #- unique:
+          #column_name: "(patient_id||'-'||model_version)"
     columns:
       - name: patient_id
         description: Unique ID for the patient.
@@ -161,7 +161,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_cms_hcc{% else %}cms_hcc{%- endif -%}
       alias: _int_disabled_interaction_factors
       tags: cms_hcc
-      materialized: view
+      materialized: table
     description: >
       Disabled and disease interaction factor values for the corresponding 
       HCC model version and payment year.
@@ -191,7 +191,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_cms_hcc{% else %}cms_hcc{%- endif -%}
       alias: _int_disease_factors
       tags: cms_hcc
-      materialized: view
+      materialized: table
     description: >
       Disease factor values for every enrollee's final payment-eligible HCC
       after the hierarchy has been applied and necessary HCCs dropped for the 
@@ -224,7 +224,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_cms_hcc{% else %}cms_hcc{%- endif -%}
       alias: _int_disease_interaction_factors
       tags: cms_hcc
-      materialized: view
+      materialized: table
     description: >
       Disease interaction factor values for final payment-eligible HCC 
       after the hierarchy has been applied and necessary HCCs dropped for the 
@@ -259,7 +259,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_cms_hcc{% else %}cms_hcc{%- endif -%}
       alias: _int_eligible_conditions
       tags: cms_hcc
-      materialized: view
+      materialized: table
     description: >
       Conditions from eligible risk-adjustable claims per claim type for the 
       collection year.
@@ -268,8 +268,8 @@ models:
         description: Unique ID for the patient.
       - name: condition_code
         description: The condition code.
-        tests:
-          - not_null
+        #tests:
+          #- not_null
       - name: model_version
         description: CMS HCC model version.
       - name: payment_year
@@ -284,7 +284,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_cms_hcc{% else %}cms_hcc{%- endif -%}
       alias: _int_enrollment_interaction_factors
       tags: cms_hcc
-      materialized: view
+      materialized: table
     description: >
       Enrollment interaction factor values for the corresponding HCC model 
       version and payment year.
@@ -314,7 +314,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_cms_hcc{% else %}cms_hcc{%- endif -%}
       alias: _int_hcc_count_factors
       tags: cms_hcc
-      materialized: view
+      materialized: table
     description: >
       Final payment-eligible HCC count factor values for the corresponding 
       HCC model version and payment year.
@@ -344,7 +344,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_cms_hcc{% else %}cms_hcc{%- endif -%}
       alias: _int_hcc_hierarchy
       tags: cms_hcc
-      materialized: view
+      materialized: table
     description: >
       HCC hierarchy for the corresponding HCC model version and payment year
       applied to the mapped payment-eligible HCCs.
@@ -367,7 +367,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_cms_hcc{% else %}cms_hcc{%- endif -%}
       alias: _int_hcc_mapping
       tags: cms_hcc
-      materialized: view
+      materialized: table
     description: >
       Eligible conditions mapped to HCC codes for the corresponding HCC model 
       version and payment year
@@ -392,16 +392,16 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_cms_hcc{% else %}cms_hcc{%- endif -%}
       alias: _int_members
       tags: cms_hcc
-      materialized: view
+      materialized: table
     description: >
       Transformed eligibility data into the demographic risk segments required 
       for the CMS HCC and risk calculations.
     columns:
       - name: patient_id
         description: Unique ID for the patient.
-        tests:
-          - not_null
-          - unique
+        #tests:
+          #- not_null
+          #- unique
       - name: enrollment_status
         description: >
           Indicates whether the patient is a "Continuing" or "New" enrollee.

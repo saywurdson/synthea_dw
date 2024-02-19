@@ -3,7 +3,7 @@
 with  __dbt__cte__ccsr__stg_core__procedure as (
 
 
-select *, '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+select *, '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."procedure"
 ), procedure as (
     
@@ -25,7 +25,7 @@ select distinct
     ccsr__procedure_category_map.ccsr_category_description,
     ccsr__procedure_category_map.clinical_domain,
     '2023.1' as prccsr_version,
-    '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from procedure
 left join ccsr__procedure_category_map
     on procedure.normalized_code = ccsr__procedure_category_map.code

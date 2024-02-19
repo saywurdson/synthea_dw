@@ -13,7 +13,7 @@ models:
         {% else %}core{%- endif -%}
       alias: condition
       tags: core
-      materialized: view
+      materialized: table
     columns:
       - name: condition_id
         description: Unique identifier for each condition in the table.
@@ -94,7 +94,7 @@ models:
         {% else %}core{%- endif -%}
       alias: eligibility
       tags: core
-      materialized: view
+      materialized: table
     columns:
       - name: patient_id
         description: Unique identifier for each patient in the dataset.
@@ -154,7 +154,7 @@ models:
         {% else %}core{%- endif -%}
       alias: encounter
       tags: core
-      materialized: view
+      materialized: table
     columns:
       - name: encounter_id
         description: Unique identifier for each encounter.
@@ -261,7 +261,7 @@ models:
         {% else %}core{%- endif -%}
       alias: lab_result
       tags: core
-      materialized: view
+      materialized: table
     columns:
       - name: lab_result_id
         description: Unique identifier for the lab test.
@@ -356,7 +356,7 @@ models:
         {% else %}core{%- endif -%}
       alias: location
       tags: core
-      materialized: view
+      materialized: table
     columns:
       - name: location_id
         description: Unique identifier for each location.
@@ -403,7 +403,7 @@ models:
         {% else %}core{%- endif -%}
       alias: medical_claim
       tags: core
-      materialized: view
+      materialized: table
     #tests:
       #- unique:
           #column_name: "(claim_id||'-'||claim_line_number)"
@@ -580,7 +580,7 @@ models:
         {% else %}core{%- endif -%}
       alias: medication
       tags: core
-      materialized: view
+      materialized: table
     columns:
       - name: medication_id
         description: Unique identifier for each medication in the table.
@@ -654,7 +654,7 @@ models:
         {% else %}core{%- endif -%}
       alias: observation
       tags: core
-      materialized: view
+      materialized: table
     columns:
       - name: observation_id
         description: Unique identifier for each observation in the dataset.
@@ -714,7 +714,7 @@ models:
         {% else %}core{%- endif -%}
       alias: patient
       tags: core
-      materialized: view
+      materialized: table
     columns:
       - name: patient_id
         description: Unique identifier for each person across all datasets.
@@ -773,7 +773,7 @@ models:
         {% else %}core{%- endif -%}
       alias: pharmacy_claim
       tags: core
-      materialized: view
+      materialized: table
     columns:
       - name: claim_id
         description: Unique identifier for each claim.
@@ -852,7 +852,7 @@ models:
         {% else %}core{%- endif -%}
       alias: practitioner
       tags: core
-      materialized: view
+      materialized: table
     columns:
       - name: practitioner_id
         description: Unique ID for the provider.
@@ -891,7 +891,7 @@ models:
         {% else %}core{%- endif -%}
       alias: procedure
       tags: core
-      materialized: view
+      materialized: table
     columns:
       - name: procedure_id
         description: The unique identifier for the performed procedure.
@@ -975,7 +975,7 @@ models:
         {% else %}core{%- endif -%}
       alias: _stg_claims_medical_claim
       tags: core_stage_claims
-      materialized: view
+      materialized: table
 
   - name: core__stg_claims_encounter
     description: Staging core claims encounters
@@ -985,7 +985,7 @@ models:
         {% else %}core{%- endif -%}
       alias: _stg_claims_encounter
       tags: core_stage_claims
-      materialized: view
+      materialized: table
 
   - name: core__stg_claims_location
     description: Staging core claims locations
@@ -995,7 +995,7 @@ models:
         {% else %}core{%- endif -%}
       alias: _stg_claims_location
       tags: core_stage_claims
-      materialized: view
+      materialized: table
 
   - name: core__stg_claims_patient
     description: Staging core claims patients
@@ -1005,7 +1005,7 @@ models:
         {% else %}core{%- endif -%}
       alias: _stg_claims_patient
       tags: core_stage_claims
-      materialized: view
+      materialized: table
 
   - name: core__stg_claims_condition
     description: Staging core claims conditions
@@ -1015,7 +1015,7 @@ models:
         {% else %}core{%- endif -%}
       alias: _stg_claims_condition
       tags: core_stage_claims
-      materialized: view
+      materialized: table
 
   - name: core__stg_claims_procedure
     description: Staging core claims procedures
@@ -1025,7 +1025,7 @@ models:
         {% else %}core{%- endif -%}
       alias: _stg_claims_procedure
       tags: core_stage_claims
-      materialized: view
+      materialized: table
 
   - name: core__stg_claims_pharmacy_claim
     description: Staging core pharmacy claims
@@ -1035,7 +1035,7 @@ models:
         {% else %}core{%- endif -%}
       alias: _stg_claims_pharmacy_claim
       tags: core_stage_claims
-      materialized: view
+      materialized: table
 
   - name: core__stg_claims_eligibility
     description: Staging core eligibility
@@ -1045,7 +1045,7 @@ models:
         {% else %}core{%- endif -%}
       alias: _stg_claims_eligibility
       tags: core_stage_claims
-      materialized: view
+      materialized: table
 
   - name: core__stg_claims_practitioner
     description: Staging core providers in the claims dataset
@@ -1055,7 +1055,7 @@ models:
         {% else %}core{%- endif -%}
       alias: _stg_claims_practitioner
       tags: core_stage_claims
-      materialized: view
+      materialized: table
 
 ## Staging - Clinical
   - name: core__stg_clinical_condition

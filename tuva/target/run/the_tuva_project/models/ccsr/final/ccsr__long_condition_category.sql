@@ -12,7 +12,7 @@
 with  __dbt__cte__ccsr__stg_core__condition as (
 
 
-select *, '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+select *, '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."condition"
 where normalized_code_type = 'icd-10-cm'
 ), ccsr__dx_vertical_pivot as (
@@ -45,7 +45,7 @@ select
     ccsr__dx_vertical_pivot.is_ip_default_category,
     ccsr__dx_vertical_pivot.is_op_default_category,
     '2023.1' as dxccsr_version,
-    '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from condition
 left join ccsr__dx_vertical_pivot
     on condition.normalized_code = ccsr__dx_vertical_pivot.code

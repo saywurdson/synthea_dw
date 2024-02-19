@@ -19,7 +19,7 @@ select
     , normalized_code_type
     , normalized_code
     , data_source
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."condition"
 ),  __dbt__cte__cms_chronic_conditions__stg_medical_claim as (
 
@@ -30,7 +30,7 @@ select
     , claim_start_date
     , ms_drg_code
     , data_source
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."tuva_input"."medical_claim"
 ),  __dbt__cte__cms_chronic_conditions__stg_core__procedure as (
 
@@ -42,7 +42,7 @@ select
     , normalized_code_type
     , normalized_code
     , data_source
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."procedure"
 ), chronic_conditions as (
 
@@ -177,7 +177,7 @@ select distinct
     , cast(inclusions_unioned.condition_category as TEXT) as condition_category
     , cast(inclusions_unioned.condition as TEXT) as condition
     , cast(inclusions_unioned.data_source as TEXT) as data_source
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from inclusions_unioned
      left join exclusions_diagnosis
          on inclusions_unioned.claim_id = exclusions_diagnosis.claim_id

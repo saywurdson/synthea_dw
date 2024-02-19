@@ -81,11 +81,11 @@ where (orphan_claim_flag = 1) or (encounter_count > 1)
 )
 
 
-select *, '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+select *, '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from acute_inpatient_claims_with_encounter_id
 
 union all
 
-select *, '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+select *, '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from acute_inpatient_claims_without_encounter_id
   );

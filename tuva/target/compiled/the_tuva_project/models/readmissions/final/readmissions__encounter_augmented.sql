@@ -41,7 +41,7 @@ select
     ee.overlaps_with_another_encounter_flag,
     ee.missing_ms_drg_flag,
     ee.invalid_ms_drg_flag,
-    '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from
     "synthea"."readmissions"."_int_encounter" aa
     left join "synthea"."readmissions"."_int_index_admission" bb

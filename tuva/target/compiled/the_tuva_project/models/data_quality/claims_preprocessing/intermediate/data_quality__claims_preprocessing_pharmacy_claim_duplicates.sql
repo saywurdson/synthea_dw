@@ -20,7 +20,7 @@ select distinct
     , test_catalog.test_category
     , test_catalog.test_name
     , test_catalog.pipeline_test
-    , '2024-02-19 03:16:19.141363+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."normalized_input_pharmacy_claim"
      left join test_catalog
        on test_catalog.test_name = 'duplicate pharmacy claims'

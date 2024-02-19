@@ -25,7 +25,7 @@ select
     , source_code
     , normalized_code_type
     , normalized_code
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."condition"
 ),  __dbt__cte__quality_measures__stg_core__observation as (
 
@@ -37,7 +37,7 @@ select
     , source_code
     , normalized_code_type
     , normalized_code
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."observation"
 
 
@@ -50,7 +50,7 @@ select
     , source_code
     , normalized_code_type
     , normalized_code
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."procedure"
 ), denominator as (
 
@@ -311,7 +311,7 @@ select
       patient_id
     , exclusion_date
     , exclusion_reason
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from unioned
     );
   

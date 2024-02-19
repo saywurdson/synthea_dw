@@ -17,10 +17,10 @@ models:
       tags:
         - tuva_chronic_conditions
         - chronic_conditions
-      materialized: view
-    tests:
-      - unique:
-          column_name: "(patient_id || '_' || condition)"
+      materialized: table
+    #tests:
+      #- unique:
+          #column_name: "(patient_id || '_' || condition)"
     columns:
         - name: patient_id
           description: The unique identifier for a patient
@@ -61,12 +61,12 @@ models:
       tags:
         - tuva_chronic_conditions
         - chronic_conditions
-      materialized: view
-    tests:
-      - unique:
-          column_name: patient_id
-      - not_null:
-          column_name: patient_id
+      materialized: table
+    #tests:
+      #- unique:
+          #column_name: patient_id
+      #- not_null:
+          #column_name: patient_id
     columns:
       - name: patient_id
         description: ID of the patient

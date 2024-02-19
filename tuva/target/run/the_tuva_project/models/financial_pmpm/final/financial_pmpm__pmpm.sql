@@ -65,7 +65,7 @@ SELECT
   SUM(outpatient_rehabilitation_allowed) / COUNT(1) AS outpatient_rehabilitation_allowed,
   SUM(skilled_nursing_allowed) / COUNT(1) AS skilled_nursing_allowed,
   SUM(urgent_care_allowed) / COUNT(1) AS urgent_care_allowed,
-  '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+  '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 FROM "synthea"."financial_pmpm"."pmpm_prep" a
 GROUP BY 1,2,3,4
     );

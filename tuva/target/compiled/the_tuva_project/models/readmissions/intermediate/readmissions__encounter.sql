@@ -13,7 +13,7 @@ select
     ms_drg_code,
     paid_amount,
     primary_diagnosis_code,
-    '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."encounter"
 where encounter_type = 'acute inpatient'
 ) -- Staging model for the input layer:
@@ -30,5 +30,5 @@ select
     cast(ms_drg_code as TEXT) as ms_drg_code,
     cast(paid_amount as numeric) as paid_amount,
     cast(primary_diagnosis_code as TEXT) as primary_diagnosis_code,
-    '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from __dbt__cte__readmissions__stg_core__encounter

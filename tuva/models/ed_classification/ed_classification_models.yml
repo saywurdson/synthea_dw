@@ -11,7 +11,7 @@ models:
         {% else %}ed_classification{%- endif -%}
       alias: summary
       tags: ed_classification
-      materialized: view
+      materialized: table
     description: |
       ED Classification as a cube that can be summarized
     columns:
@@ -90,7 +90,7 @@ models:
         {% else %}ed_classification{%- endif -%}
       alias: _int_filter_encounter_with_classification
       tags: ed_classification
-      materialized: view
+      materialized: table
     description: Filter out ED visits that were not classified
 
 
@@ -101,7 +101,7 @@ models:
         {% else %}ed_classification{%- endif -%}
       alias: _int_by_provider_parent_organization
       tags: ed_classification
-      materialized: view
+      materialized: table
     description: Map ED encounter primary dx to classification
 
 

@@ -14,7 +14,7 @@ select
     , source_code
     , normalized_code_type
     , normalized_code
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."condition"
 ),  __dbt__cte__quality_measures__stg_medical_claim as (
 
@@ -26,7 +26,7 @@ select
     , claim_end_date
     , place_of_service_code
     , hcpcs_code
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."medical_claim"
 
 
@@ -40,7 +40,7 @@ select
     , source_code
     , normalized_code_type
     , normalized_code
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."observation"
 
 
@@ -53,7 +53,7 @@ select
     , source_code
     , normalized_code_type
     , normalized_code
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."procedure"
 ), denominator as (
 
@@ -314,5 +314,5 @@ select
     , performance_period_end
     , exclusion_date
     , exclusion_reason
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from patients_with_frailty

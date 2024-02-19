@@ -29,6 +29,6 @@ select
     , cast(allowed_amount as numeric(28,6) ) as allowed_amount
     , cast(charge_amount as numeric(28,6) ) as charge_amount
     , cast(data_source as TEXT ) as data_source
-    , cast('2024-02-19 03:52:06.490224+00:00' as timestamp ) as tuva_last_run
+    , cast('2024-02-19 14:47:32.336131+00:00' as timestamp ) as tuva_last_run
 from "synthea"."tuva_input"."encounter"
   );

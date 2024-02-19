@@ -75,7 +75,7 @@ select
     bb.specialty_cohort as readmission_specialty_cohort,
     bb.died_flag as readmission_died_flag,
     bb.diagnosis_ccs as readmission_diagnosis_ccs,
-    '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from
     encounter_sequence aa
     left join encounter_sequence bb

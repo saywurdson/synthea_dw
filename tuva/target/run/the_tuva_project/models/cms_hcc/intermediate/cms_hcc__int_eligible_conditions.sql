@@ -39,7 +39,7 @@ select
     , claim_end_date
     , bill_type_code
     , hcpcs_code
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."medical_claim"
 ),  __dbt__cte__cms_hcc__stg_core__condition as (
 
@@ -50,7 +50,7 @@ select
     , condition_type
     , normalized_code_type as code_type
     , normalized_code as code
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."core"."condition"
 ), medical_claims as (
 
@@ -183,7 +183,7 @@ select
       patient_id
     , condition_code
     , payment_year
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from add_data_types
     );
   

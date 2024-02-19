@@ -98,7 +98,7 @@ select *
 , inpatient_paid + outpatient_paid + office_visit_paid + ancillary_paid + other_paid as medical_paid
 , inpatient_allowed + outpatient_allowed + office_visit_allowed + ancillary_allowed + other_allowed + pharmacy_allowed as total_allowed
 , inpatient_allowed + outpatient_allowed + office_visit_allowed + ancillary_allowed + other_allowed as medical_allowed
-, '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+, '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from combine
     );
   

@@ -123,7 +123,7 @@ select
         else 0
     end mortality_flag
     , data_source
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from distinct_encounters a
 left join institutional_claim_details c
   on a.encounter_id = c.encounter_id

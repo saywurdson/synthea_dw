@@ -9,7 +9,7 @@ models:
         {% else %}readmissions{%- endif -%}
       alias: encounter_augmented
       tags: readmissions
-      materialized: view
+      materialized: table
     description: "This model includes all encounters from the stg_encounter model, and for each encounter_id we add fields relevant for the encounter."
     columns:
       - name: encounter_id
@@ -105,7 +105,7 @@ models:
         {% else %}readmissions{%- endif -%}
       alias: readmission_summary
       tags: readmissions
-      materialized: view
+      materialized: table
     description: "This model includes all rows from the encounter_augmented model where disqualified_encounter_flag = 0 (all rows for encounters that are not disqualified for data quality issues). For each of these encounters we add fields to indicate whether it had a readmission and, when a readmission was present, to show relevant fields for the readmission."
     columns:
       - name: encounter_id
@@ -451,21 +451,3 @@ models:
     config:
       tags: readmissions
       materialized: ephemeral
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

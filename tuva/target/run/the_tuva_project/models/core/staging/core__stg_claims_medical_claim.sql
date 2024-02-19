@@ -65,7 +65,7 @@ select
     , cast(med.deductible_amount as numeric(28,6) ) as deductible_amount
     , cast(med.total_cost_amount as numeric(28,6) ) as total_cost_amount
     , cast(med.data_source as TEXT ) as data_source
-    , cast('2024-02-18 21:13:49.400698+00:00' as timestamp ) as tuva_last_run
+    , cast('2024-02-19 14:47:32.336131+00:00' as timestamp ) as tuva_last_run
 from "synthea"."claims_preprocessing"."normalized_input_medical_claim" med
 left join "synthea"."claims_preprocessing"."service_category_grouper" srv_group
     on med.claim_id = srv_group.claim_id

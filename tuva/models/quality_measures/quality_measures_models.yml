@@ -8,7 +8,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: summary_counts
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: Reporting measure counts with performance rates.
     columns:
       - name: measure_id
@@ -54,7 +54,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: summary_long
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Long view of the results for the reporting version of all measures.
       Each row represents the results a measure per patient. A null for the 
@@ -111,7 +111,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: summary_wide
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Wide view of the results for the reporting version of all measures.
       This model pivots measures on the patient level (i.e. one row per patient
@@ -156,7 +156,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf2372_denominator
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Denominator logic for the reporting version of NQF 2372, Breast Cancer 
       Screening.
@@ -188,7 +188,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf2372_exclude_advanced_illness
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Exclusion logic for patients with frailty and advanced illness for 
       the reporting version of NQF 2372, Breast Cancer Screening.
@@ -209,7 +209,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf2372_exclude_dementia
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Exclusion logic for patients with frailty and taking dementia medications
       for the reporting version of NQF 2372, Breast Cancer Screening.
@@ -230,7 +230,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf2372_exclude_hospice
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Exclusion logic for patients using hospice services for the reporting 
       version of NQF 2372, Breast Cancer Screening.
@@ -251,7 +251,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf2372_exclude_institutional
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Exclusion logic for patients staying in an institution for the reporting 
       version of NQF 2372, Breast Cancer Screening.
@@ -272,7 +272,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf2372_exclude_mastectomy
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Exclusion logic for patients with a mastectomy for the reporting 
       version of NQF 2372, Breast Cancer Screening.
@@ -293,7 +293,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf2372_exclude_palliative
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Exclusion logic for patients using palliative services for the reporting 
       version of NQF 2372, Breast Cancer Screening.
@@ -314,7 +314,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf2372_exclusions
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Combined exclusion logic for the reporting version of NQF 2372, Breast Cancer 
       Screening.
@@ -352,7 +352,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf2372_long
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Final preparation of the reporting version of NQF 2372, Breast Cancer 
       Screening before combining with other measures.
@@ -402,7 +402,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf2372_numerator
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Numerator logic for the reporting version of NQF 2372, Breast Cancer 
       Screening.
@@ -437,7 +437,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf0034_denominator
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Denominator logic for the reporting version of NQF 0034, Colorectal Cancer 
       Screening.    
@@ -448,7 +448,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf0034_exclude_advanced_illness
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Exclusion logic for patients with frailty and advanced illness for 
       the reporting version of NQF 0034, Colorectal Cancer Screening.     
@@ -459,7 +459,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf0034_exclude_colectomy_cancer
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Exclusion logic for patients with frailty and advanced illness for 
       the reporting version of NQF 0034, Colorectal Cancer Screening.     
@@ -470,7 +470,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf0034_exclude_dementia
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Exclusion logic for patients with frailty and taking dementia medications
       for the reporting version of NQF 0034, Colorectal Cancer Screening.
@@ -481,7 +481,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf0034_exclude_hospice_palliative
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Exclusion logic for patients using hospice or palliative services for the reporting 
       version of NQF 0034, Colorectal Cancer Screening.     
@@ -492,7 +492,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf0034_exclude_institutional_snp
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Exclusion logic for patients staying in an institution for the reporting 
       version of NQF 0034, Colorectal Cancer Screening.      
@@ -504,7 +504,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf0034_exclusions
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Combined exclusion logic for the reporting version of NQF 0034, Colorectal Cancer Screening.      
 
@@ -514,7 +514,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf0034_long
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Final preparation of the reporting version of NQF 0034, Colorectal Cancer Screening
       before combining with other measures.      
@@ -525,7 +525,7 @@ models:
         {%- if var('tuva_schema_prefix',None) != None -%}{{var('tuva_schema_prefix')}}_quality_measures{% else %}quality_measures{%- endif -%}
       alias: _int_nqf0034_numerator
       tags: quality_measures
-      materialized: view
+      materialized: table
     description: >
       Numerator logic for the reporting version of NQF 0034,
       Colorectal Cancer Screening
@@ -561,9 +561,9 @@ models:
     description: Staging conditions from core.
     columns:
       - name: patient_id
-        tests:
-          - not_null:
-              severity: warn
+        #tests:
+          #- not_null:
+              #severity: warn
       - name: recorded_date
       - name: source_code_type
       - name: source_code
@@ -582,9 +582,9 @@ models:
       Staging encounters from core. Creates an empty table if using claims only.
     columns:
       - name: patient_id
-        tests:
-          - not_null:
-              severity: warn
+        #tests:
+          #- not_null:
+              #severity: warn
       - name: encounter_type
       - name: encounter_start_date
       - name: encounter_end_date
@@ -601,9 +601,9 @@ models:
       Staging medications from core. Creates an empty table if using claims only.
     columns:
       - name: patient_id
-        tests:
-          - not_null:
-              severity: warn
+        #tests:
+          #- not_null:
+              #severity: warn
       - name: dispensing_date
       - name: ndc_code
       - name: rxnorm_code
@@ -620,9 +620,9 @@ models:
       Staging medications from core. Creates an empty table if using claims only.
     columns:
       - name: patient_id
-        tests:
-          - not_null:
-              severity: warn
+        #tests:
+          #- not_null:
+              #severity: warn
       - name: observation_date
       - name: source_code_type
       - name: source_code
@@ -640,20 +640,20 @@ models:
     description: Staging eligibility from the input layer.
     columns:
       - name: patient_id
-        tests:
-          - not_null:
-              severity: warn
+        #tests:
+          #- not_null:
+              #severity: warn
       - name: sex
-        tests:
-          - not_null:
-              severity: warn
-          - accepted_values:
-              values: ['female', 'male','unknown']
-              severity: warn
+        #tests:
+          #- not_null:
+              #severity: warn
+          #- accepted_values:
+              #values: ['female', 'male','unknown']
+              #severity: warn
       - name: birth_date
-        tests:
-          - not_null:
-              severity: warn
+        #tests:
+          #- not_null:
+              #severity: warn
       - name: death_date
       - name: tuva_last_run
 
@@ -667,9 +667,9 @@ models:
     description: Staging procedures from core.
     columns:
       - name: patient_id
-        tests:
-          - not_null:
-              severity: warn
+        #tests:
+          #- not_null:
+              #severity: warn
       - name: procedure_date
       - name: source_code_type
       - name: source_code

@@ -40,7 +40,7 @@ select
        , cast(copayment_amount as numeric(28,6) ) as copayment_amount
        , cast(deductible_amount as numeric(28,6) ) as deductible_amount
        , cast(data_source as TEXT ) as data_source
-       , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+       , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."normalized_input_pharmacy_claim"
     );
   
