@@ -13,7 +13,7 @@ with pharmacy_claim_denominator as(
   select 
     cast('all' as TEXT ) as claim_type
     , cast(count(distinct claim_id||data_source) as int) as count
-    , cast('2024-02-18 20:58:36.138008+00:00' as TEXT ) as tuva_last_run
+    , cast('2024-02-18 21:13:49.400698+00:00' as TEXT ) as tuva_last_run
   from "synthea"."claims_preprocessing"."normalized_input_pharmacy_claim"
 )
 

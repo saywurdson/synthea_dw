@@ -21,5 +21,5 @@ select
     , diagnosis_code_type
     , diagnosis_code_1
     , data_source
-    , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
+    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."normalized_input_medical_claim"

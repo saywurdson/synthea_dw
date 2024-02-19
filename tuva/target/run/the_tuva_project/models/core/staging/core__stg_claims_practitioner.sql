@@ -53,7 +53,7 @@ select
     , cast(primary_specialty_description as TEXT ) as specialty
     , cast(null as TEXT ) as sub_specialty
     , cast(data_source as TEXT ) as data_source
-    , cast('2024-02-18 20:58:36.138008+00:00' as timestamp ) as tuva_last_run
+    , cast('2024-02-18 21:13:49.400698+00:00' as timestamp ) as tuva_last_run
 from provider
     );
   

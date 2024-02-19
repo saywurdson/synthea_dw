@@ -325,7 +325,7 @@ select
     , test_catalog.test_category
     , test_catalog.test_name
     , test_catalog.pipeline_test
-    , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
+    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
 from claim_dates
      left join test_catalog
        on test_catalog.test_name = claim_dates.column_checked||' invalid'

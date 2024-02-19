@@ -162,5 +162,5 @@ select
         else test_category 
     end as TEXT ) as test_category
     , cast(counts as int) as counts
-    , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
+    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
 from summary_union

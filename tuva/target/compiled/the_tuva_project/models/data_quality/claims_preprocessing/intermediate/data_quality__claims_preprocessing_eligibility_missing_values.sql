@@ -173,7 +173,7 @@ select
     , test_catalog.test_category
     , test_catalog.test_name
     , test_catalog.pipeline_test
-    , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
+    , '2024-02-19 03:16:19.141363+00:00' as tuva_last_run
 from eligibility_missing
      left join test_catalog
        on test_catalog.test_name = eligibility_missing.column_checked||' missing'

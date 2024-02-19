@@ -16,7 +16,7 @@ select
     , pipeline_test
     , count(distinct foreign_key||data_source) as failures
     , denom.denominator
-    , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
+    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
 from "synthea"."data_quality"."claims_preprocessing_test_detail" det
 inner join "synthea"."data_quality"."_int_claims_preprocessing_medical_claim_denominators" denom
     on det.claim_type = denom.test_denominator_name
@@ -42,7 +42,7 @@ select
     , pipeline_test
     , count(distinct foreign_key||data_source) as failures
     , denom.denominator
-    , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
+    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
 from "synthea"."data_quality"."claims_preprocessing_test_detail" det
 inner join "synthea"."data_quality"."_int_claims_preprocessing_medical_claim_denominators" denom
     on det.test_name = denom.test_denominator_name

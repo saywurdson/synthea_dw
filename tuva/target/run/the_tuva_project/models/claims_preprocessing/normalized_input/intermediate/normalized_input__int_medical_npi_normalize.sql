@@ -165,7 +165,7 @@ from "synthea"."tuva_input"."medical_claim"
   , rend_prov.npi as normalized_rendering_npi
   , bill_prov.npi as normalized_billing_npi
   , fac_prov.npi as normalized_facility_npi
-  , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
+  , '2024-02-19 03:52:06.490224+00:00' as tuva_last_run
 from __dbt__cte__normalized_input__stg_medical_claim med
 left join "synthea"."terminology"."provider" rend_prov
     on med.rendering_npi = rend_prov.npi

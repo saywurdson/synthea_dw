@@ -12,7 +12,7 @@ models:
       alias: member_months
       tags: 
         - financial_pmpm
-      materialized: table
+      materialized: view
     columns:
       - name: patient_id
         description: Unique identifier for each patient in the dataset.
@@ -40,7 +40,7 @@ models:
       alias: pmpm_prep
       tags: 
         - financial_pmpm
-      materialized: table
+      materialized: view
     tests:
        - unique:
            column_name: "(patient_id || '_' || year_month || '_' || plan)"
@@ -173,7 +173,7 @@ models:
       alias: pmpm
       tags: 
         - financial_pmpm
-      materialized: table
+      materialized: view
     description: >
       Computes per member per month statistics for every service category by aggregating across patients from pmpm_prep.
     columns:
@@ -305,7 +305,7 @@ models:
       alias: _int_patient_spend_with_service_categories
       tags: 
         - financial_pmpm
-      materialized: table
+      materialized: view
     description: >
       Adds service categories to claims and sums paid and allowed amounts to the year-month level.
 
@@ -317,7 +317,7 @@ models:
       alias: _int_service_category_1_allowed_pivot
       tags: 
         - financial_pmpm
-      materialized: table
+      materialized: view
     description: >
       Pivots out allowed amounts into columns by service category level 1.
 
@@ -329,7 +329,7 @@ models:
       alias: _int_service_category_2_allowed_pivot
       tags: 
         - financial_pmpm
-      materialized: table
+      materialized: view
     description: >
       Pivots out allowed amounts into columns by service category level 2.
 
@@ -341,7 +341,7 @@ models:
       alias: _int_service_category_1_paid_pivot
       tags: 
         - financial_pmpm
-      materialized: table
+      materialized: view
     description: >
       Pivots out paid amounts into columns by service category level 1.
 
@@ -353,7 +353,7 @@ models:
       alias: _int_service_category_2_paid_pivot
       tags: 
         - financial_pmpm
-      materialized: table
+      materialized: view
     description: >
       Pivots out paid amounts into columns by service category level 2.
 

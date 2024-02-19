@@ -10,7 +10,7 @@ models:
       alias: count_claim_by_claim_type
       tags: 
         - insights
-      materialized: table
+      materialized: view
       columns:
         - name: claim_type
           description: Indicates whether the claim is professional (CMS-1500), institutional (UB-04), dental, vision, or pharmacy.
@@ -27,7 +27,7 @@ models:
       alias: count_claim_by_date_column
       tags: 
         - insights
-      materialized: table
+      materialized: view
       columns:
         - name: year_month
           description: Year and month of the claim end date or the member enrollment.
@@ -57,7 +57,7 @@ models:
       alias: count_claim_by_service_category
       tags: 
         - insights
-      materialized: table
+      materialized: view
       columns:
         - name: service_category_type
           description: The broader service category a claim belongs to.
@@ -75,7 +75,7 @@ models:
       alias: orphan_claim_by_claim_type
       tags: 
         - insights
-      materialized: table
+      materialized: view
       columns:
         - name: claim_category
           description: The broader claim type a claim belongs to e.g. medical or pharmacy.
@@ -92,7 +92,7 @@ models:
       alias: sum_amount_by_claim_type
       tags: 
         - insights
-      materialized: table
+      materialized: view
       columns:
         - name: claim_type
           description: Indicates whether the claim is professional (CMS-1500), institutional (UB-04), dental, vision, or pharmacy.
@@ -112,7 +112,7 @@ models:
       alias: sum_amount_by_service_category
       tags: 
         - insights
-      materialized: table
+      materialized: view
       columns:
         - name: service_category_type
           description: The broader service category a claim belongs to.
@@ -134,7 +134,7 @@ models:
       alias: trend_count_claim_by_claim_type
       tags: 
         - insights
-      materialized: table
+      materialized: view
       columns:
         - name: year_month
           description: Year and month of the claim end date.
@@ -156,7 +156,7 @@ models:
       alias: trend_count_claim_by_service_category
       tags: 
         - insights
-      materialized: table
+      materialized: view
       columns:
         - name: year_month
           description: Year and month of the claim end date
@@ -179,7 +179,7 @@ models:
       alias: trend_sum_amount_by_claim_type
       tags: 
         - insights
-      materialized: table
+      materialized: view
       columns:
         - name: year_month
           description: Year and month of the claim end date
@@ -214,7 +214,7 @@ models:
       alias: trend_sum_amount_by_service_category
       tags: 
         - insights
-      materialized: table
+      materialized: view
       columns:
         - name: year_month
           description: Year and month of the claim end date

@@ -14,7 +14,7 @@ with  __dbt__cte__tuva_chronic_conditions__stg_core__patient as (
 
 select 
     patient_id
-    , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
+    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
 from "synthea"."core"."patient"
 ), condition_columns as (
 
@@ -630,7 +630,7 @@ select
     
   
 
-      , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
+      , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
 from __dbt__cte__tuva_chronic_conditions__stg_core__patient p
      left join "synthea"."chronic_conditions"."tuva_chronic_conditions_long" l
         on p.patient_id = l.patient_id

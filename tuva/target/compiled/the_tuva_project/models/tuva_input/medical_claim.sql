@@ -63,32 +63,307 @@ SELECT DISTINCT
     NULL AS copayment_amount,
     NULL AS deductible_amount,
     CAST(REPLACE(JSON_EXTRACT(c, '$.total.value'), '"', '') AS FLOAT) AS total_cost_amount,
-    'snomed' AS diagnosis_code_type,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[0].code'), '"', '') AS diagnosis_code_1,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[1].code'), '"', '') AS diagnosis_code_2,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[2].code'), '"', '') AS diagnosis_code_3,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[3].code'), '"', '') AS diagnosis_code_4,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[4].code'), '"', '') AS diagnosis_code_5,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[5].code'), '"', '') AS diagnosis_code_6,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[6].code'), '"', '') AS diagnosis_code_7,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[7].code'), '"', '') AS diagnosis_code_8,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[8].code'), '"', '') AS diagnosis_code_9,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[9].code'), '"', '') AS diagnosis_code_10,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[10].code'), '"', '') AS diagnosis_code_11,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[11].code'), '"', '') AS diagnosis_code_12,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[12].code'), '"', '') AS diagnosis_code_13,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[13].code'), '"', '') AS diagnosis_code_14,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[14].code'), '"', '') AS diagnosis_code_15,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[15].code'), '"', '') AS diagnosis_code_16,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[16].code'), '"', '') AS diagnosis_code_17,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[17].code'), '"', '') AS diagnosis_code_18,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[18].code'), '"', '') AS diagnosis_code_19,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[19].code'), '"', '') AS diagnosis_code_20,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[20].code'), '"', '') AS diagnosis_code_21,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[21].code'), '"', '') AS diagnosis_code_22,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[22].code'), '"', '') AS diagnosis_code_23,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[23].code'), '"', '') AS diagnosis_code_24,
-    REPLACE(JSON_EXTRACT(co, '$.code.coding[24].code'), '"', '') AS diagnosis_code_25,
+    'icd-10-cm' AS diagnosis_code_type,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[0].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[0].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_1,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[1].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[1].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_2,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[2].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[2].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_3,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[3].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[3].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_4,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[4].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[4].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_5,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[5].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[5].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_6,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[6].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[6].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_7,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[7].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[7].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_8,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[8].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[8].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_9,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[9].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[9].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_10,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[10].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[10].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_11,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[11].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[11].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_12,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[12].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[12].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_13,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[13].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[13].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_14,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[14].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[14].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_15,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[15].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[15].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_16,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[16].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[16].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_17,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[17].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[17].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_18,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[18].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[18].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_19,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[19].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[19].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_20,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[20].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[20].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_21,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[21].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[21].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_22,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[22].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[22].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_23,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[23].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[23].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_24,
+    CASE
+        WHEN (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[24].code') AS VARCHAR), '"', '')
+        ) = 'nan' THEN NULL
+        ELSE (
+            SELECT REGEXP_REPLACE(map.map_target, '[^a-zA-Z0-9]', '', 'g')
+            FROM "synthea"."terminology"."snomed_icd_10_map" AS map
+            WHERE map.referenced_component_id = REPLACE(CAST(JSON_EXTRACT(co, '$.code.coding[24].code') AS VARCHAR), '"', '')
+        )
+    END AS diagnosis_code_25,
     'Y' AS diagnosis_poa_1,
     'U' AS diagnosis_poa_2,
     'U' AS diagnosis_poa_3,

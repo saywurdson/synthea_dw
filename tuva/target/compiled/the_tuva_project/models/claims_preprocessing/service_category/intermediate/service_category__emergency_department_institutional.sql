@@ -13,12 +13,12 @@ HCPCS_CODE,
 MS_DRG_CODE,
 PLACE_OF_SERVICE_CODE,
 REVENUE_CENTER_CODE,
-'2024-02-18 20:58:36.138008+00:00' as tuva_last_run
+'2024-02-18 21:13:49.400698+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."normalized_input_medical_claim"
 ) select distinct 
     med.claim_id
     , 'Emergency Department' as service_category_2
-    , '2024-02-18 20:58:36.138008+00:00' as tuva_last_run
+    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
 from __dbt__cte__service_category__stg_medical_claim med
 left join "synthea"."claims_preprocessing"."_int_acute_inpatient_institutional" inpatient
     on med.claim_id = inpatient.claim_id
