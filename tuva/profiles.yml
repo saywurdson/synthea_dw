@@ -3,6 +3,6 @@ duckdb:
   outputs:
     dev:
       type: duckdb
-      threads: 4
+      threads: 2
       database: 'synthea'
       path: /workspaces/synthea_dw/synthea.db
