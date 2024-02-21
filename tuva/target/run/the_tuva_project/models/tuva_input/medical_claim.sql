@@ -1,7 +1,13 @@
 
   
-  create view "synthea"."tuva_input"."medical_claim__dbt_tmp" as (
-    -- models/medical_claim.sql
+    
+    
+
+    create  table
+      "synthea"."tuva_input"."medical_claim__dbt_tmp"
+  
+    as (
+      -- models/medical_claim.sql
 
 SELECT DISTINCT
     REPLACE(JSON_EXTRACT(c, '$.id'), '"', '') AS claim_id,
@@ -4250,4 +4256,6 @@ GROUP BY
     CAST(SUBSTRING(JSON_EXTRACT(p, '$.performedDateTime'), 2, 10) AS DATE),
     CAST(SUBSTRING(JSON_EXTRACT(p, '$.performedDateTime'), 2, 10) AS DATE),
     CAST(SUBSTRING(JSON_EXTRACT(p, '$.performedDateTime'), 2, 10) AS DATE)
-  );
+    );
+  
+  

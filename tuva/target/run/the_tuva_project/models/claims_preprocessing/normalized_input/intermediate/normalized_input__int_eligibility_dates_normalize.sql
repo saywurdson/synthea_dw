@@ -47,7 +47,7 @@ from "synthea"."tuva_input"."eligibility"
   , cal_death.full_date as normalized_death_date
   , cal_enroll_start.full_date as normalized_enrollment_start_date
   , cal_enroll_end.full_date as normalized_enrollment_end_date
-  , '2024-02-21 14:30:54.308435+00:00' as tuva_last_run
+  , '2024-02-21 20:38:46.882654+00:00' as tuva_last_run
 from __dbt__cte__normalized_input__stg_eligibility elig
 left join "synthea"."terminology"."calendar" cal_dob
     on elig.birth_date = cal_dob.full_date

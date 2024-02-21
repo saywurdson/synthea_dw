@@ -168,7 +168,7 @@ from "synthea"."tuva_input"."medical_claim"
   , cal_claim_line_end.full_date as normalized_claim_line_end_date
   , cal_admission.full_date as normalized_admission_date
   , cal_discharge.full_date as normalized_discharge_date
-  , '2024-02-21 14:30:54.308435+00:00' as tuva_last_run
+  , '2024-02-21 20:38:46.882654+00:00' as tuva_last_run
 from __dbt__cte__normalized_input__stg_medical_claim med
 left join "synthea"."terminology"."calendar" cal_claim_start
     on med.claim_start_date = cal_claim_start.full_date

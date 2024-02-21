@@ -1,7 +1,13 @@
 
   
-  create view "synthea"."tuva_input"."lab_result__dbt_tmp" as (
-    -- models/lab_result.sql
+    
+    
+
+    create  table
+      "synthea"."tuva_input"."lab_result__dbt_tmp"
+  
+    as (
+      -- models/lab_result.sql
 
 SELECT DISTINCT
     MAX(REPLACE(JSON_EXTRACT(o, '$.id'), '"', '')) AS lab_result_id,
@@ -37,4 +43,6 @@ LEFT JOIN "synthea"."json"."Encounter" e ON REPLACE(REPLACE(JSON_EXTRACT(o, '$.e
 WHERE REPLACE(JSON_EXTRACT(o, '$.category[0].coding[0].code'), '"', '') = ('laboratory')
 AND REPLACE(JSON_EXTRACT(o, '$.valueQuantity.value'), '"', '') IS NOT NULL
 GROUP BY REPLACE(JSON_EXTRACT(o, '$.id'), '"', '')
-  );
+    );
+  
+  

@@ -7,5 +7,5 @@ select
     left(prccsr, 3) as ccsr_parent_category,
     prccsr_description as ccsr_category_description,
     clinical_domain,
-   '2024-02-21 14:30:54.308435+00:00' as tuva_last_run
+   '2024-02-21 22:31:32.242896+00:00' as tuva_last_run
 from "synthea"."ccsr"."_value_set_prccsr_v2023_1_cleaned_map"

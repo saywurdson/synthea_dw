@@ -5,6 +5,7 @@ models:
     description: The eligibility table includes information about a patient's health insurance coverage and demographics (note - we use the word patient as a synonym for member). Every claims dataset should include some sort of eligibility data, otherwise it's impossible to calculate member months, which are needed to calculate measures like PMPM.
     config:
       schema: tuva_input
+      materialized: table
       columns:
         - name: patient_id
           description: Unique identifier for each patient in the dataset.
@@ -53,6 +54,7 @@ models:
     description: The medical_claim table contains information on healthcare services and supplies provided to patients, billed by providers, and paid for by health insurers. It includes information on the provider who rendered the service, the amount paid for the service by the health insurer, and the underlying reason for the service (i.e. diagnosis).
     config:
       schema: tuva_input
+      materialized: table
       columns:
         - name: claim_id
           description: Unique identifier for each claim.
@@ -343,6 +345,7 @@ models:
     description: The pharmacy_claim table includes information about retail and specialty drug prescriptions that have been filled by a patient, billed by a pharmacy, and paid by an insurer.
     config:
       schema: tuva_input
+      materialized: table
       columns:
       - name: claim_id
         description: Unique identifier for each claim.
@@ -389,6 +392,7 @@ models:
     description: The condition table contains information related to medical conditions patients have, including problems, admitting diagnosis codes, and billable diagnosis codes.
     config:
       schema: tuva_input
+      materialized: table
       columns:
         - name: condition_id
           description: Unique identifier for each condition in the table.
@@ -433,6 +437,7 @@ models:
     description: The encounter table contains information about patients visits (i.e. encounters). This includes acute inpatient, emergency department, office visits, SNF stays, etc.
     config:
       schema: tuva_input
+      materialized: table
       columns:
         - name: encounter_id
           description: Unique identifier for each encounter.
@@ -489,6 +494,7 @@ models:
     description: The lab result table contains information about lab test results, including the LOINC code and description, units, reference range, and result.
     config:
       schema: tuva_input
+      materialized: table
       columns:
         - name: lab_result_id
           description: Unique identifier for the lab test.
@@ -549,6 +555,7 @@ models:
     description: The location table contains information on practice and facility locations where patients receive medical care.
     config:
       schema: tuva_input
+      materialized: table
       columns:
         - name: location_id
           description: Unique identifier for each location.
@@ -579,6 +586,7 @@ models:
     description: The medication table contains information on medications ordered and/or administered during a patient encounter.
     config:
       schema: tuva_input
+      materialized: table
       columns:
         - name: medication_id
           description: Unique identifier for each medication in the table.
@@ -627,6 +635,7 @@ models:
     description: The observation table contains information on measurements other than lab tests e.g. blood pressure, height, and weight.
     config:
       schema: tuva_input
+      materialized: table
       columns:
         - name: observation_id
           description: Unique identifier for each observation in the dataset.
@@ -673,6 +682,7 @@ models:
     description: The patient table contains demographic and geographic information on patients.
     config:
       schema: tuva_input
+      materialized: table
       columns:
         - name: patient_id
           description: Unique identifier for each person across all datasets.
@@ -711,6 +721,7 @@ models:
     description: The practitioner table contains information on the providers in the dataset e.g. physicians, physicians assistants, etc.
     config:
       schema: tuva_input
+      materialized: table
       columns:
         - name: practitioner_id
           description: Unique ID for the provider.
@@ -733,6 +744,7 @@ models:
     description: The procedure table contains information on procedures that were performed on patients in the dataset.
     config:
       schema: tuva_input
+      materialized: table
       columns:
         - name: procedure_id
           description: The unique identifier for the performed procedure.

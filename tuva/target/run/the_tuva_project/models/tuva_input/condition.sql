@@ -1,7 +1,13 @@
 
   
-  create view "synthea"."tuva_input"."condition__dbt_tmp" as (
-    SELECT
+    
+    
+
+    create  table
+      "synthea"."tuva_input"."condition__dbt_tmp"
+  
+    as (
+      SELECT
     MAX(REPLACE(JSON_EXTRACT(co, '$.id'), '"', '')) AS condition_id,
     MAX(REPLACE(REPLACE(JSON_EXTRACT(co, '$.subject.reference'), '"Patient/', ''), '"', '')) AS patient_id,
     MAX(REPLACE(REPLACE(JSON_EXTRACT(co, '$.encounter.reference'), '"Encounter/', ''), '"', '')) AS encounter_id,
@@ -40,4 +46,6 @@ LEFT JOIN "synthea"."json"."Encounter" e
 JOIN "synthea"."terminology"."snomed_icd_10_map" map
     ON REPLACE(JSON_EXTRACT(co, '$.code.coding[0].code'), '"', '') = map.referenced_component_id
 GROUP BY REPLACE(JSON_EXTRACT(co, '$.id'), '"', '')
-  );
+    );
+  
+  

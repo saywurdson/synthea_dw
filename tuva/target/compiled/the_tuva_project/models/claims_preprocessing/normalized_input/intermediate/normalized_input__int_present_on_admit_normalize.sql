@@ -423,7 +423,7 @@ select
     , diagnosis_column
     , poa.present_on_admit_code as normalized_present_on_admit_code
     , count(*) as present_on_admit_occurrence_count
-    , '2024-02-21 14:30:54.308435+00:00' as tuva_last_run
+    , '2024-02-21 20:38:46.882654+00:00' as tuva_last_run
 from pivot_poa piv
 left join "synthea"."terminology"."present_on_admission" poa
     on replace(piv.present_on_admit_code,'.','') = poa.present_on_admit_code

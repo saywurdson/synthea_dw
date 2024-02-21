@@ -1,7 +1,13 @@
 
   
-  create view "synthea"."tuva_input"."eligibility__dbt_tmp" as (
-    -- models/eligibility.sql
+    
+    
+
+    create  table
+      "synthea"."tuva_input"."eligibility__dbt_tmp"
+  
+    as (
+      -- models/eligibility.sql
 
 SELECT DISTINCT
     MAX(REPLACE(REPLACE(JSON_EXTRACT(e, '$.patient.reference'), '"Patient/', ''), '"', '')) AS patient_id,
@@ -39,4 +45,6 @@ FROM "synthea"."json"."ExplanationOfBenefit" e
 LEFT JOIN "synthea"."json"."Patient" p
     ON REPLACE(REPLACE(JSON_EXTRACT(e, '$.patient.reference'), '"Patient/', ''), '"', '') = REPLACE(JSON_EXTRACT(p, '$.id'), '"', '')
 GROUP BY REPLACE(REPLACE(JSON_EXTRACT(e, '$.patient.reference'), '"Patient/', ''), '"', '')
-  );
+    );
+  
+  

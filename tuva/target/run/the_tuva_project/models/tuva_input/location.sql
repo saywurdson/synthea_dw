@@ -1,7 +1,13 @@
 
   
-  create view "synthea"."tuva_input"."location__dbt_tmp" as (
-    -- models/location.sql
+    
+    
+
+    create  table
+      "synthea"."tuva_input"."location__dbt_tmp"
+  
+    as (
+      -- models/location.sql
 
 SELECT DISTINCT
     REPLACE(JSON_EXTRACT(l, '$.id'), '"', '') AS location_id,
@@ -17,4 +23,6 @@ SELECT DISTINCT
     CAST(REPLACE(JSON_EXTRACT(l, '$.position.longitude'), '"', '') AS FLOAT) AS longitude,
     'SyntheaFhir' AS data_source
 FROM "synthea"."json"."Location" l
-  );
+    );
+  
+  

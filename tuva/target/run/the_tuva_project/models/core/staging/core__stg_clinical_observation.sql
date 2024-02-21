@@ -25,6 +25,6 @@ select
     , cast(normalized_reference_range_low as TEXT ) as normalized_reference_range_low
     , cast(normalized_reference_range_high as TEXT ) as normalized_reference_range_high
     , cast(data_source as TEXT ) as data_source
-    , cast('2024-02-21 14:30:54.308435+00:00' as timestamp ) as tuva_last_run
+    , cast('2024-02-21 20:38:46.882654+00:00' as timestamp ) as tuva_last_run
 from "synthea"."tuva_input"."observation"
   );

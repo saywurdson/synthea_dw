@@ -1,7 +1,13 @@
 
   
-  create view "synthea"."tuva_input"."encounter__dbt_tmp" as (
-    -- models/encounter.sql
+    
+    
+
+    create  table
+      "synthea"."tuva_input"."encounter__dbt_tmp"
+  
+    as (
+      -- models/encounter.sql
 
 SELECT DISTINCT
     MAX(REPLACE(JSON_EXTRACT(e, '$.id'), '"', '')) AS encounter_id,
@@ -62,4 +68,6 @@ JOIN "synthea"."reference"."icd10cm_to_msdrg_v41" icd
 JOIN "synthea"."terminology"."apr_drg" apr
     ON icd.MDC = apr.mdc_code
 GROUP BY REPLACE(JSON_EXTRACT(e, '$.id'), '"', '')
-  );
+    );
+  
+  
