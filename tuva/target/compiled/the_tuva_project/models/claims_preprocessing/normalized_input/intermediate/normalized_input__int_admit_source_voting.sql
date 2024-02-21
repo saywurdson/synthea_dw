@@ -193,5 +193,5 @@ select
     , occurrence_count
     , next_occurrence_count
     , occurrence_row_count
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-21 14:30:54.308435+00:00' as tuva_last_run
 from occurence_comparison

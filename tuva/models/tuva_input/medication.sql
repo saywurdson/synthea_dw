@@ -1,102 +1,93 @@
 -- models/medication.sql
 
-SELECT DISTINCT
-    REPLACE(JSON_EXTRACT(m, '$.id'), '"', '') AS medication_id,
-    REPLACE(REPLACE(JSON_EXTRACT(m, '$.subject.reference'), '"Patient/', ''), '"', '') AS patient_id,
-    REPLACE(REPLACE(JSON_EXTRACT(m, '$.encounter.reference'), '"Encounter/', ''), '"', '') AS encounter_id,
-    CAST(SUBSTRING(JSON_EXTRACT(m, '$.authoredOn'), 2, 10) AS DATE) AS dispensing_date,
-    CAST(SUBSTRING(JSON_EXTRACT(m, '$.authoredOn'), 2, 10) AS DATE) AS prescribing_date,
-    'rxnorm' AS source_code_type,
-    REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') AS source_code,
-    REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].display'), '"', '') AS source_description,
-    (
-        SELECT c2.concept_code
-        FROM {{ source('vocabulary', 'concept_relationship') }} cr
-        JOIN {{ source('vocabulary', 'concept') }} c1 ON c1.concept_id = cr.concept_id_1
-        JOIN {{ source('vocabulary', 'concept') }} c2 ON c2.concept_id = cr.concept_id_2
-        WHERE c1.concept_code = REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '')
-        AND cr.relationship_id = 'Mapped from'
-        AND c2.vocabulary_id = 'NDC'
-        AND c2.domain_id = 'Drug'
-        AND c2.invalid_reason IS NULL
-        AND c1.concept_class_id in ('Branded Drug', 'Clinical Drug', 'Quant Clinical Drug', 'Quant Branded Drug')
-        AND LENGTH(c2.concept_code) = 11
-        ORDER BY c2.concept_id
-        LIMIT 1
-    ) AS ndc_code,
-    (
-        SELECT c2.concept_name
-        FROM {{ source('vocabulary', 'concept_relationship') }} cr
-        JOIN {{ source('vocabulary', 'concept') }} c1 ON c1.concept_id = cr.concept_id_1
-        JOIN {{ source('vocabulary', 'concept') }} c2 ON c2.concept_id = cr.concept_id_2
-        WHERE c1.concept_code = REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '')
-        AND cr.relationship_id = 'Mapped from'
-        AND c2.vocabulary_id = 'NDC'
-        AND c2.domain_id = 'Drug'
-        AND c2.invalid_reason IS NULL
-        AND c1.concept_class_id in ('Branded Drug', 'Clinical Drug', 'Quant Clinical Drug', 'Quant Branded Drug')
-        AND LENGTH(c2.concept_code) = 11
-        ORDER BY c2.concept_id
-        LIMIT 1
-    ) AS ndc_description,
-    REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') AS rxnorm_code,
-    REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].display'), '"', '') AS rxnorm_description,
-    r."atc class id" AS atc_code,
-    (
-        SELECT c3.concept_name
-        FROM {{ source('vocabulary', 'concept') }} c3
-        WHERE c3.concept_code = atc_code
-            AND c3.vocabulary_id = 'ATC'
-            AND c3.domain_id = 'Drug'
-            AND c3.invalid_reason IS NULL
-            AND c3.standard_concept = 'C'
-        LIMIT 1
-    ) AS atc_description,
-    NULL AS route,
-    CASE
-        WHEN ds.amount_value IS NOT NULL THEN ds.amount_value
-        WHEN ds.numerator_value IS NOT NULL THEN
+WITH MinStrength AS (
+    SELECT
+        REPLACE(JSON_EXTRACT(m, '$.id'), '"', '') AS medication_id,
+        MIN(
             CASE
-                WHEN ds.denominator_value IS NOT NULL AND ds.denominator_value != 0 THEN ds.numerator_value / ds.denominator_value
-                ELSE ds.numerator_value
+                WHEN ds.amount_value IS NOT NULL THEN ds.amount_value
+                WHEN ds.numerator_value IS NOT NULL THEN
+                    CASE
+                        WHEN ds.denominator_value IS NOT NULL AND ds.denominator_value != 0 THEN ds.numerator_value / ds.denominator_value
+                        ELSE ds.numerator_value
+                    END
+                ELSE NULL
             END
-        ELSE NULL
-    END AS strength,
+        ) AS min_strength
+    FROM {{ source('json', 'MedicationRequest') }} m
+    JOIN {{ source('vocabulary', 'concept') }} c
+        ON REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') = c.concept_code
+        AND c.vocabulary_id = 'RxNorm'
+        AND c.domain_id = 'Drug'
+        AND c.invalid_reason IS NULL
+        AND c.standard_concept = 'S'
+    JOIN {{ source('vocabulary', 'drug_strength') }} ds
+        ON c.concept_id = ds.drug_concept_id
+    GROUP BY medication_id
+)
+
+SELECT DISTINCT
+    ms.medication_id,
+    REPLACE(REPLACE(JSON_EXTRACT(mr, '$.subject.reference'), '"Patient/', ''), '"', '') AS patient_id,
+    REPLACE(REPLACE(JSON_EXTRACT(mr, '$.encounter.reference'), '"Encounter/', ''), '"', '') AS encounter_id,
+    CAST(SUBSTRING(JSON_EXTRACT(mr, '$.authoredOn'), 2, 10) AS DATE) AS dispensing_date,
+    CAST(SUBSTRING(JSON_EXTRACT(mr, '$.authoredOn'), 2, 10) AS DATE) AS prescribing_date,
+    'rxnorm' AS source_code_type,
+    REPLACE(JSON_EXTRACT(mr, '$.medicationCodeableConcept.coding[0].code'), '"', '') AS source_code,
+    REPLACE(JSON_EXTRACT(mr, '$.medicationCodeableConcept.coding[0].display'), '"', '') AS source_description,
+    ndc.ndc_code,
+    ndc.ndc_description,
+    REPLACE(JSON_EXTRACT(mr, '$.medicationCodeableConcept.coding[0].code'), '"', '') AS rxnorm_code,
+    REPLACE(JSON_EXTRACT(mr, '$.medicationCodeableConcept.coding[0].display'), '"', '') AS rxnorm_description,
+    r."atc class id" AS atc_code,
+    atc.atc_description,
+    NULL AS route,
+    ms.min_strength AS strength,
     CASE
-        WHEN REPLACE(JSON_EXTRACT(m, '$.dosageInstruction[0].doseAndRate[0].doseQuantity.value'), '"', '') IS NOT NULL 
-        THEN CAST(REPLACE(JSON_EXTRACT(m, '$.dosageInstruction[0].doseAndRate[0].doseQuantity.value'), '"', '') AS INTEGER) * 30
+        WHEN REPLACE(JSON_EXTRACT(mr, '$.dosageInstruction[0].doseAndRate[0].doseQuantity.value'), '"', '') IS NOT NULL 
+        THEN CAST(REPLACE(JSON_EXTRACT(mr, '$.dosageInstruction[0].doseAndRate[0].doseQuantity.value'), '"', '') AS INTEGER) * 30
         ELSE 1
     END AS quantity,
-    (
-        SELECT c4.concept_name
-        FROM {{ source('vocabulary', 'concept') }} c1
-        JOIN {{ source('vocabulary', 'drug_strength') }} ds ON c1.concept_id = ds.drug_concept_id
-        JOIN {{ source('vocabulary', 'concept') }} c4 ON c4.concept_id = COALESCE(ds.amount_unit_concept_id, ds.numerator_unit_concept_id)
-        WHERE c1.concept_code = REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '')
-            AND c1.vocabulary_id = 'RxNorm'
-            AND c1.domain_id = 'Drug'
-            AND c1.invalid_reason IS NULL
-            AND c1.standard_concept = 'S'
-            AND c4.concept_id IS NOT NULL
-        LIMIT 1
-    ) AS quantity_unit,
+    qu.quantity_unit,
     CASE
-        WHEN REPLACE(JSON_EXTRACT(m, '$.dosageInstruction[0].doseAndRate[0].doseQuantity.value'), '"', '') IS NOT NULL 
+        WHEN REPLACE(JSON_EXTRACT(mr, '$.dosageInstruction[0].doseAndRate[0].doseQuantity.value'), '"', '') IS NOT NULL 
         THEN 30
         ELSE 1
     END AS days_supply,
-    REPLACE(REPLACE(JSON_EXTRACT(m, '$.requester.reference'), '"Practitioner/', ''), '"', '') AS practitioner_id,
+    REPLACE(REPLACE(JSON_EXTRACT(mr, '$.requester.reference'), '"Practitioner/', ''), '"', '') AS practitioner_id,
     'SyntheaFhir' AS data_source
-FROM {{ source('json', 'MedicationRequest') }} m
-LEFT JOIN {{ source('vocabulary', 'concept') }} c
-    ON REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') = c.concept_code
-    AND c.vocabulary_id = 'RxNorm'
-    AND c.domain_id = 'Drug'
-    AND c.invalid_reason IS NULL
-    AND c.standard_concept = 'S'
-JOIN {{ source('reference', 'rxcuis_ndcs_atc') }} r
-    ON REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') = r.rxcui
-JOIN {{ source('vocabulary', 'drug_strength') }} ds
-    ON c.concept_id = ds.drug_concept_id
-WHERE 
-    REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') IS NOT NULL
+FROM MinStrength ms
+JOIN {{ source('json', 'MedicationRequest') }} mr ON ms.medication_id = REPLACE(JSON_EXTRACT(mr, '$.id'), '"', '')
+LEFT JOIN (
+    SELECT 
+        c1.concept_code AS rxnorm_code,
+        c2.concept_code AS ndc_code,
+        c2.concept_name AS ndc_description
+    FROM {{ source('vocabulary', 'concept_relationship') }} cr
+    JOIN {{ source('vocabulary', 'concept') }} c1 ON c1.concept_id = cr.concept_id_1
+    JOIN {{ source('vocabulary', 'concept') }} c2 ON c2.concept_id = cr.concept_id_2
+    WHERE cr.relationship_id = 'Mapped from'
+    AND c2.vocabulary_id = 'NDC'
+    AND c2.domain_id = 'Drug'
+    AND c2.invalid_reason IS NULL
+    AND c1.concept_class_id in ('Branded Drug', 'Clinical Drug', 'Quant Clinical Drug', 'Quant Branded Drug')
+    AND LENGTH(c2.concept_code) = 11
+) ndc ON REPLACE(JSON_EXTRACT(mr, '$.medicationCodeableConcept.coding[0].code'), '"', '') = ndc.rxnorm_code
+LEFT JOIN {{ source('reference', 'rxcuis_ndcs_atc') }} r ON REPLACE(JSON_EXTRACT(mr, '$.medicationCodeableConcept.coding[0].code'), '"', '') = r.rxcui
+LEFT JOIN (
+    SELECT 
+        c3.concept_code AS atc_code,
+        c3.concept_name AS atc_description
+    FROM {{ source('vocabulary', 'concept') }} c3
+    WHERE c3.vocabulary_id = 'ATC'
+    AND c3.domain_id = 'Drug'
+    AND c3.invalid_reason IS NULL
+    AND c3.standard_concept = 'C'
+) atc ON r."atc class id" = atc.atc_code
+LEFT JOIN (
+    SELECT 
+        ds.drug_concept_id,
+        c4.concept_name AS quantity_unit
+    FROM {{ source('vocabulary', 'drug_strength') }} ds
+    JOIN {{ source('vocabulary', 'concept') }} c4 ON c4.concept_id = COALESCE(ds.amount_unit_concept_id, ds.numerator_unit_concept_id)
+) qu ON REPLACE(JSON_EXTRACT(mr, '$.medicationCodeableConcept.coding[0].code'), '"', '') = qu.drug_concept_id
