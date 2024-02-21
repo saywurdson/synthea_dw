@@ -18,9 +18,9 @@ models:
     columns:
         - name: patient_id
           description: Unique ID for the patient.
-          #tests:
-            #- unique
-            #- not_null
+          tests:
+            - unique
+            - not_null
         - name: acute_myocardial_infarction
           description: flag indicating if the condition is present
           data_type: boolean
@@ -263,18 +263,18 @@ models:
     description: >
       This model unions condition flags from the 3 upstream stage models that
       calculate them.
-    #tests:
-      #- unique:
-          #column_name: "(patient_id || claim_id || start_date || condition)"
+    tests:
+      - unique:
+          column_name: "(patient_id || claim_id || start_date || condition)"
     columns:
         - name: patient_id
           description: Unique ID for the patient.
-          #tests:
-            #- not_null
+          tests:
+            - not_null
         - name: claim_id
           description: Unique identifier for each claim.
-          #tests:
-            #- not_null
+          tests:
+            - not_null
         - name: start_date
           description: >
             Start date of the chronic condition derived from diagnosis, 
@@ -292,8 +292,8 @@ models:
             terminology: https://github.com/tuva-health/the_tuva_project/blob/main/seeds/value_sets/chronic_conditions/chronic_conditions__cms_chronic_conditions_hierarchy.csv
         - name: condition
           description: The name of the chronic condition.
-          #tests:
-            #- not_null
+          tests:
+            - not_null
           meta:
             terminology: https://github.com/tuva-health/the_tuva_project/blob/main/seeds/value_sets/chronic_conditions/chronic_conditions__cms_chronic_conditions_hierarchy.csv
         - name: data_source
@@ -321,12 +321,12 @@ models:
     columns:
         - name: patient_id
           description: Unique ID for the patient.
-          #tests:
-            #- not_null
+          tests:
+            - not_null
         - name: claim_id
           description: Unique identifier for each claim.
-          #tests:
-            #- not_null
+          tests:
+            - not_null
         - name: start_date
           description: >
             Start date of the chronic condition derived from diagnosis, 
@@ -340,8 +340,8 @@ models:
             The category of the condition (e.g. Cardiovascular Disease).
         - name: condition
           description: The name of the chronic condition.
-          #tests:
-            #- not_null
+          tests:
+            - not_null
         - name: data_source
           description: >
             Indicates the name of the source dataset (e.g. Medicare Claims).
@@ -364,12 +364,12 @@ models:
     columns:
         - name: patient_id
           description: Unique ID for the patient.
-          #tests:
-            #- not_null
+          tests:
+            - not_null
         - name: claim_id
           description: Unique identifier for each claim.
-          #tests:
-            #- not_null
+          tests:
+            - not_null
         - name: start_date
           description: >
             Start date of the chronic condition derived from diagnosis, 
@@ -382,10 +382,10 @@ models:
           description: The category of the condition (e.g. Other).
         - name: condition
           description: The name of the chronic condition.
-          #tests:
-            #- not_null
-            #- accepted_values:
-                #values: [ 'Human Immunodeficiency Virus and/or Acquired Immunodeficiency Syndrome (HIV/AIDS)' ]
+          tests:
+            - not_null
+            - accepted_values:
+                values: [ 'Human Immunodeficiency Virus and/or Acquired Immunodeficiency Syndrome (HIV/AIDS)' ]
         - name: data_source
           description: >
             Indicates the name of the source dataset (e.g. Medicare Claims).
@@ -407,12 +407,12 @@ models:
     columns:
         - name: patient_id
           description: Unique ID for the patient.
-          #tests:
-            #- not_null
+          tests:
+            - not_null
         - name: claim_id
           description: Unique identifier for each claim.
-          #tests:
-            #- not_null
+          tests:
+            - not_null
         - name: start_date
           description: >
             Start date of the chronic condition derived from diagnosis, 
@@ -425,10 +425,10 @@ models:
           description: The category of the condition (e.g. Substance Abuse).
         - name: condition
           description: The name of the chronic condition.
-          #tests:
-            #- not_null
-            #- accepted_values:
-                #values: [ 'Opioid Use Disorder (OUD)' ]
+          tests:
+            - not_null
+            - accepted_values:
+                values: [ 'Opioid Use Disorder (OUD)' ]
         - name: data_source
           description: >
             Indicates the name of the source dataset (e.g. Medicare Claims).

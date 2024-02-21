@@ -17,8 +17,8 @@ models:
     columns:
       - name: condition_id
         description: Unique identifier for each condition in the table.
-        #tests:
-          #- unique
+        tests:
+          - unique
       - name: patient_id
         description: Unique identifier for each patient in the dataset.
       - name: encounter_id
@@ -404,9 +404,9 @@ models:
       alias: medical_claim
       tags: core
       materialized: table
-    #tests:
-      #- unique:
-          #column_name: "(claim_id||'-'||claim_line_number)"
+    tests:
+      - unique:
+          column_name: "(claim_id||'-'||claim_line_number)"
     columns:
       - name: claim_id
         description: Unique identifier for each claim.
@@ -895,8 +895,8 @@ models:
     columns:
       - name: procedure_id
         description: The unique identifier for the performed procedure.
-        #tests:
-          #- unique
+        tests:
+          - unique
       - name: encounter_id
         description: >
           The encounter_id for the encounter where this procedure was performed.

@@ -58,8 +58,8 @@ models:
     columns:
       - name: patient_id
         description: Unique ID for the patient.
-        #tests:
-          #- unique
+        tests:
+          - unique
       - name: v24_risk_score
         description: >
           The sum of all patient risk factors from model version CMS-HCC-V24. 
@@ -99,9 +99,9 @@ models:
     description: >
       Demographic and enrollment risk relative factor values for the 
       corresponding HCC model version and payment year.
-    #tests:
-      #- unique:
-          #column_name: "(patient_id||'-'||model_version)"
+    tests:
+      - unique:
+          column_name: "(patient_id||'-'||model_version)"
     columns:
       - name: patient_id
         description: Unique ID for the patient.
@@ -268,8 +268,8 @@ models:
         description: Unique ID for the patient.
       - name: condition_code
         description: The condition code.
-        #tests:
-          #- not_null
+        tests:
+          - not_null
       - name: model_version
         description: CMS HCC model version.
       - name: payment_year
@@ -399,9 +399,9 @@ models:
     columns:
       - name: patient_id
         description: Unique ID for the patient.
-        #tests:
-          #- not_null
-          #- unique
+        tests:
+          - not_null
+          - unique
       - name: enrollment_status
         description: >
           Indicates whether the patient is a "Continuing" or "New" enrollee.

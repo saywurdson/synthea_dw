@@ -561,9 +561,9 @@ models:
     description: Staging conditions from core.
     columns:
       - name: patient_id
-        #tests:
-          #- not_null:
-              #severity: warn
+        tests:
+          - not_null:
+              severity: warn
       - name: recorded_date
       - name: source_code_type
       - name: source_code
@@ -582,9 +582,9 @@ models:
       Staging encounters from core. Creates an empty table if using claims only.
     columns:
       - name: patient_id
-        #tests:
-          #- not_null:
-              #severity: warn
+        tests:
+          - not_null:
+              severity: warn
       - name: encounter_type
       - name: encounter_start_date
       - name: encounter_end_date
@@ -601,9 +601,9 @@ models:
       Staging medications from core. Creates an empty table if using claims only.
     columns:
       - name: patient_id
-        #tests:
-          #- not_null:
-              #severity: warn
+        tests:
+          - not_null:
+              severity: warn
       - name: dispensing_date
       - name: ndc_code
       - name: rxnorm_code
@@ -620,9 +620,9 @@ models:
       Staging medications from core. Creates an empty table if using claims only.
     columns:
       - name: patient_id
-        #tests:
-          #- not_null:
-              #severity: warn
+        tests:
+          - not_null:
+              severity: warn
       - name: observation_date
       - name: source_code_type
       - name: source_code
@@ -640,20 +640,20 @@ models:
     description: Staging eligibility from the input layer.
     columns:
       - name: patient_id
-        #tests:
-          #- not_null:
-              #severity: warn
+        tests:
+          - not_null:
+              severity: warn
       - name: sex
-        #tests:
-          #- not_null:
-              #severity: warn
-          #- accepted_values:
-              #values: ['female', 'male','unknown']
-              #severity: warn
+        tests:
+          - not_null:
+              severity: warn
+          - accepted_values:
+              values: ['female', 'male','unknown']
+              severity: warn
       - name: birth_date
-        #tests:
-          #- not_null:
-              #severity: warn
+        tests:
+          - not_null:
+              severity: warn
       - name: death_date
       - name: tuva_last_run
 
@@ -667,9 +667,9 @@ models:
     description: Staging procedures from core.
     columns:
       - name: patient_id
-        #tests:
-          #- not_null:
-              #severity: warn
+        tests:
+          - not_null:
+              severity: warn
       - name: procedure_date
       - name: source_code_type
       - name: source_code

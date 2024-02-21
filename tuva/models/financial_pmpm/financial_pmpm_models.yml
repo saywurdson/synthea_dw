@@ -41,9 +41,9 @@ models:
       tags: 
         - financial_pmpm
       materialized: table
-    #tests:
-       #- unique:
-           #column_name: "(patient_id || '_' || year_month || '_' || plan)"
+    tests:
+       - unique:
+           column_name: "(patient_id || '_' || year_month || '_' || plan)"
     description: >
       Computes all the paid and allowed statistics for every patient_id and year_month combination.  
     columns:

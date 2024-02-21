@@ -1,15 +1,15 @@
 -- models/medication.sql
 
 SELECT DISTINCT
-    REPLACE(JSON_EXTRACT(m, '$.id'), '"', '') AS medication_id,
-    REPLACE(REPLACE(JSON_EXTRACT(m, '$.subject.reference'), '"Patient/', ''), '"', '') AS patient_id,
-    REPLACE(REPLACE(JSON_EXTRACT(m, '$.encounter.reference'), '"Encounter/', ''), '"', '') AS encounter_id,
-    CAST(SUBSTRING(JSON_EXTRACT(m, '$.authoredOn'), 2, 10) AS DATE) AS dispensing_date,
-    CAST(SUBSTRING(JSON_EXTRACT(m, '$.authoredOn'), 2, 10) AS DATE) AS prescribing_date,
+    MAX(REPLACE(JSON_EXTRACT(m, '$.id'), '"', '')) AS medication_id,
+    MAX(REPLACE(REPLACE(JSON_EXTRACT(m, '$.subject.reference'), '"Patient/', ''), '"', '')) AS patient_id,
+    MAX(REPLACE(REPLACE(JSON_EXTRACT(m, '$.encounter.reference'), '"Encounter/', ''), '"', '')) AS encounter_id,
+    MAX(CAST(SUBSTRING(JSON_EXTRACT(m, '$.authoredOn'), 2, 10) AS DATE)) AS dispensing_date,
+    MAX(CAST(SUBSTRING(JSON_EXTRACT(m, '$.authoredOn'), 2, 10) AS DATE)) AS prescribing_date,
     'rxnorm' AS source_code_type,
-    REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') AS source_code,
-    REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].display'), '"', '') AS source_description,
-    (
+    MAX(REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '')) AS source_code,
+    MAX(REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].display'), '"', '')) AS source_description,
+    MAX((
         SELECT c2.concept_code
         FROM "synthea"."vocabulary"."concept_relationship" cr
         JOIN "synthea"."vocabulary"."concept" c1 ON c1.concept_id = cr.concept_id_1
@@ -23,8 +23,8 @@ SELECT DISTINCT
         AND LENGTH(c2.concept_code) = 11
         ORDER BY c2.concept_id
         LIMIT 1
-    ) AS ndc_code,
-    (
+    )) AS ndc_code,
+    MAX((
         SELECT c2.concept_name
         FROM "synthea"."vocabulary"."concept_relationship" cr
         JOIN "synthea"."vocabulary"."concept" c1 ON c1.concept_id = cr.concept_id_1
@@ -38,11 +38,11 @@ SELECT DISTINCT
         AND LENGTH(c2.concept_code) = 11
         ORDER BY c2.concept_id
         LIMIT 1
-    ) AS ndc_description,
-    REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') AS rxnorm_code,
-    REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].display'), '"', '') AS rxnorm_description,
-    r."atc class id" AS atc_code,
-    (
+    )) AS ndc_description,
+    MAX(REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '')) AS rxnorm_code,
+    MAX(REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].display'), '"', '')) AS rxnorm_description,
+    MAX(r."atc class id") AS atc_code,
+    MAX((
         SELECT c3.concept_name
         FROM "synthea"."vocabulary"."concept" c3
         WHERE c3.concept_code = atc_code
@@ -51,9 +51,9 @@ SELECT DISTINCT
             AND c3.invalid_reason IS NULL
             AND c3.standard_concept = 'C'
         LIMIT 1
-    ) AS atc_description,
+    )) AS atc_description,
     NULL AS route,
-    CASE
+    MAX(CASE
         WHEN ds.amount_value IS NOT NULL THEN ds.amount_value
         WHEN ds.numerator_value IS NOT NULL THEN
             CASE
@@ -61,13 +61,13 @@ SELECT DISTINCT
                 ELSE ds.numerator_value
             END
         ELSE NULL
-    END AS strength,
-    CASE
+    END) AS strength,
+    MAX(CASE
         WHEN REPLACE(JSON_EXTRACT(m, '$.dosageInstruction[0].doseAndRate[0].doseQuantity.value'), '"', '') IS NOT NULL 
         THEN CAST(REPLACE(JSON_EXTRACT(m, '$.dosageInstruction[0].doseAndRate[0].doseQuantity.value'), '"', '') AS INTEGER) * 30
         ELSE 1
-    END AS quantity,
-    (
+    END) AS quantity,
+    MAX((
         SELECT c4.concept_name
         FROM "synthea"."vocabulary"."concept" c1
         JOIN "synthea"."vocabulary"."drug_strength" ds ON c1.concept_id = ds.drug_concept_id
@@ -79,13 +79,13 @@ SELECT DISTINCT
             AND c1.standard_concept = 'S'
             AND c4.concept_id IS NOT NULL
         LIMIT 1
-    ) AS quantity_unit,
-    CASE
+    )) AS quantity_unit,
+    MAX(CASE
         WHEN REPLACE(JSON_EXTRACT(m, '$.dosageInstruction[0].doseAndRate[0].doseQuantity.value'), '"', '') IS NOT NULL 
         THEN 30
         ELSE 1
-    END AS days_supply,
-    REPLACE(REPLACE(JSON_EXTRACT(m, '$.requester.reference'), '"Practitioner/', ''), '"', '') AS practitioner_id,
+    END) AS days_supply,
+    MAX(REPLACE(REPLACE(JSON_EXTRACT(m, '$.requester.reference'), '"Practitioner/', ''), '"', '')) AS practitioner_id,
     'SyntheaFhir' AS data_source
 FROM "synthea"."json"."MedicationRequest" m
 LEFT JOIN "synthea"."vocabulary"."concept" c
@@ -100,3 +100,4 @@ JOIN "synthea"."vocabulary"."drug_strength" ds
     ON c.concept_id = ds.drug_concept_id
 WHERE 
     REPLACE(JSON_EXTRACT(m, '$.medicationCodeableConcept.coding[0].code'), '"', '') IS NOT NULL
+GROUP BY REPLACE(JSON_EXTRACT(m, '$.id'), '"', '')
