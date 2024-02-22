@@ -9,5 +9,5 @@ select
     , cast(specialty as TEXT ) as specialty
     , cast(sub_specialty as TEXT ) as sub_specialty
     , cast(data_source as TEXT ) as data_source
-    , cast('2024-02-21 20:38:46.882654+00:00' as timestamp ) as tuva_last_run
+    , cast('2024-02-22 00:26:23.471542+00:00' as timestamp ) as tuva_last_run
 from "synthea"."tuva_input"."practitioner"

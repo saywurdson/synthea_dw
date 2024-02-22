@@ -31,7 +31,7 @@ with eligiblity as (
         , eligiblity.data_source
         , eligiblity.gender
         , count(eligiblity.gender) as filled_row_count
-        , '2024-02-21 14:30:54.308435+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from eligiblity
          left join "synthea"."terminology"."gender" gender
            on eligiblity.gender = gender.gender
@@ -64,7 +64,7 @@ with eligiblity as (
         , eligiblity.data_source
         , eligiblity.race
         , count(eligiblity.race) as filled_row_count
-        , '2024-02-21 14:30:54.308435+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from eligiblity
          left join "synthea"."terminology"."race" race
            on eligiblity.race = race.description
@@ -97,7 +97,7 @@ with eligiblity as (
         , eligiblity.data_source
         , eligiblity.payer_type
         , count(eligiblity.payer_type) as filled_row_count
-        , '2024-02-21 14:30:54.308435+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from eligiblity
          left join "synthea"."terminology"."payer_type" payer
            on eligiblity.payer_type = payer.payer_type
@@ -130,7 +130,7 @@ with eligiblity as (
         , eligiblity.data_source
         , eligiblity.original_reason_entitlement_code
         , count(eligiblity.original_reason_entitlement_code) as filled_row_count
-        , '2024-02-21 14:30:54.308435+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from eligiblity
          left join "synthea"."terminology"."medicare_orec" orec
            on eligiblity.original_reason_entitlement_code = orec.original_reason_entitlement_code
@@ -163,7 +163,7 @@ with eligiblity as (
         , eligiblity.data_source
         , eligiblity.dual_status_code
         , count(eligiblity.dual_status_code) as filled_row_count
-        , '2024-02-21 14:30:54.308435+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from eligiblity
          left join "synthea"."terminology"."medicare_dual_eligibility" dual
            on eligiblity.dual_status_code = dual.dual_status_code
@@ -196,7 +196,7 @@ with eligiblity as (
         , eligiblity.data_source
         , eligiblity.medicare_status_code
         , count(eligiblity.medicare_status_code) as filled_row_count
-        , '2024-02-21 14:30:54.308435+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from eligiblity
          left join "synthea"."terminology"."medicare_status" status
            on eligiblity.medicare_status_code = status.medicare_status_code

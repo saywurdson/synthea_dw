@@ -62,7 +62,7 @@ with cohort_ranks as (
 
 
 --getting all encounters, with labeled cohorts, if no cohort cohort is "medicine"
-select enc.encounter_id, coalesce(cohort_ranks.cohort, 'Medicine') as specialty_cohort, '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+select enc.encounter_id, coalesce(cohort_ranks.cohort, 'Medicine') as specialty_cohort, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."readmissions"."_int_encounter" enc
 left join main_encounter_cohort mec
     on enc.encounter_id = mec.encounter_id

@@ -22,5 +22,5 @@ select
     , cast(days_supply as integer ) as days_supply
     , cast(practitioner_id as TEXT ) as practitioner_id
     , cast(data_source as TEXT ) as data_source
-    , cast('2024-02-21 20:38:46.882654+00:00' as timestamp ) as tuva_last_run
+    , cast('2024-02-22 00:26:23.471542+00:00' as timestamp ) as tuva_last_run
 from "synthea"."tuva_input"."medication"

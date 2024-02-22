@@ -39,7 +39,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(*) as counts
-        , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from medical_claim
          left join test_catalog
            on test_catalog.test_name = 'claim_start_date after claim_end_date'
@@ -67,7 +67,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(*) as counts
-        , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from medical_claim
          left join test_catalog
            on test_catalog.test_name = 'admission_date after discharge_date'
@@ -96,7 +96,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(*) as counts
-        , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from medical_claim
          left join test_catalog
            on test_catalog.test_name = 'admission_date incorrectly populated'
@@ -125,7 +125,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(*) as counts
-        , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from medical_claim
          left join test_catalog
            on test_catalog.test_name = 'discharge_date incorrectly populated'
@@ -154,7 +154,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(*) as counts
-        , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from medical_claim
          left join test_catalog
            on test_catalog.test_name = 'revenue_center_code incorrectly populated'
@@ -183,7 +183,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(*) as counts
-        , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from medical_claim
          left join test_catalog
            on test_catalog.test_name = 'institutional header-level fields incorrectly populated'
@@ -220,7 +220,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(*) as counts
-        , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from medical_claim
          left join test_catalog
            on test_catalog.test_name = 'place_of_service_code incorrectly populated'

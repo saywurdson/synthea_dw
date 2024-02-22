@@ -30,7 +30,7 @@ select
     , source_code
     , normalized_code_type
     , normalized_code
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."core"."condition"
 ),  __dbt__cte__quality_measures__stg_medical_claim as (
 
@@ -42,7 +42,7 @@ select
     , claim_end_date
     , place_of_service_code
     , hcpcs_code
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."core"."medical_claim"
 
 
@@ -56,7 +56,7 @@ select
     , source_code
     , normalized_code_type
     , normalized_code
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."core"."observation"
 
 
@@ -69,7 +69,7 @@ select
     , source_code
     , normalized_code_type
     , normalized_code
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."core"."procedure"
 ), encounter_exclusion_codes as (
 
@@ -378,7 +378,7 @@ select
       patient_id
     , exclusion_date
     , exclusion_reason
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from qualifying_encounters
     );
   

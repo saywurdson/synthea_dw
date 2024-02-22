@@ -85,8 +85,8 @@ where acute_encounters.encounter_id is null
 
 -- Aggregate of all encounter_ids for planned encounters
 
-select * , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run from always_planned_px
+select * , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run from always_planned_px
 union distinct
-select *, '2024-02-19 14:47:32.336131+00:00' as tuva_last_run from always_planned_dx
+select *, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run from always_planned_dx
 union distinct
-select *, '2024-02-19 14:47:32.336131+00:00' as tuva_last_run from potentially_planned_that_are_actually_planned
+select *, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run from potentially_planned_that_are_actually_planned

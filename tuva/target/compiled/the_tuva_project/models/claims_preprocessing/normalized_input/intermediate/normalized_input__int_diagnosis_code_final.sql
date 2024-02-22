@@ -29,7 +29,7 @@ select
     , max(case when lower(column_name) = 'diagnosis_code_23' then normalized_code else null end) as diagnosis_code_23
     , max(case when lower(column_name) = 'diagnosis_code_24' then normalized_code else null end) as diagnosis_code_24
     , max(case when lower(column_name) = 'diagnosis_code_25' then normalized_code else null end) as diagnosis_code_25
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."_int_normalized_input_diagnosis_code_voting"
 where (occurrence_row_count = 1
         and occurrence_count > next_occurrence_count)

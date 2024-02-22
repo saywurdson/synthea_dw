@@ -25,7 +25,7 @@ select
     , diagnosis_code_type
     , diagnosis_code_1
     , data_source
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."normalized_input_medical_claim"
 ),  __dbt__cte__emergency_department__stg_service_category as (
 
@@ -36,7 +36,7 @@ select
     , claim_type
     , claim_line_number
     , service_category_2
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."service_category_grouper"
 ), emergency_department_claim_lines as (
 select
@@ -316,7 +316,7 @@ select
   dq.claim_type_missing as claim_type_missing,
   dq.claim_type_not_institutional as claim_type_not_institutional,
   h.data_source,
-  '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+  '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 
 from header_level_values h
 left join data_quality_flags dq

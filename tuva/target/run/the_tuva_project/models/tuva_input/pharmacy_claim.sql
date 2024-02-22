@@ -1,7 +1,13 @@
 
   
-  create view "synthea"."tuva_input"."pharmacy_claim__dbt_tmp" as (
-    -- models/pharmacy_claim.sql
+    
+    
+
+    create  table
+      "synthea"."tuva_input"."pharmacy_claim__dbt_tmp"
+  
+    as (
+      -- models/pharmacy_claim.sql
 
 SELECT *
 FROM (
@@ -73,4 +79,6 @@ FROM (
     WHERE REPLACE(JSON_EXTRACT(c, '$.type.coding[0].code'), '"', '') = 'pharmacy'
 ) AS pharmacy_claim
 WHERE pharmacy_claim.ndc_code IS NOT NULL
-  );
+    );
+  
+  

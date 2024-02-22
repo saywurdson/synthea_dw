@@ -67,6 +67,6 @@ from encounter_sequence aa left join encounter_sequence bb
 
 
 
-select *, '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+select *, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from readmission_calc
   );

@@ -1,7 +1,13 @@
 
   
-  create view "synthea"."tuva_input"."medication__dbt_tmp" as (
-    -- models/medication.sql
+    
+    
+
+    create  table
+      "synthea"."tuva_input"."medication__dbt_tmp"
+  
+    as (
+      -- models/medication.sql
 
 WITH MinStrength AS (
     SELECT
@@ -94,4 +100,6 @@ LEFT JOIN (
     FROM "synthea"."vocabulary"."drug_strength" ds
     JOIN "synthea"."vocabulary"."concept" c4 ON c4.concept_id = COALESCE(ds.amount_unit_concept_id, ds.numerator_unit_concept_id)
 ) qu ON REPLACE(JSON_EXTRACT(mr, '$.medicationCodeableConcept.coding[0].code'), '"', '') = qu.drug_concept_id
-  );
+    );
+  
+  

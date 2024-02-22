@@ -19,7 +19,7 @@ select
     , source_code
     , normalized_code_type
     , normalized_code
-    , '2024-02-18 21:13:49.400698+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."core"."condition"
 ) select patient_id
 from __dbt__cte__quality_measures__stg_core__condition

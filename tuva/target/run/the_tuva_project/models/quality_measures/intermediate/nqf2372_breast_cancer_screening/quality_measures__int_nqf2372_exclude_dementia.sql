@@ -25,7 +25,7 @@ select
     , source_code
     , ndc_code
     , rxnorm_code
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."core"."medication"
 
 
@@ -37,7 +37,7 @@ select
     , dispensing_date
     , ndc_code
     , paid_date
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."core"."pharmacy_claim"
 
 
@@ -195,7 +195,7 @@ select
       patient_id
     , exclusion_date
     , exclusion_reason
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from frailty_with_dementia
     );
   

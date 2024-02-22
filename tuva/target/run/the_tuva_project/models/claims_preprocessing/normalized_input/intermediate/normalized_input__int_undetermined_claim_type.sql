@@ -300,7 +300,7 @@ from "synthea"."tuva_input"."medical_claim"
     , procedure_date_24
     , procedure_date_25
     , data_source
-    , '2024-02-21 14:30:54.308435+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from __dbt__cte__normalized_input__stg_medical_claim
 where claim_type in ('undetermined')
     );

@@ -10,7 +10,7 @@ select
     , claim_type
     , claim_line_number
     , service_category_2
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."service_category_grouper"
 ),  __dbt__cte__emergency_department__stg_medical_claim as (
 
@@ -36,7 +36,7 @@ select
     , diagnosis_code_type
     , diagnosis_code_1
     , data_source
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."normalized_input_medical_claim"
 ), emergency_department_professional_claim_ids as (
 select 
@@ -159,5 +159,5 @@ from professional_claims_in_more_than_one_encounter
 
 
 
-select *, '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+select *, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from all_emergency_department_professional_claims

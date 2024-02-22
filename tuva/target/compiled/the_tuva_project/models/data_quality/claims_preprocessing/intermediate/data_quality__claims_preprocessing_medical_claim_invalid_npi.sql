@@ -30,7 +30,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.billing_npi) as filled_row_count
-        , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."provider" pro
            on medical_claim.billing_npi = pro.npi
@@ -61,7 +61,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.facility_npi) as filled_row_count
-        , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."provider" pro
            on medical_claim.facility_npi = pro.npi
@@ -92,7 +92,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.rendering_npi) as filled_row_count
-        , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."provider" pro
            on medical_claim.rendering_npi = pro.npi

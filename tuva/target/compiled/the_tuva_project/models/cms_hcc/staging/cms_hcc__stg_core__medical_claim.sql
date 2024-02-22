@@ -8,5 +8,5 @@ select
     , claim_end_date
     , bill_type_code
     , hcpcs_code
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."core"."medical_claim"

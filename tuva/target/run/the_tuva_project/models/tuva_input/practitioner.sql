@@ -1,7 +1,13 @@
 
   
-  create view "synthea"."tuva_input"."practitioner__dbt_tmp" as (
-    -- models/practitioner.sql
+    
+    
+
+    create  table
+      "synthea"."tuva_input"."practitioner__dbt_tmp"
+  
+    as (
+      -- models/practitioner.sql
 
 SELECT DISTINCT
     REPLACE(JSON_EXTRACT(p, '$.id'), '"', '') AS practitioner_id,
@@ -15,4 +21,6 @@ SELECT DISTINCT
 FROM "synthea"."json"."Practitioner" p
 JOIN "synthea"."json"."PractitionerRole" pr
     ON REPLACE(JSON_EXTRACT(p, '$.identifier[0].value'), '"', '') = REPLACE(JSON_EXTRACT(pr, '$.practitioner.identifier.value'), '"', '')
-  );
+    );
+  
+  

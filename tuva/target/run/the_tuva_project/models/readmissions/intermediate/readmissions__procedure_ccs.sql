@@ -10,7 +10,7 @@ select
   encounter_id
 , normalized_code
 , normalized_code_type
-, '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."core"."procedure"
 ) -- Here we map every procedure code to its corresponding
 -- CCS procedure category.
@@ -29,7 +29,7 @@ select
 	else 1
     end as valid_icd_10_pcs_flag,
     cc.ccs_procedure_category,
-    '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from
     __dbt__cte__readmissions__stg_core__procedure aa
     left join "synthea"."terminology"."icd_10_pcs" bb

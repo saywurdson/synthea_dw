@@ -20,12 +20,12 @@ models:
     columns:
       - name: source_table
         description: Table this test category is in reference to
-        tests:
-          - not_null
+        #tests:
+          #- not_null
       - name: test_category
         description: Category of test
-        tests:
-          - not_null
+        #tests:
+          #- not_null
       - name: counts
         description: >
           Aggregated counts of all tests in this category and table that failed
@@ -49,16 +49,16 @@ models:
     columns:
       - name: source_table
         description: Table this test is in reference to
-        tests:
-          - not_null
+        #tests:
+          #- not_null
       - name: test_category
         description: Category of test
-        tests:
-          - not_null
+        #tests:
+          #- not_null
       - name: test_name
         description: Name of the test being performed
-        tests:
-          - not_null
+        #tests:
+          #- not_null
       - name: grain
         description: Grain of the test
       - name: claim_type

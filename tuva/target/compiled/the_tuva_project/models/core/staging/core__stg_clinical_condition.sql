@@ -20,5 +20,5 @@ select
     , cast(present_on_admit_code as TEXT ) as present_on_admit_code
     , cast(present_on_admit_description as TEXT ) as present_on_admit_description
     , cast(data_source as TEXT ) as data_source
-    , cast('2024-02-21 20:38:46.882654+00:00' as timestamp ) as tuva_last_run
+    , cast('2024-02-22 00:26:23.471542+00:00' as timestamp ) as tuva_last_run
 from "synthea"."tuva_input"."condition"

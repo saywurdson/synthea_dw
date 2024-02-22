@@ -534,7 +534,7 @@ select distinct
     , cast(unpivot_cte.modifier_5 as TEXT ) as modifier_5
     , cast(unpivot_cte.practitioner_npi as TEXT ) as practitioner_id
     , cast(unpivot_cte.data_source as TEXT ) as data_source
-    , cast('2024-02-19 14:47:32.336131+00:00' as timestamp ) as tuva_last_run
+    , cast('2024-02-22 00:26:23.471542+00:00' as timestamp ) as tuva_last_run
 from unpivot_cte
 left join "synthea"."terminology"."icd_10_pcs" as icd
     on unpivot_cte.source_code = icd.icd_10_pcs

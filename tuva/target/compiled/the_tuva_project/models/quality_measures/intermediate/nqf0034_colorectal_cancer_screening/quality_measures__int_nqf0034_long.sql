@@ -6,7 +6,7 @@ select
     , sex
     , birth_date
     , death_date
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from "synthea"."core"."patient"
 ), patient as (
 
@@ -185,5 +185,5 @@ select
     , measure_id
     , measure_name
     , measure_version
-    , '2024-02-19 14:47:32.336131+00:00' as tuva_last_run
+    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
 from add_data_types

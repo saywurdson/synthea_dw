@@ -1,7 +1,13 @@
 
   
-  create view "synthea"."tuva_input"."patient__dbt_tmp" as (
-    -- models/patient.sql
+    
+    
+
+    create  table
+      "synthea"."tuva_input"."patient__dbt_tmp"
+  
+    as (
+      -- models/patient.sql
 
 SELECT DISTINCT
     REPLACE(JSON_EXTRACT(p, '$.id'), '"', '') AS patient_id,
@@ -24,4 +30,6 @@ SELECT DISTINCT
     REPLACE(JSON_EXTRACT(p, '$.address[0].extension[0].extension[1].valueDecimal'), '"', '') AS longitude,
     'SyntheaFhir' AS data_source
 FROM "synthea"."json"."Patient" p
-  );
+    );
+  
+  

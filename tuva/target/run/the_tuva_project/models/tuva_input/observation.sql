@@ -1,7 +1,13 @@
 
   
-  create view "synthea"."tuva_input"."observation__dbt_tmp" as (
-    -- models/observation.sql
+    
+    
+
+    create  table
+      "synthea"."tuva_input"."observation__dbt_tmp"
+  
+    as (
+      -- models/observation.sql
 
 SELECT DISTINCT
     REPLACE(JSON_EXTRACT(o, '$.id'), '"', '') AS observation_id,
@@ -35,4 +41,6 @@ SELECT DISTINCT
     NULL AS normalized_reference_range_high,
     'SyntheaFhir' AS data_source
 FROM "synthea"."json"."Observation" o
-  );
+    );
+  
+  
