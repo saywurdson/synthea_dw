@@ -17,7 +17,7 @@ SELECT
 , payer
 , plan
 , data_source
-, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+, '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."medical_claim"
 ),  __dbt__cte__financial_pmpm__stg_pharmacy_claim as (
 
@@ -31,7 +31,7 @@ SELECT
 , payer
 , plan
 , data_source
-, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+, '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."pharmacy_claim"
 ), claims_with_service_categories as (
   select
@@ -109,6 +109,6 @@ select
   , sum(paid_amount) as total_paid
   , sum(allowed_amount) as total_allowed
   , data_source
-  , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+  , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
   from combine_medical_and_rx
 group by 1,2,3,4,5,6,9

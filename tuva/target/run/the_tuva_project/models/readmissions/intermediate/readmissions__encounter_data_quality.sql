@@ -130,6 +130,6 @@ from encounter_data_quality_issues
 
 
 
-select *, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+select *, '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from all_data_quality_flags
   );

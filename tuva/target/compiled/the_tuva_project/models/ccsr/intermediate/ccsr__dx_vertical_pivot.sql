@@ -96,7 +96,7 @@ with codes as (
 
 select distinct
     *,
-    '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from long_union
 -- as not all diagnosis codes have multiple categories, we can discard nulls
 where ccsr_category is not null

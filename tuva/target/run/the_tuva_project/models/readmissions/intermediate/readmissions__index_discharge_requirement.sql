@@ -24,7 +24,7 @@ where discharge_disposition_code in (
 
 -- All discharges that meet the discharge_disposition_code
 -- requirements to be an index admission
-select a.encounter_id, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+select a.encounter_id, '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."readmissions"."_int_encounter" a
 left join all_invalid_discharges b
     on a.encounter_id = b.encounter_id

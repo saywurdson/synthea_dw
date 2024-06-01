@@ -38,7 +38,7 @@ with eligiblity as (
         , 'patient_id' as grain
         , eligiblity.patient_id
         , eligiblity.data_source
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from eligiblity
          left join test_catalog
            on test_catalog.test_name = 'multiple genders'
@@ -65,7 +65,7 @@ with eligiblity as (
         , 'patient_id' as grain
         , eligiblity.patient_id
         , eligiblity.data_source
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from eligiblity
          left join test_catalog
            on test_catalog.test_name = 'multiple races'
@@ -92,7 +92,7 @@ with eligiblity as (
         , 'patient_id' as grain
         , eligiblity.patient_id
         , eligiblity.data_source
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from eligiblity
          left join test_catalog
            on test_catalog.test_name = 'multiple birth dates'
@@ -119,7 +119,7 @@ with eligiblity as (
         , 'patient_id' as grain
         , eligiblity.patient_id
         , eligiblity.data_source
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from eligiblity
          left join test_catalog
            on test_catalog.test_name = 'multiple death dates'
@@ -146,7 +146,7 @@ with eligiblity as (
         , 'patient_id' as grain
         , eligiblity.patient_id
         , eligiblity.data_source
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from eligiblity
          left join test_catalog
            on test_catalog.test_name = 'birth date after death date'

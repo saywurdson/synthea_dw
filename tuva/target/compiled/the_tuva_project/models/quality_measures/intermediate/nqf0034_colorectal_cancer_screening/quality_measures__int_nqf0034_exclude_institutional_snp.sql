@@ -17,7 +17,7 @@ select
     , claim_end_date
     , place_of_service_code
     , hcpcs_code
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."medical_claim"
 
 
@@ -60,14 +60,12 @@ from "synthea"."core"."medical_claim"
           ) between pp.performance_period_begin and pp.performance_period_end
 
     where place_of_service_code in ('32', '33', '34', '54', '56')
-    and 
-        ((medical_claim.claim_end_date)::date - (medical_claim.claim_start_date)::date)
-     >= 90
+    and date_diff('day', medical_claim.claim_start_date::timestamp, medical_claim.claim_end_date::timestamp ) >= 90
 )
 
 select
       patient_id
     , exclusion_date
     , exclusion_reason
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from exclusions

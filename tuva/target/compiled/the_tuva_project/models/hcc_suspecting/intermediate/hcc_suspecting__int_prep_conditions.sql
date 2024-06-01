@@ -10,7 +10,7 @@ select
     , normalized_code_type as code_type
     , normalized_code as code
     , data_source
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."condition"
 ), conditions as (
 
@@ -100,5 +100,5 @@ select
     , code_type
     , code
     , data_source
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from add_data_types

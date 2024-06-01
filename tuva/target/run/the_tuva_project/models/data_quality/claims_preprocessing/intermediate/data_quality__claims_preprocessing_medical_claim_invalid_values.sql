@@ -39,7 +39,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.bill_type_code) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."bill_type" tob
            on medical_claim.bill_type_code = tob.bill_type_code
@@ -71,7 +71,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.revenue_center_code) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."revenue_center" rev
            on medical_claim.revenue_center_code = rev.revenue_center_code
@@ -103,7 +103,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.discharge_disposition_code) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."discharge_disposition" discharge
            on medical_claim.discharge_disposition_code = discharge.discharge_disposition_code
@@ -135,7 +135,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.admit_source_code) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."admit_source" adsource
            on medical_claim.admit_source_code = adsource.admit_source_code
@@ -167,7 +167,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.admit_type_code) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."admit_type" adtype
            on medical_claim.admit_type_code = adtype.admit_type_code
@@ -199,7 +199,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.ms_drg_code) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."ms_drg" msdrg
            on medical_claim.ms_drg_code = msdrg.ms_drg_code
@@ -231,7 +231,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.apr_drg_code) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."apr_drg" aprdrg
            on medical_claim.apr_drg_code = aprdrg.apr_drg_code
@@ -263,7 +263,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.diagnosis_poa_1) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."present_on_admission" poa
            on medical_claim.diagnosis_poa_1 = poa.present_on_admit_code
@@ -295,7 +295,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.procedure_code_type) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."code_type" codetype
            on medical_claim.procedure_code_type = codetype.code_type
@@ -327,7 +327,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.place_of_service_code) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."place_of_service" pos
            on medical_claim.place_of_service_code = pos.place_of_service_code
@@ -359,7 +359,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.diagnosis_code_type) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."code_type" codetype
            on medical_claim.diagnosis_code_type = codetype.code_type
@@ -390,7 +390,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.diagnosis_code_1) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."icd_10_cm" icd
            on medical_claim.diagnosis_code_1 = icd.icd_10_cm
@@ -422,7 +422,7 @@ with medical_claim as (
         , medical_claim.claim_id
         , medical_claim.data_source
         , count(medical_claim.claim_type) as filled_row_count
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from medical_claim
          left join "synthea"."terminology"."claim_type" claimtype
            on medical_claim.claim_type = claimtype.claim_type

@@ -10,7 +10,7 @@ select
 , payer
 , plan
 , data_source
-, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+, '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."eligibility"
 ), month_start_and_end_dates as (
 select 
@@ -27,7 +27,7 @@ select distinct
 , a.payer
 , a.plan
 , data_source
-, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+, '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from __dbt__cte__financial_pmpm__stg_eligibility a
 inner join month_start_and_end_dates b
   on a.enrollment_start_date <= b.month_end_date

@@ -23,5 +23,5 @@ select
        , cast(dual_status_code as TEXT ) as dual_status_code
        , cast(medicare_status_code as TEXT ) as medicare_status_code
        , cast(data_source as TEXT ) as data_source
-       , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+       , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."normalized_input_eligibility"

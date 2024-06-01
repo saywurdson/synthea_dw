@@ -458,7 +458,7 @@ select
     , diagnosis_column
     , coalesce(icd_9.icd_9_cm,icd_10.icd_10_cm) as normalized_diagnosis_code
     , count(*) as diagnosis_code_occurrence_count
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from pivot_diagnosis piv
 left join "synthea"."terminology"."icd_10_cm" icd_10
     on replace(piv.diagnosis_code,'.','') = icd_10.icd_10_cm

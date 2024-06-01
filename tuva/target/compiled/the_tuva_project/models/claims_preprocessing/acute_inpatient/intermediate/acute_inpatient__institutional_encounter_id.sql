@@ -41,7 +41,7 @@ select
     -- adjacent (i.e. separated by 1 day) should be merged:
     when  ( 
 
-    aa.end_date + ((interval '1 day') * (1))
+    date_add(aa.end_date, interval (1) day)
 
   = bb.start_date
           and aa.facility_npi = bb.facility_npi
@@ -173,5 +173,5 @@ from add_min_closing_row_to_every_claim aa
      and aa.min_closing_row = bb.row_num
 )
 
-select *, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+select *, '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from add_encounter_id

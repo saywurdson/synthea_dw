@@ -507,7 +507,7 @@ select distinct
     , cast(unpivot_cte.present_on_admit_code as TEXT ) as present_on_admit_code
     , cast(poa.present_on_admit_description as TEXT ) as present_on_admit_description
     , cast(unpivot_cte.data_source as TEXT ) as data_source
-    , cast('2024-02-22 00:26:23.471542+00:00' as timestamp ) as tuva_last_run
+    , cast('2024-06-01 22:50:20.459372+00:00' as timestamp ) as tuva_last_run
 from unpivot_cte
 left join "synthea"."claims_preprocessing"."_int_acute_inpatient_encounter_id" as ap
     on unpivot_cte.claim_id = ap.claim_id

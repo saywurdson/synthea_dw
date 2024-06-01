@@ -291,7 +291,7 @@ from "synthea"."tuva_input"."medical_claim"
 	, cast(coalesce(px_date.procedure_date_24, undetermined.procedure_date_24) as date ) as procedure_date_24
 	, cast(coalesce(px_date.procedure_date_25, undetermined.procedure_date_25) as date ) as procedure_date_25
 	, cast(med.data_source as TEXT ) as data_source
-    , cast('2024-02-22 00:26:23.471542+00:00' as TEXT ) as tuva_last_run
+    , cast('2024-06-01 22:50:20.459372+00:00' as TEXT ) as tuva_last_run
 from __dbt__cte__normalized_input__stg_medical_claim med
 left join "synthea"."claims_preprocessing"."_int_normalized_input_admit_source_final" ad_source
     on med.claim_id = ad_source.claim_id

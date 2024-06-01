@@ -10,7 +10,7 @@ with professional_denominator as (
     select
           cast('professional' as TEXT ) as test_denominator_name
         , cast(count(distinct claim_id||data_source) as int) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim"
     where claim_type = 'professional'
 
@@ -21,7 +21,7 @@ with professional_denominator as (
     select
           cast('institutional' as TEXT ) as test_denominator_name
         , count(distinct claim_id||data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim"
     where claim_type = 'institutional'
 
@@ -32,7 +32,7 @@ with professional_denominator as (
     select
           cast('all' as TEXT ) as test_denominator_name
         , count(distinct claim_id||data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim"
     where claim_type is not null
 
@@ -43,7 +43,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -55,7 +55,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -67,7 +67,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -79,7 +79,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -91,7 +91,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -103,7 +103,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -115,7 +115,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -127,7 +127,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -139,7 +139,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -151,7 +151,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -163,7 +163,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -175,7 +175,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -187,7 +187,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -199,7 +199,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -211,7 +211,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'
@@ -223,7 +223,7 @@ with professional_denominator as (
     select
           cat.test_name
         , count(distinct rel.claim_id||rel.data_source) as denominator
-        , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+        , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
     from "synthea"."claims_preprocessing"."normalized_input_medical_claim" as rel
          left join "synthea"."data_quality"."_value_set_test_catalog" as cat
            on cat.test_category = 'invalid_values'

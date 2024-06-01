@@ -22,6 +22,6 @@ select
     , cast(modifier_5 as TEXT ) as modifier_5
     , cast(practitioner_id as TEXT ) as practitioner_id
     , cast(data_source as TEXT ) as data_source
-    , cast('2024-02-22 00:26:23.471542+00:00' as timestamp ) as tuva_last_run
+    , cast('2024-06-01 22:50:20.459372+00:00' as timestamp ) as tuva_last_run
 from "synthea"."tuva_input"."procedure"
   );

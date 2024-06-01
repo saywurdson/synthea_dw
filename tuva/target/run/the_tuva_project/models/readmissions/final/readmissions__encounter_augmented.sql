@@ -21,9 +21,7 @@ select
     aa.facility_npi,
     aa.ms_drg_code,
     aa.paid_amount,
-    
-        ((aa.discharge_date)::date - (aa.admit_date)::date)
-     as length_of_stay,
+    date_diff('day', aa.admit_date::timestamp, aa.discharge_date::timestamp ) as length_of_stay,
     case
         when bb.encounter_id is not null then 1
 	    else 0
@@ -50,7 +48,7 @@ select
     ee.overlaps_with_another_encounter_flag,
     ee.missing_ms_drg_flag,
     ee.invalid_ms_drg_flag,
-    '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from
     "synthea"."readmissions"."_int_encounter" aa
     left join "synthea"."readmissions"."_int_index_admission" bb

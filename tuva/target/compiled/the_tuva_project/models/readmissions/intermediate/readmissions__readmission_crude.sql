@@ -52,9 +52,7 @@ select
     end as had_readmission_flag,
     bb.admit_date - aa.discharge_date as days_to_readmit,
     case
-        when (
-        ((aa.discharge_date)::date - (bb.admit_date)::date)
-    ) <= 30  then 1
+        when (date_diff('day', bb.admit_date::timestamp, aa.discharge_date::timestamp )) <= 30  then 1
 	else 0
     end as readmit_30_flag
 from encounter_sequence aa left join encounter_sequence bb
@@ -64,5 +62,5 @@ from encounter_sequence aa left join encounter_sequence bb
 
 
 
-select *, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+select *, '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from readmission_calc

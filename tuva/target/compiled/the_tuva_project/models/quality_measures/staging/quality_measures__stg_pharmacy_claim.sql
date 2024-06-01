@@ -5,6 +5,6 @@ select
     , dispensing_date
     , ndc_code
     , paid_date
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."pharmacy_claim"
 

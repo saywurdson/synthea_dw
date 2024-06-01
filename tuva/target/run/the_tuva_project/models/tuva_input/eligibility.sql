@@ -12,6 +12,7 @@
 SELECT DISTINCT
     MAX(REPLACE(REPLACE(JSON_EXTRACT(e, '$.patient.reference'), '"Patient/', ''), '"', '')) AS patient_id,
     NULL AS member_id,
+    NULL AS subscriber_id,
     MAX(REPLACE(JSON_EXTRACT(p, '$.extension[3].valueCode'), '"', '')) AS gender,
     MAX(REPLACE(JSON_EXTRACT(p, '$.extension[0].extension[1].valueString'), '"', '')) AS race,
     MAX(CAST(SUBSTRING(JSON_EXTRACT(p, '$.birthDate'), 2, 10) AS DATE)) AS birth_date,
@@ -35,6 +36,8 @@ SELECT DISTINCT
     NULL AS medicare_status_code,
     MAX(REPLACE(REPLACE(REPLACE(SPLIT_PART(JSON_EXTRACT(p, '$.name[0].given'), ',', -1), '"', ''), '[', ''), ']', '')) AS first_name,
     MAX(REPLACE(JSON_EXTRACT(p, '$.name[0].family'), '"', '')) AS last_name,
+    NULL AS social_security_number,
+    NULL AS subscriber_relation,
     MAX(REPLACE(JSON_EXTRACT(p, '$.address[0].line[0]'), '"', '')) AS address,
     MAX(REPLACE(JSON_EXTRACT(p, '$.address[0].city'), '"', '')) AS city,
     MAX(REPLACE(JSON_EXTRACT(p, '$.address[0].state'), '"', '')) AS state,

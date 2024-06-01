@@ -33,7 +33,7 @@ select
     , diagnosis_code_type
     , diagnosis_code_1
     , data_source
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."normalized_input_medical_claim"
 ),  __dbt__cte__acute_inpatient__stg_eligibility as (
 
@@ -43,7 +43,7 @@ select
     , birth_date
     , gender
     , race
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."claims_preprocessing"."normalized_input_eligibility"
 ), distinct_encounters as (
     select distinct
@@ -135,9 +135,7 @@ select
 , a.encounter_start_date
 , a.encounter_end_date
 , a.patient_id
-, 
-        ((encounter_end_date)::date - (birth_date)::date)
-    /365 as admit_age
+, date_diff('day', birth_date::timestamp, encounter_end_date::timestamp )/365 as admit_age
 , e.gender
 , e.race
 , c.diagnosis_code_type as primary_diagnosis_code_type
@@ -160,15 +158,13 @@ select
 , c.inst_paid_amount + coalesce(d.prof_paid_amount,0) as total_paid_amount
 , c.inst_allowed_amount + coalesce(d.prof_allowed_amount,0) as total_allowed_amount
 , c.inst_charge_amount + coalesce(d.prof_charge_amount,0) as total_charge_amount
-, 
-        ((a.encounter_end_date)::date - (a.encounter_start_date)::date)
-     as length_of_stay
+, date_diff('day', a.encounter_start_date::timestamp, a.encounter_end_date::timestamp ) as length_of_stay
 , case
     when c.discharge_disposition_code = '20' then 1
     else 0
   end mortality_flag
 , data_source
-, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+, '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from distinct_encounters a
 left join institutional_claim_details c
   on a.encounter_id = c.encounter_id

@@ -25,7 +25,7 @@ select
     , source_code
     , ndc_code
     , rxnorm_code
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."medication"
 
 
@@ -37,7 +37,7 @@ select
     , dispensing_date
     , ndc_code
     , paid_date
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."pharmacy_claim"
 
 
@@ -156,14 +156,14 @@ from "synthea"."core"."pharmacy_claim"
         pharmacy_claim_exclusions.dispensing_date
             between 
 
-    patients_with_frailty.performance_period_begin + ((interval '1 year') * (-1))
+    date_add(patients_with_frailty.performance_period_begin, interval (-1) year)
 
 
             and patients_with_frailty.performance_period_end
         or pharmacy_claim_exclusions.paid_date
             between 
 
-    patients_with_frailty.performance_period_begin + ((interval '1 year') * (-1))
+    date_add(patients_with_frailty.performance_period_begin, interval (-1) year)
 
 
             and patients_with_frailty.performance_period_end
@@ -184,7 +184,7 @@ from "synthea"."core"."pharmacy_claim"
     where medication_exclusions.dispensing_date
         between 
 
-    patients_with_frailty.performance_period_begin + ((interval '1 year') * (-1))
+    date_add(patients_with_frailty.performance_period_begin, interval (-1) year)
 
 
         and patients_with_frailty.performance_period_end
@@ -195,7 +195,7 @@ select
       patient_id
     , exclusion_date
     , exclusion_reason
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from frailty_with_dementia
     );
   

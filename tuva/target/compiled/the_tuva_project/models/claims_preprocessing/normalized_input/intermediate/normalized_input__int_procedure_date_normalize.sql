@@ -423,7 +423,7 @@ select
     , procedure_column
     , cal.full_date as procedure_date
     , count(*) as procedure_date_occurrence_count
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from pivot_procedure piv
 left join "synthea"."terminology"."calendar" cal
     on piv.procedure_date = cal.full_date

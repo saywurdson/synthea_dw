@@ -11,7 +11,7 @@
 
 
 
-select encounter_id, '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+select encounter_id, '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."readmissions"."_int_encounter"
 where discharge_date <= (select max(discharge_date)
                          from "synthea"."readmissions"."_int_encounter" ) - 30

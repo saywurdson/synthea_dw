@@ -21,7 +21,7 @@ select
     , original_reason_entitlement_code
     , dual_status_code
     , medicare_status_code
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."eligibility"
 ),  __dbt__cte__cms_hcc__stg_core__patient as (
 
@@ -30,7 +30,7 @@ select
     , sex
     , birth_date
     , death_date
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."patient"
 ), stg_eligibility as (
 
@@ -64,11 +64,7 @@ from "synthea"."core"."patient"
           patient_id
         , sex
         , birth_date
-        , floor(
-        (
-        (('2024-02-01')::date - (birth_date)::date)
-     * 24 + date_part('hour', ('2024-02-01')::timestamp) - date_part('hour', (birth_date)::timestamp))
-     / 8766.0) as payment_year_age
+        , floor(date_diff('hour', birth_date::timestamp, '2024-02-01'::timestamp ) / 8766.0) as payment_year_age
         , death_date
     from __dbt__cte__cms_hcc__stg_core__patient
 
@@ -107,11 +103,7 @@ from "synthea"."core"."patient"
 , calculate_prior_coverage as (
 
     select patient_id
-        , sum(
-        (
-        (date_part('year', (proxy_enrollment_end_date)::date) - date_part('year', (proxy_enrollment_start_date)::date))
-     * 12 + date_part('month', (proxy_enrollment_end_date)::date) - date_part('month', (proxy_enrollment_start_date)::date))
-     + 1) as coverage_months  /* include starting month */
+        , sum(date_diff('month', proxy_enrollment_start_date::timestamp, proxy_enrollment_end_date::timestamp ) + 1) as coverage_months  /* include starting month */
     from cap_collection_start_end_dates
     group by patient_id
 
@@ -291,5 +283,5 @@ select
     , orec_default
     , institutional_status_default
     , payment_year
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from add_data_types

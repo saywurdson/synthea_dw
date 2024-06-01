@@ -11,11 +11,11 @@ with period_end as (
         cast(
         
 
-    
+    date_add(
 
-    date_trunc('year', now()) + ((interval '1 year') * (1))
+    date_add(date_trunc('year', now()), interval (1) year)
 
- + ((interval '1 day') * (-1))
+, interval (-1) day)
 
 
         as date)
@@ -33,11 +33,11 @@ with period_end as (
           performance_period_end
         , 
 
-    
+    date_add(
 
-    performance_period_end + ((interval '1 year') * (-1))
+    date_add(performance_period_end, interval (-1) year)
 
- + ((interval '1 day') * (1))
+, interval (1) day)
 
  as performance_period_begin
     from period_end
@@ -55,7 +55,7 @@ with period_end as (
         , performance_period_begin
         , 
 
-    performance_period_end + ((interval '1 month') * (-27))
+    date_add(performance_period_end, interval (-27) month)
 
  as performance_period_lookback
     from period_begin

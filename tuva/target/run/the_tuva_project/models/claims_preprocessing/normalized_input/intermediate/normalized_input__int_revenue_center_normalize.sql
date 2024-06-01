@@ -162,7 +162,7 @@ from "synthea"."tuva_input"."medical_claim"
     , claim_line_number
     , data_source
     , rev.revenue_center_code as normalized_code
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from __dbt__cte__normalized_input__stg_medical_claim med
 left join "synthea"."terminology"."revenue_center" rev
     on lpad(med.revenue_center_code, 4, '0') = rev.revenue_center_code

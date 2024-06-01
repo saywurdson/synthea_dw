@@ -7,7 +7,7 @@ select
     , sex
     , birth_date
     , death_date
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."patient"
 ), patients as (
 
@@ -15,11 +15,7 @@ from "synthea"."core"."patient"
           patient_id
         , sex
         , birth_date
-        , floor(
-        (
-        ((current_date)::date - (birth_date)::date)
-     * 24 + date_part('hour', (current_date)::timestamp) - date_part('hour', (birth_date)::timestamp))
-     / 8766.0) as age
+        , floor(date_diff('hour', birth_date::timestamp, current_date::timestamp ) / 8766.0) as age
     from __dbt__cte__hcc_suspecting__stg_core__patient
     where death_date is null
 
@@ -67,5 +63,5 @@ select
     , patient_birth_date
     , patient_age
     , suspecting_gaps
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from add_data_types

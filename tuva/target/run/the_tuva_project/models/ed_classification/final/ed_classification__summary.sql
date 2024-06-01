@@ -45,11 +45,7 @@ from "synthea"."core"."patient"
 --     , null as facility_latitude
 --     , null as facility_longitude
     , pat.sex as patient_sex
-    , floor(
-        (
-        ((class.encounter_end_date)::date - (pat.birth_date)::date)
-     * 24 + date_part('hour', (class.encounter_end_date)::timestamp) - date_part('hour', (pat.birth_date)::timestamp))
-     / 8766.0) as patient_age
+    , floor(date_diff('hour', pat.birth_date::timestamp, class.encounter_end_date::timestamp ) / 8766.0) as patient_age
     , zip_code as patient_zip_code
     , latitude as patient_latitude
     , longitude as patient_longitude

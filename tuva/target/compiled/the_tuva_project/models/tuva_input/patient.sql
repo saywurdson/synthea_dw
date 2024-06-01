@@ -12,6 +12,7 @@ SELECT DISTINCT
         WHEN JSON_EXTRACT(p, '$.deceasedDateTime') IS NOT NULL THEN 1
         ELSE 0
     END AS death_flag,
+    NULL AS social_security_number,
     REPLACE(REPLACE(REPLACE(JSON_EXTRACT(p, '$.address[0].line'), '"', ''), '[', ''), ']', '') AS address,
     REPLACE(JSON_EXTRACT(p, '$.address[0].city'), '"', '') AS city,
     REPLACE(JSON_EXTRACT(p, '$.address[0].state'), '"', '') AS state,

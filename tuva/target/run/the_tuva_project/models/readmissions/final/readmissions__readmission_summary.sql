@@ -47,20 +47,14 @@ select
         when bb.encounter_id is not null then 1
 	    else 0
     end as had_readmission_flag,
-    
-        ((bb.admit_date)::date - (aa.discharge_date)::date)
-     as days_to_readmit,
+    date_diff('day', aa.discharge_date::timestamp, bb.admit_date::timestamp ) as days_to_readmit,
     case
-        when (
-        ((bb.admit_date)::date - (aa.discharge_date)::date)
-    ) <= 30  then 1
+        when (date_diff('day', aa.discharge_date::timestamp, bb.admit_date::timestamp )) <= 30  then 1
 	    else 0
     end as readmit_30_flag,
     case
         when
-	    ((
-        ((bb.admit_date)::date - (aa.discharge_date)::date)
-    ) <= 30) and (bb.planned_flag = 0) then 1
+	    ((date_diff('day', aa.discharge_date::timestamp, bb.admit_date::timestamp )) <= 30) and (bb.planned_flag = 0) then 1
 	    else 0
     end as unplanned_readmit_30_flag,
     bb.encounter_id as readmission_encounter_id,
@@ -75,7 +69,7 @@ select
     bb.specialty_cohort as readmission_specialty_cohort,
     bb.died_flag as readmission_died_flag,
     bb.diagnosis_ccs as readmission_diagnosis_ccs,
-    '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from
     encounter_sequence aa
     left join encounter_sequence bb

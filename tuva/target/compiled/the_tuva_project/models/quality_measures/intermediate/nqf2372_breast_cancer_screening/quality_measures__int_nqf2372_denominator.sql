@@ -7,7 +7,7 @@ select
     , sex
     , birth_date
     , death_date
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."patient"
 ),  __dbt__cte__quality_measures__stg_core__encounter as (
 
@@ -17,7 +17,7 @@ select
     , encounter_type
     , encounter_start_date
     , encounter_end_date
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."encounter"
 
 
@@ -31,7 +31,7 @@ select
     , claim_end_date
     , place_of_service_code
     , hcpcs_code
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."medical_claim"
 
 
@@ -44,7 +44,7 @@ select
     , source_code
     , normalized_code_type
     , normalized_code
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."procedure"
 ), performance_period as (
 
@@ -143,11 +143,7 @@ from "synthea"."core"."procedure"
         , performance_period.performance_period_begin
         , performance_period.performance_period_end
         , performance_period.performance_period_lookback
-        , floor(
-        (
-        ((performance_period.performance_period_end)::date - (patient.birth_date)::date)
-     * 24 + date_part('hour', (performance_period.performance_period_end)::timestamp) - date_part('hour', (patient.birth_date)::timestamp))
-     / 8766.0) as age
+        , floor(date_diff('hour', patient.birth_date::timestamp, performance_period.performance_period_end::timestamp ) / 8766.0) as age
     from patient
          cross join performance_period
 
@@ -293,5 +289,5 @@ from "synthea"."core"."procedure"
     , measure_name
     , measure_version
     , denominator_flag
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from add_data_types

@@ -33,7 +33,7 @@ select
     , encounter_type
     , encounter_start_date
     , encounter_end_date
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."encounter"
 
 
@@ -46,7 +46,7 @@ select
     , source_code
     , normalized_code_type
     , normalized_code
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."procedure"
 ),  __dbt__cte__quality_measures__stg_medical_claim as (
 
@@ -58,7 +58,7 @@ select
     , claim_end_date
     , place_of_service_code
     , hcpcs_code
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."medical_claim"
 
 
@@ -69,7 +69,7 @@ select
     , sex
     , birth_date
     , death_date
-    , '2024-02-22 00:26:23.471542+00:00' as tuva_last_run
+    , '2024-06-01 22:50:20.459372+00:00' as tuva_last_run
 from "synthea"."core"."patient"
 ), visit_codes as (
 
@@ -157,17 +157,9 @@ claims_encounters as (
     select
           p.PATIENT_ID
         , min_date
-        , floor(
-        (
-        ((e.min_date)::date - (birth_date)::date)
-     * 24 + date_part('hour', (e.min_date)::timestamp) - date_part('hour', (birth_date)::timestamp))
-     / 8766.0)  as min_age
+        , floor(date_diff('hour', birth_date::timestamp, e.min_date::timestamp ) / 8766.0)  as min_age
         , max_date
-        ,floor(
-        (
-        ((e.max_date)::date - (birth_date)::date)
-     * 24 + date_part('hour', (e.max_date)::timestamp) - date_part('hour', (birth_date)::timestamp))
-     / 8766.0) as max_age
+        ,floor(date_diff('hour', birth_date::timestamp, e.max_date::timestamp ) / 8766.0) as max_age
         , qualifying_types
     from __dbt__cte__quality_measures__stg_core__patient p
     inner join encounters_by_patient e
